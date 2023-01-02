@@ -1,0 +1,89 @@
+@import "@fontsource/jetbrains-mono";
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+body { background-color:rgb(33, 33, 33); font-family: "JetBrains Mono"; }
+:root {
+    --colorWhite: rgb(255, 255, 255);
+    --colorBlack0: rgb(0, 0, 0);
+    --colorBlack3: rgb(33, 33, 33);
+    --colorBlue1: rgb(14, 104, 199);
+    --colorGreen: rgb(0, 170, 65);
+    --colorYellow: rgb(186, 186, 0);
+    --colorRed: rgb(188, 82, 82);
+}
+/* ul { list-style-type: none; }; */
+/* ==================================== */
+
+/* Header */
+header {
+    height: 45px;
+    width: 100%;
+    background-color: rgb(14, 104, 199);
+    display: inline-flex;
+    margin: auto auto;
+    justify-content: center;
+    text-align: center;
+}
+/* header_nav_1 */
+.header_nav_1 {
+    list-style-type: none;
+    padding: 10px 12px;
+    display: inline-flex;
+    justify-content: center;
+    left: 0;
+    right: 0;
+}
+.header_logo {
+    height: 25px;
+    width: 25px;
+}
+.header_title {
+    max-height: 25px;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    justify-content: center;
+    text-align: center;
+}
+/* header_nav_2 */
+.header_nav_2 {
+    padding: 10px 12px;
+    list-style-type: none;
+    display: inline-flex;
+}
+.header_input {
+    height: 30px;
+    width: 100%;
+    background-color: rgb(14, 104, 199);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 0 10px;
+    justify-content: center;
+    text-align: center;
+}
+.header_input:hover {
+    background: rgb(26, 63, 114);
+    color: rgb(186, 186, 0);
+}
+
+
+/*Footer*/
+footer {
+    height: 200px;
+    width: auto;
+    color: rgb(14, 104, 199);
+    justify-content: center;
+}
+.footer_line {
+    height: 2px;
+    width: auto;
+    margin: 0px 15px;
+    background-color: rgb(0, 170, 65);
+    color: rgb(186, 186, 0);
+    font-size: 25px;
+}

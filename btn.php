@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST['btnLogin'])) {
+    if(isset($_POST['#btnLogin'])) {
         //Получения значений из форм и подключение к бд
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -38,4 +38,20 @@
         $result->free();
         $mysql->close();
     }
+
+    //Регистрация пользователя
+    if(isset($_POST['#btnRegister'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $mysql = new mysqli("31.31.196.141", "u1840066_solar", "hRXZLyLH74n6bcn1", "u1840066_sls");
+        $mysql->set_charset("utf-8");
+
+        //Поиск логина в бд
+        $sql = "INSERT INTO `Login` (`Email`, `Password`) VALUES('$email', '$password')";
+        if($mysql->query($sql)) { ?> registerOK(); <?php }
+        else { ?> registerNO(); <?php }
+        
+        $mysql->close();
+    }
+    
 ?>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Вход</title>
+    <title>Регистрация</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,20 +36,20 @@
             <input class="header_input" type="button" value="Войти" onclick="window.location.href='login.html'"/>
         </ul>
     </header>
-    
+
     <!--Главная-->
     <nav class="divLogin">
-        <!-- Заполнение Login -->
+        <!-- Заполнение регистрационного листа -->
         <form class="formLogin" action="btn.php" method="post">
-            <p class="titileLogin">Вход</p>
-            <input class="login" name="email" type="email" placeholder="L1"/>
-            <input class="login" name="password" type="password" placeholder="L2"/>
-            <input class="loginButton" id="btnLogin" type="submit" value="Войти">
+            <p class="titileLogin">Регистрация</p>
+            <input class="login" name="email" type="login" placeholder="Логин"/>
+            <input class="login" name="password" type="password" placeholder="Пароль"/>
+            <input class="loginButton" id="btnRegister" type="submit" value="Зарегестрироваться">
             <p class="loginLine"></p>
-            <a class="loginLink" href="register.html">Регистрация</a>
+            <a class="loginLink" href="login.html">Войти</a>
         </form>
     </nav>
-    
+
     <!--Footer-->
     <footer>
         <hr> <p class="lineFooter">Bufferum</p> <br><br>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad suscipit, inventore facilis at laborum esse optio. Nobis nemo aliquam deserunt facere, quia eaque consectetur, dolore tenetur dolorem esse, illo quas?

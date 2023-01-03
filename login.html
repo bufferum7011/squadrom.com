@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Вход</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/1000new.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="/js/script.js"></script>
+    <script src="/js/anime.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <!-- title and logo -->
+        <ul class="header_nav_1">
+            <li>
+                <a onclick="window.location.href='index.php'">
+                    <p class="header_title">
+                        <img class="header_logo" src="img/1000new.png"/>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a onclick="window.location.href='index.php'">
+                    <p class="header_title">Squadron</p>
+                </a>
+            </li>
+        </ul>
+        
+        <!-- nav -->
+        <ul class="header_nav_2">
+            <input class="header_input" type="button" value="О магазине" onclick="window.location.href='about.php'"/>
+            <input class="header_input" type="button" value="Войти" onclick="window.location.href='login.php'"/>
+        </ul>
+    </header>
+    
+    <!--Главная-->
+    <nav class="divLogin">
+        <!-- Заполнение Login -->
+        <form class="formLogin" action="btn.php" method="post">
+            <p class="titileLogin">Вход</p>
+            <input class="login" name="email" type="email" placeholder="L1"/>
+            <input class="login" name="password" type="password" placeholder="L2"/>
+            <input class="loginButton" id="btnLogin" type="submit" value="Войти">
+            <p class="loginLine"></p>
+            <a class="loginLink" href="register.php">Регистрация</a>
+        </form>
+    </nav>
+    
+    <!--Footer-->
+    <footer>
+        <hr> <p>Bufferum</p> <br><br>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad suscipit, inventore facilis at laborum esse optio. Nobis nemo aliquam deserunt facere, quia eaque consectetur, dolore tenetur dolorem esse, illo quas?
+    </footer>
+</body>
+</html>

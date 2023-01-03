@@ -16,7 +16,6 @@ body {
     /* font-family: 'JetBrains Mono', monospace; */
     font-family: 'core_sans';
 }
-ul li { top: 0; left: 0; }
 :root {
     --colorWhite: rgb(255, 255, 255);
     --colorGray: rgb(170, 170, 170);
@@ -27,6 +26,11 @@ ul li { top: 0; left: 0; }
     --colorGreen: rgb(0, 170, 65);
     --colorYellow: rgb(186, 186, 0);
     --colorRed: rgb(188, 82, 82);
+}
+hr {
+    margin-top: 30px;
+    display: block;
+    border-top: 2px solid var(--colorBlue1);
 }
 /* ul { list-style-type: none; }; */
 /* ==================================== */

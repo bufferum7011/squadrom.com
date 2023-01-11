@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST['#btnLogin'])) {
+    if(isset($_POST['#form_login'])) {
         //Получения значений из форм и подключение к бд
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -40,7 +40,7 @@
     }
 
     //Регистрация пользователя
-    if(isset($_POST['#btnRegister'])) {
+    if(isset($_POST['#form_register'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $mysql = new mysqli("31.31.196.141", "u1840066_solar", "hRXZLyLH74n6bcn1", "u1840066_sls");

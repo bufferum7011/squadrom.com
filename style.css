@@ -22,10 +22,15 @@
     --colorRed: rgb(188, 82, 82);
     --main_max_width: 1488px;
 }
-body { font-family: 'core_sans'; }
+body {
+    font-family: 'core_sans';
+    background-color: var(--colorBlack3);
+    z-index: 0;
+}
 hr {
-    display: block;
-    border-top: 2px solid var(--colorBlue1);
+    height: 1px;
+    width: auto;
+    background-color: rgb(14, 104, 199);
 }
 /* ==================================== */
 
@@ -54,24 +59,26 @@ header {
     width: 25px;
 }
 .header_title {
+    height: 25px;
+    width: auto;
     color: var(--color_title_header);
-    font-size: 25px;
+    font-size: 23px;
 }
 /* header_nav_2 */
 .header_nav_2 {
     padding: 10px 12px;
     display: inline-flex;
 }
-.header_input {
+.header_btn {
     height: 30px;
-    width: 100%;
+    width: auto;
     background-color: rgb(14, 104, 199);
     color: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 0 10px;
     justify-content: center;
 }
-.header_input:hover {
+.header_btn:hover {
     background: rgb(26, 63, 114);
     color: rgb(186, 186, 0);
 }
@@ -133,6 +140,10 @@ footer {
     --showcase_bg: url(img/item_gr.jpg);
     --bg_showcase_catalog: var(--colorBlack3);
     --bg_showcase_container: var(--colorBlack3);
+    --showcase_border-radius: 8px;
+    --showcase_block_border-radius: 8px;
+
+    --search_border-color: rgb(14, 104, 199);
 }
 .showcase {
     padding: 50px 20px;
@@ -146,54 +157,67 @@ footer {
 .showcase_title {
     color: rgb(255, 255, 255);
     font-size: 25px;
-    padding: 5px 25px;
+    padding: 5px 0px;
 }
 /* catalog */
 .showcase_catalog {
-    border-radius: 3px;
+    border-radius: var(--showcase_border-radius);
     display: block;
     margin-right: 25px;
+    padding: 0px 25px;
     background-color: var(--bg_showcase_catalog);
-    box-shadow: 0px 0px 12px 0px rgba(53, 197, 255, 0.72);
+    box-shadow: 0px 0px 12px 0px rgba(14, 104, 199, 0.72);
     justify-content: center;
 }
 .showcase_catalog_selection {
     color: rgb(255, 255, 255);
-    padding: 5px 25px;
+    padding: 5px 0px;
 }
-.showcase_input_search { }
 .showcase_toolbar {
-    padding: 5px 25px;
+    padding: 5px 0px;
 }
-.showcase_btn_loop { }
-.showcase_btn_filter { }
-.showcase_img_loop {
+input[name="search"] {
+    height: 25px;
+    width: 150px;
+    border-radius: 2px;
+    border: 2px solid var(--search_border-color);
+}
+input[name="btn_loop"] {
     height: 25px;
     width: 25px;
+    background-image: url("/img/loop.png");
+    background-size: 100% 100%;
+    cursor: pointer;
 }
-.showcase_img_filter {
+input[name="btn_filter"] {
     height: 25px;
     width: 25px;
+    background-image: url("/img/filter.png");
+    background-size: 100% 100%;
+    cursor: pointer;
 }
 /* container */
 .showcase_container {
-    border-radius: 3px;
+    padding: 0px 25px;
+    border-radius: var(--showcase_border-radius);
     background-color: var(--bg_showcase_container);
-    box-shadow: 0px 0px 12px 0px rgba(53, 197, 255, 0.72);
+    box-shadow: 0px 0px 12px 0px rgba(14, 104, 199, 0.72);
     justify-content: center;
 }
 .showcase_blocks {
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
+    margin: auto auto;
 }
 .showcase_blocks li {
     height: auto;
     width: 250px;
-    border-radius: 3px;
-    margin: 25px 10px 25px 25px;
+    border-radius: var(--showcase_block_border-radius);
+    margin: 25px 0px 25px 0px;
     background-color: rgb(255, 255, 255);
 }
-.showcase_blocks li:not(:first-of-type) {
-    margin-left: 15px;
+.showcase_blocks li:not(:last-of-type) {
+    margin-right: 10px;
 }
 .showcase_blocks_title {
     padding: 2px 5px;
@@ -210,6 +234,7 @@ footer {
     height: 160px;
     width: 240px;
     border-radius: 3px;
+
 }
 .showcase_blocks_action li {
     display: inline-flex;
@@ -226,12 +251,88 @@ footer {
     max-width: 20px;
     height: 20px;
     width: 20px;
+    background: none;
 }
 .showcase_blocks_cart {
     max-height: 20px;
     max-width: 20px;
     height: 20px;
     width: 20px;
+}
+
+
+/* login */
+:root {
+    --login_bg: rgb(33, 33, 33);
+    --login_color_title: rgb(0, 170, 65);
+}
+.login_window {
+    backdrop-filter: blur(1px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color:rgba(33, 33, 33, 0.7);
+    display: none;
+}
+.login {
+    height: 200px;
+    width: 300px;
+    justify-content: center;
+    margin: 10% auto;
+    border-radius: 3px;
+    padding: 5px 20px 10px 20px;
+    box-shadow: 0px 0px 12px 0px rgba(14, 104, 199, 0.72);
+    background-color: var(--login_bg);
+    position: relative;
+}
+.login_title {
+    font-size: 18px;
+    color: var(--login_color_title);
+}
+.login_close {
+    height: 20px;
+    width: 20px;
+    border: none;
+    color:rgb(255, 255, 255);
+    background: none;
+    position: absolute;
+    right: 22px;
+    top: 7px;
+    cursor: pointer;
+    font-weight: lighter;
+}
+.login_close:hover {
+    border: none;
+    color: rgb(255, 255, 255);
+    height: 20px;
+    width: 20px;
+    border-radius: 2px;
+    background-color: rgb(188, 82, 82);
+}
+.login_input {
+    margin: 5px auto;
+}
+input[name="email"], input[name="password"] {
+    border-radius: 5px;
+    background-color:rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+.login_enter {
+    width: calc(auto + 6px);
+    background-color:rgb(0, 170, 65);
+    border-radius: 5px;
+    margin: 5px 0;
+}
+.login_transition {
+    margin: 5px auto;
+    color:rgb(0, 170, 65);
+    text-decoration: none;
+    background: none;
+}
+.login_transition:hover {
+    color:rgb(170, 170, 170);
 }
 
 

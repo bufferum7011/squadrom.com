@@ -11,31 +11,20 @@
 <body>
     <!-- header -->
     <header>
-        <!-- title and logo -->
-        <ul class="header_nav_1">
-            <li>
-                <a onclick="window.location.href='index.html'">
-                    <p class="header_title">
-                        <img class="header_logo" src="img/1000new.png"/>
-                    </p>
-                </a>
-            </li>
-            <li>
-                <a onclick="window.location.href='index.html'">
-                    <p class="header_title">Squadrom</p>
-                </a>
-            </li>
-        </ul>
+        <!-- label -->
+        <a class="header_label" onclick="window.location.href='index.php'">
+            <div class="header_barrier"><img class="header_logo" src="img/1000new.png"/></div>
+            <p class="header_title">Squadrom</p>
+        </a>
         
         <!-- nav -->
-        <ul class="header_nav_2">
-            <button class="header_btn" onclick="window.location.href='club.html'">Клуб</button>
-            <button class="header_btn" onclick="window.location.href='about.html'">О нас</button>
-            <button class="header_btn" onclick="window.location.href='bookmark.html'">Закладки</button>
+        <div class="header_nav">
+            <button class="header_btn" onclick="window.location.href='club.php'">Клуб</button>
+            <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
+            <button class="header_btn" onclick="window.location.href='bookmark.php'">Закладки</button>
             <button class="header_btn" data-modal-btn="modal_login">Войти</button>
-        </ul>
+        </div>
     </header>
-
     <!-- login -->
     <form class="login_window" action="btn.php" method="post" data-modal="modal_login">
         <ul class="login">
@@ -249,13 +238,13 @@
                 <li><a href="#">Статус заказа</a></li>
                 <li><a href="#">Обмен, возврат, гарантия</a></li>
                 <li><a href="#">Бонусная программа</a></li>
+                <li><a href="#">Подарочный стикеры</a></li>
                 <li><a href="#">Помощь</a></li>  
             </ul>
         </div>
         <hr>
         <p class="footer_outro">© 2021-2023 Squadrom. Администрация Сайта не несет ответственности за размещаемые Пользователями материалы (в т.ч. информацию и изображения), их содержание и качество.</p>
     </footer>
-
     <script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>

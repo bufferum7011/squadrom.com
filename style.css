@@ -37,37 +37,66 @@ hr {
 
 /* header */
 :root {
-    --color_header: rgb(14, 104, 199);
-    --color_title_header: var(--colorWhite);
+    --header_bg: rgb(14, 104, 199);
+    --header_title_color: var(--colorWhite);
+    --header_max_height: 45px;
+    --header_barrier_color: var(--header_bg);
 }
 header {
-    height: 45px;
+    height: var(--header_max_height);
     width: 100%;
-    background: var(--color_header);
-    display: inline-flex;
+    background-color: var(--header_bg);
+    display: flex;
     margin: auto auto;
     justify-content: center;
 }
-/* header_nav_1 */
-.header_nav_1 {
+/* header_label */
+.header_label {
+    height: 25px;
+    width: 150px;
+    text-decoration: none;
     padding: 10px 12px;
-    display: inline-flex;
-    justify-content: center;
+    display: flex;
+    position: relative;
 }
 .header_logo {
     height: 25px;
     width: 25px;
+    right: 0;
+    z-index: 3;
+    position: absolute;
+}
+.header_barrier {
+    background-color: var(--header_barrier_color);
+    height: 28px;
+    width: 130px;
+    border-radius: 0px 50px 50px 0px;
+    z-index: 2;
+    position: relative;
+    animation: anime_header_barrier 1.1s 0.2s both;
 }
 .header_title {
     height: 25px;
-    width: auto;
-    color: var(--color_title_header);
+    width: 120px;
+    display: block;
+    color: var(--header_title_color);
     font-size: 23px;
+    z-index: 1;
+    position: absolute;
+    animation: anime_header_title 1.1s 0.2s both;
 }
-/* header_nav_2 */
-.header_nav_2 {
+@keyframes anime_header_title { 
+    0% { left: 30px; }
+    100% { left: 50px; } 
+}
+@keyframes anime_header_barrier { 
+    0% { left: 0px; }
+    100% { left: -100px; } 
+}
+/* header_nav */
+.header_nav {
     padding: 10px 12px;
-    display: inline-flex;
+    display: flex;
 }
 .header_btn {
     height: 30px;
@@ -234,7 +263,6 @@ input[name="btn_filter"] {
     height: 160px;
     width: 240px;
     border-radius: 3px;
-
 }
 .showcase_blocks_action li {
     display: inline-flex;
@@ -261,7 +289,7 @@ input[name="btn_filter"] {
 }
 
 
-/* login */
+/* login and reg */
 :root {
     --login_bg: rgb(33, 33, 33);
     --login_color_title: rgb(0, 170, 65);
@@ -275,6 +303,7 @@ input[name="btn_filter"] {
     width: 100%;
     background-color:rgba(33, 33, 33, 0.7);
     display: none;
+    z-index: 100;
 }
 .login {
     height: 200px;

@@ -22,37 +22,38 @@
             <button class="header_btn" onclick="window.location.href='club.php'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
             <button class="header_btn" onclick="window.location.href='bookmark.php'">Закладки</button>
-            <button class="header_btn" data-modal-btn="modal_login">Войти</button>
+            <button class="header_btn" onclick="modal_login()">Войти</button>
         </div>
     </header>
-    <!-- login -->
-    <form class="login_window" action="btn.php" method="post" data-modal="modal_login">
-        <ul class="login">
+
+    <!-- modal_window -->
+    <form class="modal_window" id="modal_window" action="btn.php" method="post" data-modal>
+        <!-- login -->
+        <ul class="modal" id="modal_login">
             <li>
-                <p class="login_title">Вход</p>
-                <button class="login_close" data-modal-close="modal_close">&times;</button>
+                <p class="modal_title">Вход</p>
+                <button class="modal_close" type="button" onclick="modal_login_close()">&times;</button>
             </li>
-            <li><input class="login_input" type="email" name="email" placeholder="Почта"/></li>
-            <li><input class="login_input" type="password" name="password" placeholder="Пароль"/></li>
-            <li><input class="login_enter" type="submit" id="form_login" value="Войти"></li>
+            <li><input class="modal_input" type="email" name="email_login" placeholder="Почта"/></li>
+            <li><input class="modal_input" type="password" name="password_login" placeholder="Пароль"/></li>
+            <li><button class="modal_enter" type="submit" name="enter_login">Войти</button></li>
             <li><hr></li>
-            <li><button class="login_transition" data-modal-btn="modal_register">Регистрация</button></li>
-            <li><a class="login_transition" href="#">Забыли пароль?</a></li>
+            <li><button class="modal_transition" type="button" onclick="modal_register()">Регистрация</button></li>
+            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
         </ul>
-    </form>
-    <!-- register -->
-    <form class="login_window" action="btn.php" method="post" data-modal="modal_register">
-        <ul>
+
+        <!-- register -->
+        <ul class="modal" id="modal_register">
             <li>
-                <p class="login_title">Регистрация</p>
-                <button class="login_close" data-modal-close="modal_close">&times;</button>
+                <p class="modal_title">Регистрация</p>
+                <button class="modal_close" type="button" onclick="modal_register_close()">&times;</button>
             </li>
-            <li><input class="login_input" type="email" name="email" placeholder="Почта"/></li>
-            <li><input class="login_input" type="password" name="password" placeholder="Пароль"/></li>
-            <li><input class="login_enter" type="submit" id="form_register" value="Зарегестрироваться"></li>
+            <li><input class="modal_input" type="email" name="email_register" placeholder="Почта"/></li>
+            <li><input class="modal_input" type="password" name="password_register" placeholder="Пароль"/></li>
+            <li><input class="modal_enter" type="submit" name="enter_register" value="Зарегестрироваться"></li>
             <li><hr></li>
-            <li><button class="login_transition" data-modal-btn="modal_login">Войти</button></li>
-            <li><a class="login_transition" href="#">Забыли пароль?</a></li>
+            <li><button class="modal_transition" type="button" onclick="modal_login()">Войти</button></li>
+            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
         </ul>
     </form>
     
@@ -66,10 +67,10 @@
                 <input type="text" name="search" placeholder="Найти" autocomplete="off">
                 
                 <!-- btn_search -->
-                <input type="button" name="btn_loop" onclick="btn_search(this)">
+                <input type="button" name="btn_loop" onclick="btn_search()">
 
                 <!-- btn_filter -->
-                <input type="button" name="btn_filter" onclick="btn_filter(this)">
+                <input type="button" name="btn_filter" onclick="btn_filter()">
             </div>
             <ul class="showcase_catalog_selection">
                 <li>text_1_text</li>

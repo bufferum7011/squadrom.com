@@ -1,57 +1,42 @@
 <?php
-    if(isset($_POST['#form_login'])) {
-        //Получения значений из форм и подключение к бд
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $mysql = new mysqli("31.31.196.141", "u1840066_solar", "hRXZLyLH74n6bcn1", "u1840066_sls");
-        $mysql->set_charset("utf-8");
-        
-        //Поиск логина в бд
-        $result = $mysql->query("SELECT * FROM Login");
-        $rowsCount = $result->num_rows; //количество полученных строк
-        global $idCheck, $emailChaeck, $passwordCheck;
-
-        while($row2 = mysqli_fetch_array($result)) {
-            $emailChaeck1 = $row2["Email"];
-            if($emailChaeck1 == $email) {
-                $idCheck = $row2["Id"];
-                $emailChaeck = $row2["Email"];
-                $passwordCheck = $row2["Password"];
-            }
-        }
-        
-        //Предастовление или отказ в доступе
-        if(($email == $emailChaeck) && ($password == $passwordCheck)) {
-            if($email == "bufferum@yandex.ru") {
-                header('Location: http://triple-sls.com/php/add_product.php');
-                exit();
-            }
-            else { ?> loginOK(); <?php }
-        }
-        else { ?> loginNO(); <?php }
-
-        //Очистка данных
-        $email = null;
-        $idCheck = null;
-        $emailChaeck = null;
-        $passwordCheck = null;
-        $result->free();
-        $mysql->close();
-    }
-
-    //Регистрация пользователя
-    if(isset($_POST['#form_register'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $mysql = new mysqli("31.31.196.141", "u1840066_solar", "hRXZLyLH74n6bcn1", "u1840066_sls");
-        $mysql->set_charset("utf-8");
-
-        //Поиск логина в бд
-        $sql = "INSERT INTO `Login` (`Email`, `Password`) VALUES('$email', '$password')";
-        if($mysql->query($sql)) { ?> registerOK(); <?php }
-        else { ?> registerNO(); <?php }
-        
-        $mysql->close();
-    }
+    $mysql = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+    $mysql->set_charset("utf-8");
     
+    // Вход пользователя
+    if(isset($_POST["enter_login"])) {
+        // Чтение данныех с input
+        $email_login = $_POST['email_login'];
+        $password_login = $_POST['password_login'];
+        // поиск на существование такого пользователя
+        if($result = $mysql->query("SELECT * FROM Login")) {
+            $key = false;
+            while($row = $result->fetch_array()) {
+                $emailChaeck = $row["Email"];
+                $passwordCheck = $row["Password"];
+                //проверка на данный и в базы
+                if(($emailChaeck == $email_login) && ($passwordCheck == $password_login)) {
+                    $key = true;
+                    header("Location: cabinet.php");
+                    exit;
+                }
+            }
+            if(!$key) { header("Location: index.php"); exit; }
+        }
+    }
+
+    // Добавление нового пользователя
+    if(isset($_POST["enter_register"])) {
+        // Чтение данныех с input
+        $email_register = $_POST['email_register'];
+        $password_register = $_POST['password_register'];
+        try {
+            $mysql->query("INSERT INTO `Login` (`Email`, `Password`) VALUES('$email_register', '$password_register')");
+            header("Location: cabinet.php");
+            exit;
+        }
+        catch(Exception $e) {
+            header("Location: index.php");
+            exit;
+        }
+    }
 ?>

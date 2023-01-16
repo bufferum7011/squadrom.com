@@ -289,23 +289,23 @@ input[name="btn_filter"] {
 }
 
 
-/* login and reg */
+/* modal_window */
 :root {
     --login_bg: rgb(33, 33, 33);
     --login_color_title: rgb(0, 170, 65);
 }
-.login_window {
+.modal_window {
     backdrop-filter: blur(1px);
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    background-color:rgba(33, 33, 33, 0.7);
+    background-color: rgba(33, 33, 33, 0.7);
     display: none;
     z-index: 100;
 }
-.login {
+.modal {
     height: 200px;
     width: 300px;
     justify-content: center;
@@ -315,12 +315,13 @@ input[name="btn_filter"] {
     box-shadow: 0px 0px 12px 0px rgba(14, 104, 199, 0.72);
     background-color: var(--login_bg);
     position: relative;
+    display: none;
 }
-.login_title {
+.modal_title {
     font-size: 18px;
     color: var(--login_color_title);
 }
-.login_close {
+.modal_close {
     height: 20px;
     width: 20px;
     border: none;
@@ -332,7 +333,7 @@ input[name="btn_filter"] {
     cursor: pointer;
     font-weight: lighter;
 }
-.login_close:hover {
+.modal_close:hover {
     border: none;
     color: rgb(255, 255, 255);
     height: 20px;
@@ -340,7 +341,7 @@ input[name="btn_filter"] {
     border-radius: 2px;
     background-color: rgb(188, 82, 82);
 }
-.login_input {
+.modal_input {
     margin: 5px auto;
 }
 input[name="email"], input[name="password"] {
@@ -348,20 +349,32 @@ input[name="email"], input[name="password"] {
     background-color:rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 }
-.login_enter {
+.modal_enter {
     width: calc(auto + 6px);
     background-color:rgb(0, 170, 65);
     border-radius: 5px;
     margin: 5px 0;
 }
-.login_transition {
+.modal_transition {
     margin: 5px auto;
     color:rgb(0, 170, 65);
     text-decoration: none;
     background: none;
 }
-.login_transition:hover {
+.modal_transition:hover {
     color:rgb(170, 170, 170);
+}
+
+
+/* cabinet */
+.cabinet {
+    
+}
+
+
+/* add_product */
+.send_file {
+
 }
 
 

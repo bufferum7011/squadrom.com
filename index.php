@@ -21,13 +21,12 @@
         <div class="header_nav">
             <button class="header_btn" onclick="window.location.href='club.php'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
-            <button class="header_btn" onclick="window.location.href='bookmark.php'">Закладки</button>
+            <button class="header_btn" onclick="window.location.href='bookmark.php'">Избранное</button>
             <button class="header_btn" onclick="modal_login()">Войти</button>
         </div>
     </header>
-
     <!-- modal_window -->
-    <form class="modal_window" id="modal_window" action="btn.php" method="post" data-modal>
+    <form class="modal_window" id="modal_window" action="hendler.php" method="post" data-modal>
         <!-- login -->
         <ul class="modal" id="modal_login">
             <li>
@@ -58,7 +57,7 @@
     </form>
     
     <!-- showcase -->
-    <div class="showcase">
+    <content class="showcase">
         <!-- catalog -->
         <div class="showcase_catalog">
             <div class="showcase_title">Каталог</div>
@@ -217,7 +216,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </content>
 
     <!-- footer -->
     <footer>

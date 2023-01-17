@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/img/1000new.png">
+    <link rel="icon" href="/img_sys/1000new.png">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <header>
         <!-- label -->
         <a class="header_label" onclick="window.location.href='index.php'">
-            <div class="header_barrier"><img class="header_logo" src="img/1000new.png"/></div>
+            <div class="header_barrier"><img class="header_logo" src="img_sys/1000new.png"/></div>
             <p class="header_title">Squadrom</p>
         </a>
         
@@ -25,34 +25,34 @@
             <button class="header_btn" data-modal-btn="modal_login">Войти</button>
         </div>
     </header>
-    <!-- login -->
-    <form class="login_window" action="btn.php" method="post" data-modal="modal_login">
-        <ul class="login">
+    <!-- modal_window -->
+    <form class="modal_window" id="modal_window" action="handler.php" method="post" data-modal>
+        <!-- login -->
+        <ul class="modal" id="modal_login">
             <li>
-                <p class="login_title">Вход</p>
-                <button class="login_close" data-modal-close="modal_close">&times;</button>
+                <p class="modal_title">Вход</p>
+                <button class="modal_close" type="button" onclick="modal_login_close()">&times;</button>
             </li>
-            <li><input class="login_input" type="email" name="email" placeholder="Почта"/></li>
-            <li><input class="login_input" type="password" name="password" placeholder="Пароль"/></li>
-            <li><input class="login_enter" type="submit" id="form_login" value="Войти"></li>
+            <li><input class="modal_input" type="email" name="email_login" placeholder="Почта"/></li>
+            <li><input class="modal_input" type="password" name="password_login" placeholder="Пароль"/></li>
+            <li><button class="modal_enter" type="submit" name="enter_login">Войти</button></li>
             <li><hr></li>
-            <li><button class="login_transition" data-modal-btn="modal_register">Регистрация</button></li>
-            <li><a class="login_transition" href="#">Забыли пароль?</a></li>
+            <li><button class="modal_transition" type="button" onclick="modal_register()">Регистрация</button></li>
+            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
         </ul>
-    </form>
-    <!-- register -->
-    <form class="login_window" action="btn.php" method="post" data-modal="modal_register">
-        <ul>
+
+        <!-- register -->
+        <ul class="modal" id="modal_register">
             <li>
-                <p class="login_title">Регистрация</p>
-                <button class="login_close" data-modal-close="modal_close">&times;</button>
+                <p class="modal_title">Регистрация</p>
+                <button class="modal_close" type="button" onclick="modal_register_close()">&times;</button>
             </li>
-            <li><input class="login_input" type="email" name="email" placeholder="Почта"/></li>
-            <li><input class="login_input" type="password" name="password" placeholder="Пароль"/></li>
-            <li><input class="login_enter" type="submit" id="form_register" value="Зарегестрироваться"></li>
+            <li><input class="modal_input" type="email" name="email_register" placeholder="Почта"/></li>
+            <li><input class="modal_input" type="password" name="password_register" placeholder="Пароль"/></li>
+            <li><input class="modal_enter" type="submit" name="enter_register" value="Зарегестрироваться"></li>
             <li><hr></li>
-            <li><button class="login_transition" data-modal-btn="modal_login">Войти</button></li>
-            <li><a class="login_transition" href="#">Забыли пароль?</a></li>
+            <li><button class="modal_transition" type="button" onclick="modal_login()">Войти</button></li>
+            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
         </ul>
     </form>
     
@@ -63,7 +63,7 @@
     <footer>
         <hr>
         <div class="footer_content">
-            <img class="footer_image" src="img/t4.png" alt="img">
+            <img class="footer_image" src="img_sys/t4.png" alt="купить дрон">
             <ul class="footer_block">
                 <div class="footer_title"><p>Компания</p></div>
                 <li><a href="about.html">О нас</a></li>

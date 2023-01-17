@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/img/1000new.png">
+    <link rel="icon" href="/img_sys/1000new.png">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <header>
         <!-- label -->
         <a class="header_label" onclick="window.location.href='index.php'">
-            <div class="header_barrier"><img class="header_logo" src="img/1000new.png"/></div>
+            <div class="header_barrier"><img class="header_logo" src="img_sys/1000new.png"/></div>
             <p class="header_title">Squadrom</p>
         </a>
         
@@ -26,7 +26,7 @@
         </div>
     </header>
     <!-- modal_window -->
-    <form class="modal_window" id="modal_window" action="hendler.php" method="post" data-modal>
+    <form class="modal_window" id="modal_window" action="handler.php" method="post" data-modal>
         <!-- login -->
         <ul class="modal" id="modal_login">
             <li>
@@ -88,64 +88,64 @@
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone1.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
                 <li>
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone2.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
                 <li>
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone3.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
                 <li>
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone4.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
             </ul>
@@ -154,64 +154,64 @@
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone5.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
                 <li>
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone6.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
                 <li>
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone7.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
                 <li>
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone.png" alt="drone">
+                        <img class="showcase_blocks_image" src="img/drone8.png" alt="drone">
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
                             5.5
-                            <img class="showcase_blocks_rating_star" src="img/star.png" alt="rating">
+                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
                         </li>
                         <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img/cart.png" alt="cart"></button></li>
+                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                     </ul>
                 </li>
             </ul>
@@ -222,7 +222,7 @@
     <footer>
         <hr>
         <div class="footer_content">
-            <img class="footer_image" src="img/t4.png" alt="img">
+            <img class="footer_image" src="img_sys/t4.png" alt="купить дрон">
             <ul class="footer_block">
                 <div class="footer_title"><p>Компания</p></div>
                 <li><a href="about.html">О нас</a></li>

@@ -21,7 +21,7 @@
     --colorGreen: rgb(0, 170, 65);
     --colorYellow: rgb(255, 202, 69);
     --colorRed: rgb(188, 82, 82);
-    --main_max_width: 1488px;
+    --main_max_width: 1480px;
 }
 body {
     font-family: 'core_sans';
@@ -167,7 +167,7 @@ footer {
 
 /* showcase */
 :root {
-    --showcase_bg: url(img/item_gr.jpg);
+    --showcase_bg: url(img_sys/item_gr.jpg);
     --bg_showcase_catalog: var(--colorBlack3);
     --bg_showcase_container: var(--colorBlack3);
     --showcase_border-radius: 8px;
@@ -180,6 +180,7 @@ footer {
     max-width: var(--main_max_width);
     margin: auto auto;
     display: flex;
+    width: 100%;
     background-repeat: no-repeat;
     background-size: 100%;
     background-image: var(--showcase_bg);
@@ -194,6 +195,7 @@ footer {
     border-radius: var(--showcase_border-radius);
     display: block;
     margin-right: 25px;
+    height: auto;
     padding: 0px 25px;
     background-color: var(--bg_showcase_catalog);
     box-shadow: 0px 0px 12px 0px rgba(14, 104, 199, 0.72);
@@ -215,14 +217,14 @@ input[name="search"] {
 input[name="btn_loop"] {
     height: 25px;
     width: 25px;
-    background-image: url("/img/loop.png");
+    background-image: url(/img_sys/loop.png);
     background-size: 100% 100%;
     cursor: pointer;
 }
 input[name="btn_filter"] {
     height: 25px;
     width: 25px;
-    background-image: url("/img/filter.png");
+    background-image: url(/img_sys/filter.png);
     background-size: 100% 100%;
     cursor: pointer;
 }
@@ -370,7 +372,7 @@ input[name="email"], input[name="password"] {
 /* cabinet */
 :root {
     /* --cabinet_bg: var(--colorBlack3); */
-    --cabinet_bg: url(/img/item_gr.jpg);
+    --cabinet_bg: url(/img_sys/item_gr.jpg);
     --cabinet_bg_profile: var(--colorBlack3);
     --cabinet_bg_content: var(--colorBlack3);
 }
@@ -398,19 +400,19 @@ input[name="email"], input[name="password"] {
     font-size: 25px;
     padding: 5px 0px;
 }
-.content_avatar {
+.cabinet_avatar {
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background-image: url(/img/t1.png);
+    background-image: url(/img_sys/t1.png);
     background-repeat: no-repeat;
     background-size: 100%;
 }
-.content_name {
+.cabinet_name {
     font-size: 23px;
     color: rgb(0, 170, 65);
 }
-.content_edit {
+.cabinet_edit {
     height: 20px;
     width: 100%;
     border-radius: 5px;
@@ -422,7 +424,7 @@ input[name="email"], input[name="password"] {
     justify-content: center;
     cursor: pointer;
 }
-.content_edit img {
+.cabinet_edit img {
     height: 20px;
     width: 20px;
 }

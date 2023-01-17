@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/img/1000new.png">
+    <link rel="icon" href="/img_sys/1000new.png">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <header>
         <!-- label -->
         <a class="header_label" onclick="window.location.href='index.php'">
-            <div class="header_barrier"><img class="header_logo" src="img/1000new.png"/></div>
+            <div class="header_barrier"><img class="header_logo" src="img_sys/1000new.png"/></div>
             <p class="header_title">Squadrom</p>
         </a>
         
@@ -26,7 +26,7 @@
         </div>
     </header>
     <!-- modal_window -->
-    <form class="modal_window" id="modal_window" action="hendler.php" method="post" data-modal>
+    <form class="modal_window" id="modal_window" action="handler.php" method="post" data-modal>
         <!-- login -->
         <ul class="modal" id="modal_login">
             <li>
@@ -57,11 +57,11 @@
     </form>
 
     <!-- add_product -->
-    <form class="add_product" method="post" enctype="multipart/form-data">
+    <form class="add_product" action="handler.php" method="post" enctype="multipart/form-data">
         <p class="add_product_title">Добавление продукта</p>
         <input class="add_product_input" name="title" type="text" placeholder="Title"/>
-        <input class="add_product_input" name="photo" type="file"/><br>
-        <input class="add_product_btn" name="add_product" type="button" value="Добавить">
+        <input class="add_product_input" name="img" type="file"/><br>
+        <input class="add_product_btn" name="add_product" type="submit" value="Добавить">
     </form>
 
 </body>

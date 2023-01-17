@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/img/1000new.png">
+    <link rel="icon" href="/img_sys/1000new.png">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <header>
         <!-- label -->
         <a class="header_label" onclick="window.location.href='index.php'">
-            <div class="header_barrier"><img class="header_logo" src="img/1000new.png"/></div>
+            <div class="header_barrier"><img class="header_logo" src="img_sys/1000new.png"/></div>
             <p class="header_title">Squadrom</p>
         </a>
         
@@ -26,7 +26,7 @@
         </div>
     </header>
     <!-- modal_window -->
-    <form class="modal_window" id="modal_window" action="hendler.php" method="post" data-modal>
+    <form class="modal_window" id="modal_window" action="handler.php" method="post" data-modal>
         <!-- login -->
         <ul class="modal" id="modal_login">
             <li>
@@ -60,9 +60,9 @@
     <content class="cabinet">
         <div class="cabinet_profile">
             <div class="cabinet_title">Ваш профиль</div>
-            <div class="content_avatar"></div>
-            <div class="content_name">Bufferum</div>
-            <button class="content_edit" onclick="btn_edit()"><img src="img/pen.png" alt="edit">Редактировать</button>
+            <div class="cabinet_avatar"></div>
+            <div class="cabinet_name">Bufferum</div>
+            <button class="cabinet_edit" onclick="btn_edit()"><img src="img_sys/pen.png" alt="edit">Редактировать</button>
             <ul>
                 <li class="cabinet_select_item"><a href="#cabinet_item_1">Избранное</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_2">Мои заказы</a></li>

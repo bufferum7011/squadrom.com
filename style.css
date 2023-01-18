@@ -401,12 +401,13 @@ input[name="email"], input[name="password"] {
     padding: 5px 0px;
 }
 .cabinet_avatar {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    background-image: url(/img_sys/t1.png);
+    height: 125px;
+    width: 125px;
+    background-image: url(/img_sys/default_avatar.png);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 120%;
+    border-radius: 50%;
+    background-position: 50% 0%;
 }
 .cabinet_name {
     font-size: 23px;

@@ -1,3 +1,16 @@
+<?php
+$key = false;
+// если нет cookie
+if(!isset($_COOKIE["token"]) || trim($_COOKIE["token"]) == "") {
+
+}
+// если есть cookie
+else {
+    $key = true;
+    $email = $_COOKIE["email"];
+    
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +62,7 @@
             </li>
             <li><input class="modal_input" type="email" name="email_register" placeholder="Почта"/></li>
             <li><input class="modal_input" type="password" name="password_register" placeholder="Пароль"/></li>
+            <li><input class="modal_input" type="name" name="nickname" placeholder="Имя"/></li>
             <li><input class="modal_enter" type="submit" name="enter_register" value="Зарегестрироваться"></li>
             <li><hr></li>
             <li><button class="modal_transition" type="button" onclick="modal_login()">Войти</button></li>

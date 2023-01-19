@@ -1,15 +1,25 @@
 <?php
-$key = false;
-// если нет cookie
-if(!isset($_COOKIE["token"]) || trim($_COOKIE["token"]) == "") {
-
-}
-// если есть cookie
-else {
-    $key = true;
-    $email = $_COOKIE["email"];
+    $GLOBALS["pass"] = false;
+    if(isset($_COOKIE["token"])) {
+        $mysql = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+        $mysql->set_charset("utf-8");
+        $bd_arr = $mysql->query("SELECT * FROM Login");
     
-}
+        $GLOBALS["token"] = $_COOKIE["token"];
+        $GLOBALS["nickname"] = "no-name";
+        $GLOBALS["link_avatar"] = null;
+        while($row = $bd_arr->fetch_array()) {
+            // getting user data
+            if($_COOKIE["token"] == $row["Token"]) {
+                $email = $row["Email"];
+                $nickname = $row["Nickname"];
+                $link_avatar = $row["Link_avatar"];
+                $pass = true;
+            }
+        }
+        $mysql->close();
+    }
+    else { /* не авторизован нужна модалка о куки */ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +45,14 @@ else {
             <button class="header_btn" onclick="window.location.href='club.php'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
             <button class="header_btn" onclick="window.location.href='bookmark.php'">Избранное</button>
-            <button class="header_btn" onclick="modal_login()">Войти</button>
+            <?php
+                if($pass) {
+                    ?><button class="header_btn" onclick="window.location.href='cabinet.php'">
+                        <img class="header_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
+                    </button><?php
+                }
+                else { ?><button class="header_btn" onclick="modal_login()">Войти</button><?php }
+            ?>
         </div>
     </header>
     <!-- modal_window -->
@@ -62,7 +79,7 @@ else {
             </li>
             <li><input class="modal_input" type="email" name="email_register" placeholder="Почта"/></li>
             <li><input class="modal_input" type="password" name="password_register" placeholder="Пароль"/></li>
-            <li><input class="modal_input" type="name" name="nickname" placeholder="Имя"/></li>
+            <li><input class="modal_input" type="name" name="nickname_register" placeholder="Имя"/></li>
             <li><input class="modal_enter" type="submit" name="enter_register" value="Зарегестрироваться"></li>
             <li><hr></li>
             <li><button class="modal_transition" type="button" onclick="modal_login()">Войти</button></li>
@@ -102,7 +119,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone1.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone1.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
@@ -118,7 +137,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone2.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone2.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
@@ -134,7 +155,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone3.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone3.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
@@ -150,7 +173,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone4.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone4.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
@@ -168,7 +193,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone5.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone5.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
@@ -184,7 +211,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone6.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone6.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
@@ -200,7 +229,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone7.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone7.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>
@@ -216,7 +247,9 @@ else {
                     <div class="showcase_blocks_title">Дрон Huawei</div>
                     <div class="showcase_blocks_description">Высокоскоростной</div>
                     <div class="showcase_blocks_place_image">
-                        <img class="showcase_blocks_image" src="img/drone8.png" alt="drone">
+                        <div class="showcase_blocks_place_image_hidden">
+                            <img class="showcase_blocks_image" src="img/drone8.png" alt="drone">
+                        </div>
                     </div>
                     <ul class="showcase_blocks_action">
                         <li>

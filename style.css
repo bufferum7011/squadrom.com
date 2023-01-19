@@ -21,7 +21,7 @@
     --colorGreen: rgb(0, 170, 65);
     --colorYellow: rgb(255, 202, 69);
     --colorRed: rgb(188, 82, 82);
-    --main_max_width: 1480px;
+    --main_max_width: 1488px;
 }
 body {
     font-family: 'core_sans';
@@ -111,6 +111,12 @@ header {
 .header_btn:hover {
     background: rgb(26, 63, 114);
     color: rgb(186, 186, 0);
+}
+.header_avatar {
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
 }
 
 
@@ -260,12 +266,24 @@ input[name="btn_filter"] {
     font-size: 15px;
 }
 .showcase_blocks_place_image {
-    padding: 5px;
-}
-.showcase_blocks_image {
     height: 160px;
     width: 240px;
+    padding: 5px;
+    overflow: hidden;
+}
+.showcase_blocks_place_image_hidden {
+    height: 160px;
+    width: 240px;
+    overflow: hidden;
+}
+.showcase_blocks_image {
+    height: 100%;
+    width: 100%;
     border-radius: 3px;
+    transition:transform 0.25s;
+}
+.showcase_blocks_image:hover {
+    transform: scale(1.1);
 }
 .showcase_blocks_action li {
     display: inline-flex;
@@ -403,29 +421,14 @@ input[name="email"], input[name="password"] {
 .cabinet_avatar {
     height: 125px;
     width: 125px;
-    background-image: url(/img_sys/default_avatar.png);
     background-repeat: no-repeat;
-    background-size: 120%;
     border-radius: 50%;
-    background-position: 50% 0%;
 }
 .cabinet_name {
     font-size: 23px;
     color: rgb(0, 170, 65);
 }
-.cabinet_edit {
-    height: 20px;
-    width: 100%;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.7);
-    font-size: 15px;
-    text-align: center;
-    padding: 3px auto;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-}
-.cabinet_edit img {
+.cabinet_select_item_img {
     height: 20px;
     width: 20px;
 }
@@ -460,24 +463,17 @@ input[name="email"], input[name="password"] {
 .cabinet_select_item { display: block; }
 .cabinet_item { display: none; }
 .cabinet_item:target { display: block; }
-.cabinet_empty { font-size: 20px; }
-
-
-/* add_product */
-.add_product {
-    height: 100px;
-    width: 500px;
+.cabinet_edit {
+    height: 80px;
+    width: 300px;
+    border-radius: 3px;
+}
+.cabinet_edit_input {
     background-color: rgba(255, 255, 255, 0.7);
-    padding: 5px 15px;
-    border-radius: 13px;
-    margin: 30px auto;
 }
-.add_product_title {
-    font-size: 25px;
-    color: rgb(255, 255, 255);
+.cabinet_subtitle {
+    padding: 5px;
 }
-.add_product_input { }
-.add_product_btn { background-color:rgb(0, 170, 65); }
 
 
 /* ==================================== */

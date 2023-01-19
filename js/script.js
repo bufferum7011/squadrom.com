@@ -1,6 +1,5 @@
 function btn_search() { alert("Кнопка поиска"); }
 function btn_filter() { alert("Кнопка фильтра"); }
-function btn_edit() { alert("Кнопка редактирования"); }
 
 // modal_windows
 window.onclick = function(event) {

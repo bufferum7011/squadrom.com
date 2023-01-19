@@ -1,8 +1,25 @@
 <?php
-if(!isset($_COOKIE["token"]) || trim($_COOKIE["token"]) == "") {
-    header("Location: index.php");
-    exit;
-}
+    $GLOBALS["pass"] = false;
+    if(isset($_COOKIE["token"])) {
+        $mysql = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+        $mysql->set_charset("utf-8");
+        $bd_arr = $mysql->query("SELECT * FROM Login");
+    
+        $GLOBALS["token"] = $_COOKIE["token"];
+        $GLOBALS["nickname"] = "no-name";
+        $GLOBALS["link_avatar"] = null;
+        while($row = $bd_arr->fetch_array()) {
+            // getting user data
+            if($_COOKIE["token"] == $row["Token"]) {
+                $email = $row["Email"];
+                $nickname = $row["Nickname"];
+                $link_avatar = $row["Link_avatar"];
+                $pass = true;
+            }
+        }
+        $mysql->close();
+    }
+    else { header("Location: index.php"); exit; }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +45,14 @@ if(!isset($_COOKIE["token"]) || trim($_COOKIE["token"]) == "") {
             <button class="header_btn" onclick="window.location.href='club.php'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
             <button class="header_btn" onclick="window.location.href='bookmark.php'">Избранное</button>
-            <button class="header_btn" onclick="modal_login()">Войти</button>
+            <?php
+                if($pass) {
+                    ?><button class="header_btn" onclick="window.location.href='cabinet.php'">
+                        <img class="header_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
+                    </button><?php
+                }
+                else { ?><button class="header_btn" onclick="modal_login()">Войти</button><?php }
+            ?>
         </div>
     </header>
     <!-- modal_window -->
@@ -65,11 +89,15 @@ if(!isset($_COOKIE["token"]) || trim($_COOKIE["token"]) == "") {
     <!-- cabinet -->
     <content class="cabinet">
         <div class="cabinet_profile">
-            <div class="cabinet_title">Ваш профиль</div>
-            <div class="cabinet_avatar"></div>
-            <div class="cabinet_name">Bufferum</div>
-            <button class="cabinet_edit" onclick="btn_edit()"><img src="img_sys/pen.png" alt="edit">Редактировать</button>
+            <div class="cabinet_title">Профиль</div>
+            <img class="cabinet_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
+            <div class="cabinet_name"> <?php echo $nickname; ?> </div>
             <ul>
+                <li class="cabinet_select_item">
+                    <a href="#cabinet_edit">
+                        <img class="cabinet_select_item_img" src="img_sys/pen.png" alt="купить дрон">Редактировать
+                    </a>
+                </li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_1">Избранное</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_2">Мои заказы</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_3">Статус заказа</a></li>
@@ -77,42 +105,59 @@ if(!isset($_COOKIE["token"]) || trim($_COOKIE["token"]) == "") {
                 <li class="cabinet_select_item"><a href="#cabinet_item_5">Доставка</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_6">Настройки</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_7">Помощь</a></li>
+                <li class="cabinet_select_item"><a href="#cabinet_exit" style="color: rgb(188, 82, 82);">Выход</a></li>
             </ul>
         </div>
         <div class="cabinet_content">
-            <div class="cabinet_item" id="cabinet_item_1" >
+            <!-- add_product -->
+            <form class="cabinet_item" id="cabinet_edit" action="handler.php" method="post" enctype="multipart/form-data">
+                <div class="cabinet_title">Редактирование профиля</div><hr>
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить почту</p></li>
+                    <li><input class="cabinet_edit_input" name="set_email" type="email"/></li>
+                    <li><input class="cabinet_edit_input" name="edit_email" type="submit" value="Добавить"></li>
+                </ul>
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить имя</p></li>
+                    <li><input class="cabinet_edit_input" name="set_nickname" type="text"/></li>
+                    <li><input class="cabinet_edit_input" name="edit_nickname" type="submit" value="Добавить"></li>
+                </ul>
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить фотографию</p></li>
+                    <li><input class="cabinet_edit_input" name="set_avatar" type="file"/></li>
+                    <li><input class="cabinet_edit_input" name="edit_avatar" type="submit" value="Добавить"></li>
+                </ul>
+            </form>
+            <div class="cabinet_item" id="cabinet_item_1">
                 <div class="cabinet_title">Избранное</div><hr>
-                <div class="cabinet_empty">Список пуст </div>
                 Cabinet_item_1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <div class="cabinet_item" id="cabinet_item_2">
                 <div class="cabinet_title">Мои заказы</div><hr>
-                <div class="cabinet_empty">Список пуст </div>
                 Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <div class="cabinet_item" id="cabinet_item_3">
                 <div class="cabinet_title">Статус заказа</div><hr>
-                <div class="cabinet_empty">Список пуст </div>
                 Cabinet_item_3. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <div class="cabinet_item" id="cabinet_item_4">
                 <div class="cabinet_title">Мои отзывы</div><hr>
-                <div class="cabinet_empty">Список пуст </div>
                 Cabinet_item_4. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <div class="cabinet_item" id="cabinet_item_5">
                 <div class="cabinet_title">Доставка</div><hr>
-                <div class="cabinet_empty">Список пуст </div>
                 Cabinet_item_5. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <div class="cabinet_item" id="cabinet_item_6">
                 <div class="cabinet_title">Настройки</div><hr>
-                <div class="cabinet_empty">Список пуст </div>
                 Cabinet_item_6. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <div class="cabinet_item" id="cabinet_item_7">
                 <div class="cabinet_title">Помощь</div><hr>
-                <div class="cabinet_empty">Список пуст </div>
+                Cabinet_item_7. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+            </div>
+            <div class="cabinet_item" id="cabinet_exit">
+                <div class="cabinet_title">Выход</div><hr>
                 Cabinet_item_7. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
         </div>

@@ -1,14 +1,14 @@
 <?php
     $GLOBALS["pass"] = false;
     if(isset($_COOKIE["token"])) {
-        $mysql = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
-        $mysql->set_charset("utf-8");
-        $bd_arr = $mysql->query("SELECT * FROM Login");
+        $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+        $mysqli->set_charset("utf-8");
+        $result = $mysqli->query("SELECT * FROM Login");
     
         $GLOBALS["token"] = $_COOKIE["token"];
         $GLOBALS["nickname"] = "no-name";
         $GLOBALS["link_avatar"] = null;
-        while($row = $bd_arr->fetch_array()) {
+        while($row = $result->fetch_array()) {
             // getting user data
             if($_COOKIE["token"] == $row["Token"]) {
                 $email = $row["Email"];
@@ -17,7 +17,7 @@
                 $pass = true;
             }
         }
-        $mysql->close();
+        $mysqli->close();
     }
     else { header("Location: index.php"); exit; }
 ?>
@@ -45,52 +45,20 @@
             <button class="header_btn" onclick="window.location.href='club.php'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
             <button class="header_btn" onclick="window.location.href='bookmark.php'">Избранное</button>
-            <?php
-                if($pass) {
-                    ?><button class="header_btn" onclick="window.location.href='cabinet.php'">
-                        <img class="header_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
-                    </button><?php
-                }
-                else { ?><button class="header_btn" onclick="modal_login()">Войти</button><?php }
-            ?>
+            <button class="header_btn" onclick="window.location.href='cabinet.php'">
+                <img class="header_avatar" src="<?= $link_avatar;?>" alt="купить дрон">
+            </button>
         </div>
     </header>
-    <!-- modal_window -->
-    <form class="modal_window" id="modal_window" action="handler.php" method="post" data-modal>
-        <!-- login -->
-        <ul class="modal" id="modal_login">
-            <li>
-                <p class="modal_title">Вход</p>
-                <button class="modal_close" type="button" onclick="modal_login_close()">&times;</button>
-            </li>
-            <li><input class="modal_input" type="email" name="email_login" placeholder="Почта"/></li>
-            <li><input class="modal_input" type="password" name="password_login" placeholder="Пароль"/></li>
-            <li><button class="modal_enter" type="submit" name="enter_login">Войти</button></li>
-            <li><hr></li>
-            <li><button class="modal_transition" type="button" onclick="modal_register()">Регистрация</button></li>
-            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
-        </ul>
-
-        <!-- register -->
-        <ul class="modal" id="modal_register">
-            <li>
-                <p class="modal_title">Регистрация</p>
-                <button class="modal_close" type="button" onclick="modal_register_close()">&times;</button>
-            </li>
-            <li><input class="modal_input" type="email" name="email_register" placeholder="Почта"/></li>
-            <li><input class="modal_input" type="password" name="password_register" placeholder="Пароль"/></li>
-            <li><input class="modal_enter" type="submit" name="enter_register" value="Зарегестрироваться"></li>
-            <li><hr></li>
-            <li><button class="modal_transition" type="button" onclick="modal_login()">Войти</button></li>
-            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
-        </ul>
-    </form>
 
     <!-- cabinet -->
     <content class="cabinet">
+        <!-- profile -->
         <div class="cabinet_profile">
             <div class="cabinet_title">Профиль</div>
-            <img class="cabinet_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
+            <div class="cabinet_frame_avatar">
+                <img class="cabinet_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
+            </div>
             <div class="cabinet_name"> <?php echo $nickname; ?> </div>
             <ul>
                 <li class="cabinet_select_item">
@@ -98,6 +66,7 @@
                         <img class="cabinet_select_item_img" src="img_sys/pen.png" alt="купить дрон">Редактировать
                     </a>
                 </li>
+                <li class="cabinet_select_item"><a href="#cabinet_add_product">Разместить товар</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_1">Избранное</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_2">Мои заказы</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_3">Статус заказа</a></li>
@@ -108,25 +77,64 @@
                 <li class="cabinet_select_item"><a href="#cabinet_exit" style="color: rgb(188, 82, 82);">Выход</a></li>
             </ul>
         </div>
+
+        <!-- content -->
         <div class="cabinet_content">
-            <!-- add_product -->
+            <!-- cabinet_edit -->
             <form class="cabinet_item" id="cabinet_edit" action="handler.php" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Редактирование профиля</div><hr>
+                <!-- edit_email-->
                 <ul class="cabinet_edit">
                     <li><p class="cabinet_subtitle">Изменить почту</p></li>
                     <li><input class="cabinet_edit_input" name="set_email" type="email"/></li>
-                    <li><input class="cabinet_edit_input" name="edit_email" type="submit" value="Добавить"></li>
                 </ul>
+                <!-- edit_nickname-->
                 <ul class="cabinet_edit">
                     <li><p class="cabinet_subtitle">Изменить имя</p></li>
-                    <li><input class="cabinet_edit_input" name="set_nickname" type="text"/></li>
-                    <li><input class="cabinet_edit_input" name="edit_nickname" type="submit" value="Добавить"></li>
+                    <li><input class="cabinet_edit_input" name="set_nickname" type="text" autocomplete="off"/></li>
                 </ul>
+                <!-- edit_avatar-->
                 <ul class="cabinet_edit">
                     <li><p class="cabinet_subtitle">Изменить фотографию</p></li>
                     <li><input class="cabinet_edit_input" name="set_avatar" type="file"/></li>
-                    <li><input class="cabinet_edit_input" name="edit_avatar" type="submit" value="Добавить"></li>
                 </ul>
+                <input class="cabinet_edit_save" name="edit_profile" type="submit" value="Сохранить">
+            </form>
+            <!-- add_product -->
+            <form class="cabinet_item" id="cabinet_add_product" action="handler.php" method="post" enctype="multipart/form-data">
+                <div class="cabinet_title">Разместить товар</div><hr>
+                <div style="display: flex;">
+                    <!-- add_product-->
+                    <div class="cabinet_add_product">
+                        <!-- title -->
+                        <ul class="cabinet_edit">
+                            <li><p class="cabinet_subtitle">Название</p></li>
+                            <li><input class="cabinet_edit_input" type="text" name="product_title" autocomplete="off"></li>
+                        </ul>
+                        <!-- description -->
+                        <ul class="cabinet_edit cabinet_edit_textarea">
+                            <li><p class="cabinet_subtitle">Описание</p></li>
+                            <li><textarea class="cabinet_edit_textarea" name="product_desc" autocomplete="off"></textarea></li>
+                        </ul>
+                        <!-- price -->
+                        <ul class="cabinet_edit">
+                            <li><p class="cabinet_subtitle">Цена</p></li>
+                            <li><input class="cabinet_edit_input" type="text" name="product_price" autocomplete="off"> руб.</li>
+                        </ul>
+                        <!-- img -->
+                        <ul class="cabinet_edit">
+                            <li><p class="cabinet_subtitle">Добавить фотографии</p></li>
+                            <li><input class="cabinet_edit_input" name="product_img[]" type="file" multiple autocomplete="off"/></li>
+                        </ul>
+                        <input class="cabinet_edit_save" name="product_post" type="submit" value="Разместить">
+                    </div>
+                    <!-- user_product -->
+                    <div class="cabinet_user_products hr_vert cabinet_product_scroll">
+                        Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+                        Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+                        Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+                    </div>
+                </div>
             </form>
             <div class="cabinet_item" id="cabinet_item_1">
                 <div class="cabinet_title">Избранное</div><hr>
@@ -156,10 +164,18 @@
                 <div class="cabinet_title">Помощь</div><hr>
                 Cabinet_item_7. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
-            <div class="cabinet_item" id="cabinet_exit">
+            <!-- cabinet_exit -->
+            <form class="cabinet_item" id="cabinet_exit" action="handler.php" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Выход</div><hr>
-                Cabinet_item_7. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
-            </div>
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Выйти из аккаунта</p></li>
+                    <li><input class="cabinet_logout" type="submit" name="profile_logout" value="Logout"></li>
+                </ul>
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Удалить аккаунт</p></li>
+                    <li><input class="cabinet_logout" type="submit" name="profile_delete_account" value="Delete"></li>
+                </ul>
+            </form>
         </div>
     </content>
 

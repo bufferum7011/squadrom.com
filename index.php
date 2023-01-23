@@ -1,25 +1,60 @@
 <?php
-    $GLOBALS["pass"] = false;
+    $pass = false;
+    $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+    $mysqli->set_charset("utf-8");
+
+    // get Link_avatar
     if(isset($_COOKIE["token"])) {
-        $mysql = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
-        $mysql->set_charset("utf-8");
-        $bd_arr = $mysql->query("SELECT * FROM Login");
+        $result = $mysqli->query("SELECT * FROM Login");
     
         $GLOBALS["token"] = $_COOKIE["token"];
-        $GLOBALS["nickname"] = "no-name";
         $GLOBALS["link_avatar"] = null;
-        while($row = $bd_arr->fetch_array()) {
+        while($row = $result->fetch_array()) {
             // getting user data
             if($_COOKIE["token"] == $row["Token"]) {
-                $email = $row["Email"];
-                $nickname = $row["Nickname"];
                 $link_avatar = $row["Link_avatar"];
                 $pass = true;
             }
         }
-        $mysql->close();
     }
     else { /* не авторизован нужна модалка о куки */ }
+
+
+    // get list products
+    function get_count() { global $count; return $count; }
+    function get_token_arr(int $i) { global $token_arr; return $token_arr[$i]; }
+    function get_title_arr(int $i) { global $title_arr; return $title_arr[$i]; }
+    function get_desc_arr(int $i) { global $desc_arr; return $desc_arr[$i]; }
+    function get_price_arr(int $i) { global $price_arr; return $price_arr[$i]; }
+    function get_img_arr(int $i, int $j) { global $img_arr; return $img_arr[$i][$j]; }
+    $mysqli->multi_query("SELECT count(*) FROM Showcase; SELECT * FROM Showcase;");
+    $token_arr = [];
+    $title_arr = [];
+    $desc_arr = [];
+    $price_arr = [];
+    $img_arr_without_processing_json = array();
+    $img_arr = [];
+    $count = 0;
+    $key = true;
+    do {
+        if($result = $mysqli->store_result(MYSQLI_ASSOC)) {
+            foreach($result as $i => $item) {
+                // get Token, Link_img
+                if(!$key) {
+                    $token_arr[$i] = $item["Token"];
+                    $title_arr[$i] = $item["Title"];
+                    $desc_arr[$i] = $item["Description"];
+                    $price_arr[$i] = $item["Price"];
+                    $img_arr_without_processing_json[$i] = $item["Link_img"];
+                }
+                // get total count(*)
+                if($key) { foreach($item as $item2) { $count = $item2; $key = false; break; } }
+            }
+        }
+    } while($mysqli->next_result());
+    foreach($img_arr_without_processing_json as $key => $img) { $img_arr[$key] = json_decode($img); }
+
+    $mysqli->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +83,7 @@
             <?php
                 if($pass) {
                     ?><button class="header_btn" onclick="window.location.href='cabinet.php'">
-                        <img class="header_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
+                        <img class="header_avatar" src="<?= $link_avatar;?>" alt="купить дрон">
                     </button><?php
                 }
                 else { ?><button class="header_btn" onclick="modal_login()">Войти</button><?php }
@@ -110,158 +145,34 @@
                 <li>text_5_text</li>
             </ul>
         </div>
-        
-        <!-- container здесь должен будет быть цикл -->
+
+        <!-- container -->
         <div class="showcase_container">
             <div class="showcase_title">Свежие объявления</div>
-            <ul class="showcase_blocks">
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone1.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
+            <?php for($i = 0; $i < get_count(); ) { ?>
+                <ul class="showcase_blocks">
+                    <?php for($once = 0; $once < 4 && get_count() != $i; $once++) { ?>
                         <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
+                            <div class="showcase_blocks_title"><?=get_title_arr($i)?></div>
+                            <div class="showcase_blocks_description"><?=get_desc_arr($i)?></div>
+                            <div class="showcase_blocks_place_image">
+                                <div class="showcase_blocks_place_image_hidden">
+                                    <img class="showcase_blocks_image" src="<?=get_img_arr($i, 0)?>" alt="дрон">
+                                </div>
+                            </div>
+                            <ul class="showcase_blocks_action">
+                                <li>
+                                    5.5
+                                    <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="запчасти для дрона">
+                                </li>
+                                <li><?=get_price_arr($i)?> рублей</li>
+                                <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                                <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
+                            </ul>
                         </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone2.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
-                        <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
-                        </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone3.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
-                        <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
-                        </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone4.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
-                        <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
-                        </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="showcase_blocks">
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone5.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
-                        <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
-                        </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone6.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
-                        <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
-                        </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone7.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
-                        <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
-                        </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="showcase_blocks_title">Дрон Huawei</div>
-                    <div class="showcase_blocks_description">Высокоскоростной</div>
-                    <div class="showcase_blocks_place_image">
-                        <div class="showcase_blocks_place_image_hidden">
-                            <img class="showcase_blocks_image" src="img/drone8.png" alt="drone">
-                        </div>
-                    </div>
-                    <ul class="showcase_blocks_action">
-                        <li>
-                            5.5
-                            <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="rating">
-                        </li>
-                        <li>30000 руб.</li>
-                        <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                        <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
-                    </ul>
-                </li>
-            </ul>
+                    <?php $i++; } ?>
+                </ul>
+            <?php } ?>
         </div>
     </content>
 

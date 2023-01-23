@@ -1,6 +1,12 @@
 function btn_search() { alert("Кнопка поиска"); }
 function btn_filter() { alert("Кнопка фильтра"); }
 
+// size screen
+const inner_width = window.innerWidth;
+const inner_height = window.innerHeight;
+let cabinet_content = window.querySelector(".cabinet_content");
+// cabinet_content.style.max_height = inner_height - ;
+
 // modal_windows
 window.onclick = function(event) {
     if(event.target.hasAttribute("data-modal")) {

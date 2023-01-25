@@ -1,17 +1,22 @@
 <?php
-    $GLOBALS["pass"] = false;
+    $pass = false;
+
+    function token_gen(string $token, int $size = 30, $hash = "") {
+        foreach(str_split($token) as $char) { if($char != "/") { $hash .= $char; } else { $hash .= "_"; } }
+        return substr($hash, 10, $size);
+    }
+
     if(isset($_COOKIE["token"])) {
         $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
         $mysqli->set_charset("utf-8");
         $result = $mysqli->query("SELECT * FROM Login");
     
-        $GLOBALS["token"] = $_COOKIE["token"];
-        $GLOBALS["nickname"] = "no-name";
-        $GLOBALS["link_avatar"] = null;
+        $token = $_COOKIE["token"];
+        $nickname = "no-name";
+        $link_avatar = null;
         while($row = $result->fetch_array()) {
             // getting user data
-            if($_COOKIE["token"] == $row["Token"]) {
-                $email = $row["Email"];
+            if($_COOKIE["token"] == token_gen($row["Token"])) {
                 $nickname = $row["Nickname"];
                 $link_avatar = $row["Link_avatar"];
                 $pass = true;
@@ -46,7 +51,7 @@
             <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
             <button class="header_btn" onclick="window.location.href='bookmark.php'">Избранное</button>
             <button class="header_btn" onclick="window.location.href='cabinet.php'">
-                <img class="header_avatar" src="<?= $link_avatar;?>" alt="купить дрон">
+                <img class="header_avatar" src="<?=$link_avatar;?>" alt="купить дрон">
             </button>
         </div>
     </header>
@@ -57,7 +62,7 @@
         <div class="cabinet_profile">
             <div class="cabinet_title">Профиль</div>
             <div class="cabinet_frame_avatar">
-                <img class="cabinet_avatar" src="<?php echo $link_avatar;?>" alt="купить дрон">
+                <img class="cabinet_avatar" src="<?=$link_avatar;?>" alt="купить дрон">
             </div>
             <div class="cabinet_name"> <?php echo $nickname; ?> </div>
             <ul>

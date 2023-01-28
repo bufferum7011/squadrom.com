@@ -1,7 +1,5 @@
 <?php
-    $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
-    $mysqli->set_charset("utf-8");
-    class my_crypt {
+    class My_crypt {
         private $key = "EZ44mFi3TlAey1b2w4Y7lVDuqO+SRxGXsa7nctnr/JmMrA2vN6EJhrvdVZbxaQs5jpSe34X3ejFK/o9+Y5c83w==";
         private $cipher = "AES-128-CBC";
         private $hash_algo = "sha256";
@@ -27,25 +25,90 @@
             if(hash_equals($hmac, $calcmac)) { return $original_plaintext; }
             return false;
         }
-        function token_gen(string $token, int $size = 30, $hash = "") {
-            foreach(str_split($token) as $char) { if($char != "/") { $hash .= $char; } else { $hash .= "_"; } }
-            return substr($hash, 10, $size);
+    }
+
+    class Showcase {
+        private $id_arr = [];
+        private $token_arr = [];
+        private $title_arr = [];
+        private $desc_arr = [];
+        private $price_arr = [];
+        private $img_arr = [];
+        private $time_arr = [];
+        private $count = 0;
+
+        // get list products
+        public function get_count() { return $this->count; }
+        public function get_id_arr(int $i) { return $this->id_arr[$i]; }
+        public function get_token_arr(int $i) { return $this->token_arr[$i]; }
+        public function get_title_arr(int $i) { return $this->title_arr[$i]; }
+        public function get_desc_arr(int $i) { return $this->desc_arr[$i]; }
+        public function get_price_arr(int $i) { return $this->price_arr[$i]; }
+        public function get_img_arr(int $i, int $j) { return $this->img_arr[$i][$j]; }
+        public function get_time_arr(int $i) { return $this->time_arr[$i]; }
+        // constructor
+        public function __construct(string $code = "none") {
+            $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+            $mysqli->set_charset("utf-8");
+            $count = get_token_full();
+            if($code == "me") {
+                $mysqli->multi_query("SELECT count(*) FROM Showcase WHERE `Token` = '$count';
+                    SELECT * FROM Showcase WHERE `Token` = '$count' ORDER BY Id DESC;");
+            }
+            else {
+                $mysqli->multi_query("SELECT count(*) FROM Showcase;
+                    SELECT * FROM Showcase ORDER BY Id DESC;");
+            }
+            $key = true;
+            do {
+                if($result = $mysqli->store_result(MYSQLI_ASSOC)) {
+                    foreach($result as $i => $item) {
+                        // get Token, Link_img
+                        if(!$key) {
+                            $this->id_arr[$i] = $item["Id"];
+                            $this->token_arr[$i] = $item["Token"];
+                            $this->title_arr[$i] = $item["Title"];
+                            $this->desc_arr[$i] = $item["Description"];
+                            $this->price_arr[$i] = $item["Price"];
+                            $this->time_arr[$i] = $item["Time"];
+                            $this->img_arr[$i] = json_decode($item["Link_img"]);
+                        }
+                        // get total count(*)
+                        if($key) { foreach($item as $item2) { $this->count = $item2; $key = false; break; } }
+                    }
+                }
+            } while($mysqli->next_result());
+            $mysqli->close();
+            unset($mysqli);
         }
     }
-    $my_crypt = new my_crypt();
 
-    class get_login {
-        function get_token_full($token_crop) {
-            global $mysqli;
-            global $my_crypt;
+    // token_crop
+    function token_crop(string $token, int $size = 30, $hash = "") {
+        foreach(str_split($token) as $char) { if($char != "/") { $hash .= $char; } else { $hash .= "_"; } }
+        return substr($hash, 10, $size);
+    }
+
+    // get_token_full
+    function get_token_full() {
+        if(isset($_COOKIE["token"])) {
+            $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+            $mysqli->set_charset("utf-8");
             $result = $mysqli->query("SELECT Token FROM Login");
+            $mysqli->close();
+            unset($mysqli);
+            
             while($row = $result->fetch_array()) {
-                if($_COOKIE["token"] == $my_crypt->token_gen($row["Token"])) { return $row["Token"]; }
+                if($_COOKIE["token"] == token_crop($row["Token"])) { return $row["Token"]; }
             }
             return false;
         }
     }
-    $get_login = new get_login();
+
+    // crop_text
+    function crop_text($text) { return substr($text, 0, 26) . ".."; }
+
+    // delete_directory
     function dir_del($dir) { 
         $files = array_diff(scandir($dir), array('.', '..')); 
         foreach($files as $file) { is_dir("$dir/$file") ? dir_del("$dir/$file") : unlink("$dir/$file"); }
@@ -75,17 +138,30 @@
 
     // login
     if(isset($_POST["enter_login"])) {
+        $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+        $mysqli->set_charset("utf-8");
+        $My_crypt = new My_crypt();
+
         $key = false;
         $result = $mysqli->query("SELECT * FROM Login");
         while($row = $result->fetch_array()) {
             // authorization verification by token
-            if(($_POST["email_login"] == $row["Email"]) && ($my_crypt->decrypt($row["Password"]) == $_POST["password_login"])) {
-                setcookie("token", $my_crypt->token_gen($row["Token"]));
-                $key = true; $mysqli->close(); header("Location: cabinet.php"); exit;
+            if(($_POST["email_login"] == $row["Email"]) && ($My_crypt->decrypt($row["Password"]) == $_POST["password_login"])) {
+                setcookie("token", token_crop($row["Token"]));
+                $key = true;
+                $mysqli->close();
+                unset($mysqli);
+                header("Location: cabinet.php");
+                exit;
             }
         }
         // такоего юзера нет
-        if(!$key) { $mysqli->close(); header("Location: index.php"); exit; }
+        if(!$key) {
+            $mysqli->close();
+            unset($mysqli);
+            header("Location: index.php");
+            exit;
+        }
     }    
 
     // profile change
@@ -120,26 +196,32 @@
 
     // delete account
     if(isset($_POST["profile_delete_account"])) {
-        $token = $get_login->get_token_full($_COOKIE["token"]);
+        $token = get_token_full();
         // delete data to bd
+        $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+        $mysqli->set_charset("utf-8");
         $mysqli->query("DELETE FROM `Login` WHERE `Token` = '$token'");
         // delete directory
         dir_del("img/users/" . $_COOKIE["token"]);
         // delete cookie
         setcookie("token", "", time() - 3600);
-        $mysqli->close(); header("Location: index.php"); exit;
+        $mysqli->close();
+        unset($mysqli);
+        header("Location: index.php");
+        exit;
     }
 
     // logout from account
-    if(isset($_POST["profile_logout"])) { setcookie("token", "", time() - 3600); $mysqli->close(); header("Location: index.php"); exit; }
+    if(isset($_POST["profile_logout"])) { setcookie("token", "", time() - 3600); header("Location: index.php"); exit; }
 
     // add_product
     if(isset($_POST["product_post"])) {
         $img_arr = [];
+        $My_crypt = new My_crypt();
         foreach($_FILES["product_img"]["tmp_name"] as $i => $tmp_name) {
             // 1.1. upload img[] to temporary folder "buffer"
             // 1.2. тут должен быть также вывод сразу в cabinet_add_product
-            $link_buffer = "img/buffer/" . $my_crypt->token_gen($my_crypt->encrypt((string)$tmp_name), 8) . ".webp";
+            $link_buffer = "img/buffer/" . token_crop($My_crypt->encrypt((string)$tmp_name), 8) . ".webp";
             move_uploaded_file($tmp_name, $link_buffer);
 
             //2. set new name
@@ -162,12 +244,32 @@
 
         $json = json_encode($img_arr);
         try {
-            $token = $get_login->get_token_full($_COOKIE["token"]);
+            $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+            $mysqli->set_charset("utf-8");
+            $token = get_token_full();
             $mysqli->query("INSERT INTO `Showcase` (`Token`, `Title`, `Description`, `Price`, `Link_img`)
             VALUES('$token', '{$_POST["product_title"]}', '{$_POST["product_desc"]}', '{$_POST["product_price"]}', '$json')");
         }
         //пользователь ввел пустую строку в названии
         catch(Exception $e) {  }
-        $mysqli->close(); header("Location: cabinet.php"); exit;
+        $mysqli->close();
+        unset($mysqli);
+        header("Location: cabinet.php");
+        exit;
+    }
+
+    // delete_product
+    if(isset($_GET["id"])) {
+        $id = $_GET["id"];
+        $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
+        $mysqli->set_charset("utf-8");
+
+        $token = get_token_full();
+        $mysqli->query("DELETE FROM `Showcase` WHERE `Id` = '$id'");
+
+        $mysqli->close();
+        unset($mysqli);
+        header("Location: cabinet.php");
+        exit;
     }
 ?>

@@ -1,17 +1,14 @@
 function btn_search() { alert("Кнопка поиска"); }
 function btn_filter() { alert("Кнопка фильтра"); }
-
-// size screen
-const inner_width = window.innerWidth;
-const inner_height = window.innerHeight;
-let cabinet_content = window.querySelector(".cabinet_content");
-// cabinet_content.style.max_height = inner_height - ;
+function btn_delete_product(title, id) {
+    if(confirm("Уверены что хотите удалить " + title)) {
+        window.location.href = "http://squadrom.com/handler.php?id=" + id;
+    }
+}
 
 // modal_windows
 window.onclick = function(event) {
-    if(event.target.hasAttribute("data-modal")) {
-        event.target.style.display = "none";
-    }
+    if(event.target.hasAttribute("data-modal")) { event.target.style.display = "none"; }
 }
 function modal_login() {
     let modal_window = document.querySelector("#modal_window");

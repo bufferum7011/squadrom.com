@@ -1,63 +1,27 @@
 <?php
-    $pass = false;
     $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
     $mysqli->set_charset("utf-8");
-    function token_gen(string $token, int $size = 30, $hash = "") {
-        foreach(str_split($token) as $char) { if($char != "/") { $hash .= $char; } else { $hash .= "_"; } }
-        return substr($hash, 10, $size);
-    }
+    require_once "handler.php";
+    $Showcase = new Showcase();
+
     // get Link_avatar
+    $pass = false;
     if(isset($_COOKIE["token"])) {
+        $My_crypt = new My_crypt();
         $result = $mysqli->query("SELECT * FROM Login");
-    
-        $GLOBALS["token"] = $_COOKIE["token"];
-        $GLOBALS["link_avatar"] = null;
+
+        $token = $_COOKIE["token"];
+        $link_avatar = null;
         while($row = $result->fetch_array()) {
             // getting user data
-            if($_COOKIE["token"] == token_gen($row["Token"])) {
+            if($_COOKIE["token"] == token_crop($row["Token"])) {
                 $link_avatar = $row["Link_avatar"];
                 $pass = true;
             }
         }
-    }
-    else { /* не авторизован нужна модалка о куки */ }
-
-
-    // get list products
-    function get_count() { global $count; return $count; }
-    function get_token_arr(int $i) { global $token_arr; return $token_arr[$i]; }
-    function get_title_arr(int $i) { global $title_arr; return $title_arr[$i]; }
-    function get_desc_arr(int $i) { global $desc_arr; return $desc_arr[$i]; }
-    function get_price_arr(int $i) { global $price_arr; return $price_arr[$i]; }
-    function get_img_arr(int $i, int $j) { global $img_arr; return $img_arr[$i][$j]; }
-    $mysqli->multi_query("SELECT count(*) FROM Showcase; SELECT * FROM Showcase;");
-    $token_arr = [];
-    $title_arr = [];
-    $desc_arr = [];
-    $price_arr = [];
-    $img_arr_without_processing_json = array();
-    $img_arr = [];
-    $count = 0;
-    $key = true;
-    do {
-        if($result = $mysqli->store_result(MYSQLI_ASSOC)) {
-            foreach($result as $i => $item) {
-                // get Token, Link_img
-                if(!$key) {
-                    $token_arr[$i] = $item["Token"];
-                    $title_arr[$i] = $item["Title"];
-                    $desc_arr[$i] = $item["Description"];
-                    $price_arr[$i] = $item["Price"];
-                    $img_arr_without_processing_json[$i] = $item["Link_img"];
-                }
-                // get total count(*)
-                if($key) { foreach($item as $item2) { $count = $item2; $key = false; break; } }
-            }
-        }
-    } while($mysqli->next_result());
-    foreach($img_arr_without_processing_json as $key => $img) { $img_arr[$key] = json_decode($img); }
-
-    $mysqli->close();
+        $mysqli->close();
+        unset($mysqli);
+    } else { /* не авторизован нужна модалка о куки */ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -152,15 +116,15 @@
         <!-- container -->
         <div class="showcase_container">
             <div class="showcase_title">Свежие объявления</div>
-            <?php for($i = 0; $i < get_count(); ) { ?>
+            <?php for($i = 0; $i < $Showcase->get_count(); ) { ?>
                 <ul class="showcase_blocks">
-                    <?php for($once = 0; $once < 4 && get_count() != $i; $once++) { ?>
+                    <?php for($once = 0; $once < 4 && $Showcase->get_count() != $i; $once++) { ?>
                         <li>
-                            <div class="showcase_blocks_title"><?=get_title_arr($i)?></div>
-                            <div class="showcase_blocks_description"><?=get_desc_arr($i)?></div>
+                            <div class="showcase_blocks_title"><?=$Showcase->get_title_arr($i)?></div>
+                            <div class="showcase_blocks_description"><?=crop_text($Showcase->get_desc_arr($i))?></div>
                             <div class="showcase_blocks_place_image">
                                 <div class="showcase_blocks_place_image_hidden">
-                                    <img class="showcase_blocks_image" src="<?=get_img_arr($i, 0)?>" alt="дрон">
+                                    <img class="showcase_blocks_image" src="<?=$Showcase->get_img_arr($i, 0)?>" alt="дрон">
                                 </div>
                             </div>
                             <ul class="showcase_blocks_action">
@@ -168,7 +132,7 @@
                                     5.5
                                     <img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="запчасти для дрона">
                                 </li>
-                                <li><?=get_price_arr($i)?> рублей</li>
+                                <li><?=$Showcase->get_price_arr($i)?> рублей</li>
                                 <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
                                 <li><button onclick="btn_cart(this)"><img class="showcase_blocks_cart" src="img_sys/cart.png" alt="cart"></button></li>
                             </ul>
@@ -206,6 +170,6 @@
         <hr>
         <p class="footer_outro">© 2021-2023 Squadrom. Администрация Сайта не несет ответственности за размещаемые Пользователями материалы (в т.ч. информацию и изображения), их содержание и качество.</p>
     </footer>
-    <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

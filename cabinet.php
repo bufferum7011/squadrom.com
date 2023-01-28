@@ -1,28 +1,23 @@
 <?php
+
     $pass = false;
-
-    function token_gen(string $token, int $size = 30, $hash = "") {
-        foreach(str_split($token) as $char) { if($char != "/") { $hash .= $char; } else { $hash .= "_"; } }
-        return substr($hash, 10, $size);
-    }
-
     if(isset($_COOKIE["token"])) {
         $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
         $mysqli->set_charset("utf-8");
+        require_once "handler.php";
+        $Showcase = new Showcase("me");
         $result = $mysqli->query("SELECT * FROM Login");
-    
-        $token = $_COOKIE["token"];
+
         $nickname = "no-name";
         $link_avatar = null;
         while($row = $result->fetch_array()) {
             // getting user data
-            if($_COOKIE["token"] == token_gen($row["Token"])) {
+            if($_COOKIE["token"] == token_crop($row["Token"])) {
                 $nickname = $row["Nickname"];
                 $link_avatar = $row["Link_avatar"];
                 $pass = true;
             }
         }
-        $mysqli->close();
     }
     else { header("Location: index.php"); exit; }
 ?>
@@ -134,10 +129,36 @@
                         <input class="cabinet_edit_save" name="product_post" type="submit" value="Разместить">
                     </div>
                     <!-- user_product -->
-                    <div class="cabinet_user_products hr_vert cabinet_product_scroll">
-                        Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
-                        Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
-                        Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+                    <div class="hr_vert cabinet_product_scroll">
+
+                        <!-- count product -->
+                        <ul style="display: flex;">
+                            <li class="cabinet_subtitle">Ваших товаров</li> 
+                            <li class="cabinet_subtitle" style="margin: 0px 5px; color: rgb(0, 170, 65);"><?=$Showcase->get_count()?>шт</li>
+                        </ul>
+                        <?php for($i = 0; $i < $Showcase->get_count(); ) { ?>
+                            <ul class="showcase_blocks">
+                                <?php for($once = 0; $once < 3 && $Showcase->get_count() != $i; $once++) { ?>
+                                    <li data-product="prod_">
+                                        <lable class="showcase_blocks_title"><?=$Showcase->get_title_arr($i)?></lable>
+                                        <div class="showcase_blocks_description"><?=crop_text($Showcase->get_desc_arr($i))?></div>
+                                        <div class="showcase_blocks_place_image">
+                                            <div class="showcase_blocks_place_image_hidden">
+                                                <img class="showcase_blocks_image" src="<?=$Showcase->get_img_arr($i, 0)?>" alt="дрон">
+                                            </div>
+                                        </div>
+                                        <ul class="showcase_blocks_action">
+                                            <li>5.5<img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="запчасти для дрона"></li>
+                                            <li><?=$Showcase->get_price_arr($i)?> рублей</li>
+                                            <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
+                                            <li style="color: brown;"><?=$Showcase->get_time_arr($i)?></li>
+                                            <li><button class="cabinet_product_delete" onclick="btn_delete_product('<?=$Showcase->get_title_arr($i)?>', <?=$Showcase->get_id_arr($i)?>)" type="button">Удалить</button></li>
+                                        </ul>
+                                    </li>
+                                <?php $i++; } ?>
+                            </ul>
+                        <?php } ?>
+
                     </div>
                 </div>
             </form>
@@ -188,6 +209,6 @@
     <footer>
         <hr><p class="footer_outro">© 2021-2023 Squadrom. Администрация Сайта не несет ответственности за размещаемые Пользователями материалы (в т.ч. информацию и изображения), их содержание и качество.</p>
     </footer>
-    <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

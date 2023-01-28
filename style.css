@@ -196,6 +196,7 @@ footer {
     background-repeat: no-repeat;
     background-size: 100%;
     background-image: var(--showcase_bg);
+    justify-content: center;
 }
 .showcase_title {
     color: rgb(255, 255, 255);
@@ -264,10 +265,12 @@ input[name="btn_filter"] {
     margin-right: 10px;
 }
 .showcase_blocks_title {
+    color: rgb(0, 0, 0);
     padding: 2px 5px;
     font-size: 25px;
 }
 .showcase_blocks_description {
+    color: rgb(0, 0, 0);
     padding: 2px 5px;
     font-size: 15px;
 }
@@ -478,10 +481,10 @@ input[name="email"], input[name="password"] {
 .cabinet_item:target { display: block; }
 /* edit_profile */
 .cabinet_edit {
-    height: auto;
+    height: 200px;
     width: auto;
-    margin: auto auto;
     max-height: 60px;
+    /* overflow: hidden; */
 }
 .cabinet_edit_input {
     width: 200px;
@@ -495,7 +498,7 @@ input[name="email"], input[name="password"] {
     resize: none;
     height: 300px;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 3px;
 }
 .cabinet_edit_save {
     position: relative;
@@ -527,16 +530,20 @@ input[name="email"], input[name="password"] {
 }
 /* add_product */
 .cabinet_add_product {
-
-}
-.cabinet_user_products {
-    
+    width: 30%;
 }
 .cabinet_product_scroll {
     height: auto;
-    width: 80%;
-    /* border: 1px solid #C1C1C1; */
+    width: 100%;
     overflow-y: scroll;
+    max-height: 500px;
+}
+.cabinet_product_delete {
+    border-radius: 3px;
+    background: rgb(188, 82, 82);
+}
+.cabinet_product_delete:hover {
+    background: rgb(146, 50, 50);
 }
 
 

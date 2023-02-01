@@ -1,20 +1,21 @@
 <?php
-    require_once "handler.php";
-    $Showcase = new Showcase();
-    $My_crypt = new My_crypt();
-    $Login = new Login();
-    $Favourite = new Favourite();
+    if(isset($_GET["id"])) {
+        require_once "handler.php";
+        $My_crypt = new My_crypt();
+        $Login = new Login();
+        $Showcase = new Showcase($_GET["id"]);
+        $Login->get_data_seller($_GET["id"]);
+    } else { header("Location: index.php"); exit; }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Купить дрон - Squadrom</title>
+    <title><?=$Showcase->get_title_arr(0)?> - Squadrom</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/img_sys/1000new.png">
     <link rel="stylesheet" href="/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <!-- header -->
@@ -24,7 +25,7 @@
             <div class="header_barrier"><img class="header_logo" src="img_sys/1000new.png"/></div>
             <p class="header_title">Squadrom</p>
         </a>
-        
+
         <!-- nav -->
         <div class="header_nav">
             <button class="header_btn" onclick="window.location.href='club.php'">Клуб</button>
@@ -32,8 +33,8 @@
             <button class="header_btn" onclick="window.location.href='bookmark.php'">Избранное</button>
             <?php
                 if($Login->pass) {
-                    ?><button class="header_btn" onclick="window.location.href='cabinet.php#cabinet_add_product'">
-                        <img class="header_avatar" src="<?=$Login->get_link_avatar()?>">
+                    ?><button class="header_btn" onclick="window.location.href='cabinet.php'">
+                        <img class="header_avatar" src="<?= $Login->get_link_avatar()?>" alt="купить дрон">
                     </button><?php
                 }
                 else { ?><button class="header_btn" onclick="modal_login()">Войти</button><?php }
@@ -72,7 +73,7 @@
         </ul>
     </form>
     
-    <!-- showcase -->
+    <!-- text -->
     <content class="wrapper">
         <!-- catalog -->
         <div class="showcase_catalog">
@@ -96,41 +97,37 @@
             </ul>
         </div>
 
-        <!-- container -->
-        <div class="showcase">
-            <div class="showcase_title">Свежие объявления</div>
-            <?php for($i = 0; $i < $Showcase->get_count(); ) { ?>
-                <ul class="showcase_blocks">
-                    <?php for($once = 0; $once < 4 && $Showcase->get_count() != $i; $once++) { ?>
-                        <li class="showcase_lot">
-                            <a href="lot.php?id=<?=$Showcase->get_id_arr($i)?>">
-                                <div class="showcase_blocks_title"><?=$Showcase->get_title_arr($i)?></div>
-                                <div class="showcase_blocks_description"><?=crop_text($Showcase->get_desc_arr($i))?></div>
-                                <div class="showcase_blocks_place_image">
-                                    <div class="showcase_blocks_place_image_hidden">
-                                        <img class="showcase_blocks_image" src="<?=$Showcase->get_img_arr($i, 0)?>" alt="дрон">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="showcase_blocks_action">
-                                <p class="showcase_blocks_action_item"><?=$Showcase->get_price_arr($i)?>рублей</p>
-                                <!-- ========= -->
-                                <button class="showcase_blocks_action_item" type="button" onclick="btn_like(<?=$Showcase->get_id_arr($i)?>)">
-                                    <svg class="showcase_blocks_like" viewBox="0 0 100 100">
-                                        <path id="prod_<?=$Showcase->get_id_arr($i)?>" class="showcase_like" d="m24 39.25-1.1-1.05q-5-4.55-8.275-7.85-3.275-3.3-5.175-5.8T6.8 20.075Q6.05 18.1 6.05 16.1q0-3.75 2.525-6.25t6.225-2.5q2.7 0 5.05 1.475Q22.2 10.3 24 13.1q1.95-2.85 4.225-4.3Q30.5 7.35 33.2 7.35q3.7 0 6.225 2.5 2.525 2.5 2.525 6.2 0 2-.75 4t-2.65 4.5q-1.9 2.5-5.175 5.8T25.1 38.2Z"/>
-                                    </svg>
-                                    <?php if($Favourite->check_favourite($Showcase->get_id_arr($i))) { ?>
-                                        <script type="text/javascript">
-                                            prod_<?=$Showcase->get_id_arr($i)?>.style.fill = "rgb(188, 64, 64)";
-                                        </script>
-                                    <?php } ?>
-                                </button>
-                                <!-- ========= -->
-                            </div>
-                        </li>
-                    <?php $i++; } ?>
+        <!-- lot -->
+        <div class="lot">
+            <div class="lot_left">
+                <!-- title -->
+                <p class="lot_title"><?=$Showcase->get_title_arr(0)?></p>
+
+                <!-- images -->
+                <ul class="lot_img">
+                    <li><img class="lot_img_big" src="<?= $Showcase->get_img_arr(0, 0)?>"></li>
+                    <div class="lot_img_small_frame">
+                        <?php for($i = 0; $i < $Showcase->get_count_imgs(); $i++) { ?>
+                            <li><img class="lot_img_small" src="<?= $Showcase->get_img_arr(0, $i)?>"></li>
+                        <?php } ?>
+                    </div>
                 </ul>
-            <?php } ?>
+
+                <!-- description -->
+                <p class="lot_desc"><?= $Showcase->get_desc_arr(0)?></p>
+            </div>
+
+            <div class="lot_left hr_vert">
+                <!-- price -->
+                <p class="lot_price">Цена: <?= $Showcase->get_price_arr(0)?> руб.</p>
+
+                <!-- seller -->
+                <ul class="lot_seller">
+                    <li>Продавец:</li>
+                    <li><img class="header_avatar" src="<?=$Login->get_seller_link_avatar()?>"></li>
+                    <li><?=$Login->get_seller_nickname()?></li>
+                </ul>
+            </div>
         </div>
     </content>
 

@@ -1,23 +1,10 @@
 <?php
-
-    $pass = false;
     if(isset($_COOKIE["token"])) {
-        $mysqli = new mysqli("31.31.196.141", "u1840066_buffer", "hRXZLyLH74n6bcn1", "u1840066_squadrom");
-        $mysqli->set_charset("utf-8");
         require_once "handler.php";
         $Showcase = new Showcase("me");
-        $result = $mysqli->query("SELECT * FROM Login");
-
-        $nickname = "no-name";
-        $link_avatar = null;
-        while($row = $result->fetch_array()) {
-            // getting user data
-            if($_COOKIE["token"] == token_crop($row["Token"])) {
-                $nickname = $row["Nickname"];
-                $link_avatar = $row["Link_avatar"];
-                $pass = true;
-            }
-        }
+        $My_crypt = new My_crypt();
+        $Login = new Login();
+        $Favourite = new Favourite();
     }
     else { header("Location: index.php"); exit; }
 ?>
@@ -46,7 +33,7 @@
             <button class="header_btn" onclick="window.location.href='about.php'">О нас</button>
             <button class="header_btn" onclick="window.location.href='bookmark.php'">Избранное</button>
             <button class="header_btn" onclick="window.location.href='cabinet.php'">
-                <img class="header_avatar" src="<?=$link_avatar;?>" alt="купить дрон">
+                <img class="header_avatar" src="<?=$Login->get_link_avatar()?>" alt="купить дрон">
             </button>
         </div>
     </header>
@@ -57,9 +44,9 @@
         <div class="cabinet_profile">
             <div class="cabinet_title">Профиль</div>
             <div class="cabinet_frame_avatar">
-                <img class="cabinet_avatar" src="<?=$link_avatar;?>" alt="купить дрон">
+                <img class="cabinet_avatar" src="<?=$Login->get_link_avatar()?>">
             </div>
-            <div class="cabinet_name"> <?php echo $nickname; ?> </div>
+            <div class="cabinet_name"> <?=$Login->get_nickname(); ?> </div>
             <ul>
                 <li class="cabinet_select_item">
                     <a href="#cabinet_edit">
@@ -67,7 +54,7 @@
                     </a>
                 </li>
                 <li class="cabinet_select_item"><a href="#cabinet_add_product">Разместить товар</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_item_1">Избранное</a></li>
+                <li class="cabinet_select_item"><a href="#cabinet_favourites">Избранное</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_2">Мои заказы</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_3">Статус заказа</a></li>
                 <li class="cabinet_select_item"><a href="#cabinet_item_4">Мои отзывы</a></li>
@@ -139,21 +126,20 @@
                         <?php for($i = 0; $i < $Showcase->get_count(); ) { ?>
                             <ul class="showcase_blocks">
                                 <?php for($once = 0; $once < 3 && $Showcase->get_count() != $i; $once++) { ?>
-                                    <li data-product="prod_">
-                                        <lable class="showcase_blocks_title"><?=$Showcase->get_title_arr($i)?></lable>
-                                        <div class="showcase_blocks_description"><?=crop_text($Showcase->get_desc_arr($i))?></div>
-                                        <div class="showcase_blocks_place_image">
-                                            <div class="showcase_blocks_place_image_hidden">
-                                                <img class="showcase_blocks_image" src="<?=$Showcase->get_img_arr($i, 0)?>" alt="дрон">
+                                    <li class="showcase_lot">
+                                        <a href="lot.php?id=<?=$Showcase->get_id_arr($i)?>">
+                                            <div class="showcase_blocks_title"><?=$Showcase->get_title_arr($i)?></div>
+                                            <div class="showcase_blocks_description"><?=crop_text($Showcase->get_desc_arr($i))?></div>
+                                            <div class="showcase_blocks_place_image">
+                                                <div class="showcase_blocks_place_image_hidden">
+                                                    <img class="showcase_blocks_image" src="<?=$Showcase->get_img_arr($i, 0)?>">
+                                                </div>
                                             </div>
+                                        </a>
+                                        <div class="showcase_blocks_action">
+                                            <p class="showcase_blocks_action_item"><?=$Showcase->get_price_arr($i)?>рублей</p>
+                                            <button class="cabinet_product_delete" onclick="btn_delete_product('<?=$Showcase->get_title_arr($i)?>', <?=$Showcase->get_id_arr($i)?>)" type="button">Удалить</button>
                                         </div>
-                                        <ul class="showcase_blocks_action">
-                                            <li>5.5<img class="showcase_blocks_rating_star" src="img_sys/star.png" alt="запчасти для дрона"></li>
-                                            <li><?=$Showcase->get_price_arr($i)?> рублей</li>
-                                            <li><button onclick="btn_like(this)"><img class="showcase_blocks_like" src="img_sys/like.png" alt="like"></button></li>
-                                            <li style="color: brown;"><?=$Showcase->get_time_arr($i)?></li>
-                                            <li><button class="cabinet_product_delete" onclick="btn_delete_product('<?=$Showcase->get_title_arr($i)?>', <?=$Showcase->get_id_arr($i)?>)" type="button">Удалить</button></li>
-                                        </ul>
                                     </li>
                                 <?php $i++; } ?>
                             </ul>
@@ -162,9 +148,46 @@
                     </div>
                 </div>
             </form>
-            <div class="cabinet_item" id="cabinet_item_1">
+            <!-- faforite -->
+            <div class="cabinet_item" id="cabinet_favourites">
                 <div class="cabinet_title">Избранное</div><hr>
-                Cabinet_item_1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+                <div class="cabinet_favourites">
+                    <!-- count product -->
+                    <?php $count = $Favourite->get_count_favourite(); ?>
+                    <ul style="display: flex;">
+                        <li class="cabinet_subtitle">Ваших избранных</li> 
+                        <li class="cabinet_subtitle" style="margin: 0px 5px; color: rgb(0, 170, 65);"><?= $count; ?>шт</li>
+                    </ul>
+
+                    <?php if($count != null || $count != 0) { for($i = 0; $i < $count; ) { ?>
+                    <ul class="showcase_blocks">
+                        <?php for($once = 0; $once < 1; $once++) { ?>
+                            <li class="showcase_lot">
+                                <a href="lot.php?id=<?=$Favourite->get_id_arr($i)?>">
+                                    <div class="showcase_blocks_title"><?=$Favourite->get_title_arr($i)?></div>
+                                    <div class="showcase_blocks_description"><?=crop_text($Favourite->get_desc_arr($i))?></div>
+                                    <div class="showcase_blocks_place_image">
+                                        <div class="showcase_blocks_place_image_hidden">
+                                            <img class="showcase_blocks_image" src="<?=$Favourite->get_img_arr($i, 0)?>">
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="showcase_blocks_action">
+                                    <p class="showcase_blocks_action_item"><?=$Favourite->get_price_arr($i)?>рублей</p>
+                                    <button class="showcase_blocks_action_item" type="button" onclick="btn_like(<?=$Favourite->get_id_arr($i)?>)">
+                                        <svg class="showcase_blocks_like" viewBox="0 0 100 100">
+                                            <path id="prod_<?=$Favourite->get_id_arr($i)?>" class="showcase_like" d="m24 39.25-1.1-1.05q-5-4.55-8.275-7.85-3.275-3.3-5.175-5.8T6.8 20.075Q6.05 18.1 6.05 16.1q0-3.75 2.525-6.25t6.225-2.5q2.7 0 5.05 1.475Q22.2 10.3 24 13.1q1.95-2.85 4.225-4.3Q30.5 7.35 33.2 7.35q3.7 0 6.225 2.5 2.525 2.5 2.525 6.2 0 2-.75 4t-2.65 4.5q-1.9 2.5-5.175 5.8T25.1 38.2Z"/>
+                                        </svg>
+                                        <?php if($Favourite->check_favourite($Favourite->get_id_arr($i))) { ?>
+                                        <script type="text/javascript"> prod_<?=$Favourite->get_id_arr($i)?>.style.fill = "rgb(188, 64, 64)";</script>
+                                        <?php } ?>
+                                    </button>
+                                </div>
+                            </li>
+                        <?php $i++; } ?>
+                    </ul>
+                    <?php } } else { ?><p style="color: rgb(255, 255, 255); font-size: 25px;">Список пуст</p><?php } ?>
+                </div>
             </div>
             <div class="cabinet_item" id="cabinet_item_2">
                 <div class="cabinet_title">Мои заказы</div><hr>

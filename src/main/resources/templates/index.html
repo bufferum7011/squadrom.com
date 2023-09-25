@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head_main"/>
+<body>
+
+    <header th:insert="fragments/header :: header_main"></header>
+
+    <!-- showcase -->
+    <content class="wrapper">
+        <!-- catalog -->
+        <div class="showcase_catalog">
+            <div class="showcase_title">Каталог</div>
+            <div class="showcase_toolbar">
+                <!-- search -->
+                <input type="text" name="search" placeholder="Найти" autocomplete="off">
+                
+                <!-- btn_search -->
+                <input type="button" name="btn_loop" onclick="btn_search()">
+
+                <!-- btn_filter -->
+                <input type="button" name="btn_filter" onclick="btn_filter()">
+            </div>
+            <ul class="showcase_catalog_selection">
+                <li><input type="checkbox" name="ch1" id="ch1"><label for="ch1">FPV</label></li>
+                <li><input type="checkbox" name="ch2" id="ch2"><label for="ch2">GPS</label></li>
+                <li>
+                    <input type="checkbox" style="opacity: 0;">
+                    <a class="showcase_catalog_subtitle main-item" tabindex="1">Число батарей</a>
+                    <ul class="sub-menu">
+                        <li><a href="#1">
+                            <input type="checkbox" name="ch5" id="ch5"><label for="ch5">1</label>
+                        </a></li>
+                        <li><a href="#2">
+                            <input type="checkbox" name="ch5" id="ch5"><label for="ch5">2</label>
+                        </a></li>
+                        <li><a href="#3">
+                            <input type="checkbox" name="ch5" id="ch5"><label for="ch5">3</label>
+                        </a></li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <!-- container -->
+        <div class="showcase">
+            <div class="showcase_title">Свежие объявления</div>
+            <!-- <?php for($i = 0; $i < $Showcase->get_count(); ) { ?>
+                <ul class="showcase_blocks">
+                    <?php for($once = 0; $once < 4 && $Showcase->get_count() != $i; $once++) { ?>
+                        <li class="showcase_lot">
+                            <a href="lot.php?id=<?=$Showcase->get_id_arr($i)?>">
+                                <div class="showcase_blocks_title"><?=$Showcase->get_title_arr($i)?></div>
+                                <div class="showcase_blocks_description"><?=crop_text($Showcase->get_desc_arr($i))?></div>
+                                <div class="showcase_blocks_place_image">
+                                    <div class="showcase_blocks_place_image_hidden">
+                                        <img class="showcase_blocks_image" src="<?=$Showcase->get_img_arr($i, 0)?>" alt="дрон">
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="showcase_blocks_action">
+                                <div>
+                                    <p class="showcase_blocks_action_item"><?=$Showcase->get_price_arr($i)?>рублей</p>
+                                    <p class="showcase_blocks_action_item" style="font-size: 13px;"><?=$Showcase->get_time_arr($i)?></p>
+                                </div>
+                                <button class="showcase_blocks_action_item" type="button" onclick="btn_like(<?=$Showcase->get_id_arr($i)?>)">
+                                    <svg class="showcase_blocks_like" height="40px" width="40px" viewBox="-50 0 100 100">
+                                        <path id="prod_<?=$Showcase->get_id_arr($i)?>" class="showcase_like" d="m24 39.25-1.1-1.05q-5-4.55-8.275-7.85-3.275-3.3-5.175-5.8T6.8 20.075Q6.05 18.1 6.05 16.1q0-3.75 2.525-6.25t6.225-2.5q2.7 0 5.05 1.475Q22.2 10.3 24 13.1q1.95-2.85 4.225-4.3Q30.5 7.35 33.2 7.35q3.7 0 6.225 2.5 2.525 2.5 2.525 6.2 0 2-.75 4t-2.65 4.5q-1.9 2.5-5.175 5.8T25.1 38.2Z"/>
+                                    </svg>
+                                    <?php if($Favourite->check_favourite($Showcase->get_id_arr($i))) { ?>
+                                        <script type="text/javascript">
+                                            prod_<?=$Showcase->get_id_arr($i)?>.style.fill = "rgb(188, 64, 64)";
+                                        </script>
+                                    <?php } ?>
+                                </button>
+                            </div>
+                        </li>
+                    <?php $i++; } ?>
+                </ul>
+            <?php } ?> -->
+        </div>
+    </content>
+
+    <footer th:insert="fragments/footer :: footer_main"></footer>
+    <script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>

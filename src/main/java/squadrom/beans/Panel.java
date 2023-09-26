@@ -12,6 +12,8 @@ public class Panel {
     @Value("${mysql.password}") public String mysql_password;
     @Value("${server.project}") public String server_project;
     @Value("${server.ip}")      public String server_ip;
+    @Value("${cookie_name}")    public String cookie_name;
+    @Value("${cookie_salt}")    public String cookie_salt;
 
     public static AnnotationConfigApplicationContext context;
     public static Panel panel;

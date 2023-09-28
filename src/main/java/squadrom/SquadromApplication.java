@@ -14,10 +14,8 @@ public class SquadromApplication {
         // pulling out bean from the pool
         context =           new AnnotationConfigApplicationContext(squadrom.beans.Spring_config.class);
         panel =             context.getBean("panel", squadrom.beans.Panel.class);
-        print =             context.getBean("print", auxiliary.Print.class);
         sql =               context.getBean("sql", auxiliary.Exec_sql.class);
-        print.result("[Panel] - ON\n");
-
+        user =              context.getBean("user", squadrom.beans.User.class);
     }
 
 }

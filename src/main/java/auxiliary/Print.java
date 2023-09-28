@@ -1,11 +1,21 @@
 package auxiliary;
-import org.springframework.stereotype.Component;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
-@Component
 public class Print {
 
-    public boolean key_print = true;
+    @PostConstruct
+    private void _init() {
+        _init("PRINT");
+    }
+    @PreDestroy
+    private void _dest() {
+        _dest("PRINT");
+    }
 
+    public boolean key_print = true;
+    public void _init(String c) { result(GREEN + "[" + c + "] - INIT\n"); }
+    public void _dest(String c) { result(GREEN + "[" + c + "] - DEST\n"); }
     public void debag(String cmd) { if(key_print) { System.out.print(PURPLE + cmd + RESET); } }
     public void way(String cmd) {   if(key_print) { System.out.print(CYAN + cmd + RESET); } }
     public void error(String cmd) { if(key_print) { System.out.print(RED_BOLD + cmd + RESET); } }
@@ -83,4 +93,5 @@ public class Print {
     // private final String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m"; // PURPLE
     // private final String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";  // CYAN
     // private final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
+
 }

@@ -6,7 +6,6 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import auxiliary.Exec_sql;
-import auxiliary.Print;
 
 @Configuration
 @ComponentScan({"squadrom", "auxiliary"})
@@ -16,24 +15,21 @@ public class Spring_config {
     @Bean
     @Scope("singleton")
     public Panel panel() {
-        new Print().result("[Panel] - NEW\n");
         return new Panel();
     }
 
     @Bean
     @Scope("singleton")
-    @DependsOn("panel")
-    public Print print() {
-        new Print().result("[Print] - NEW\n");
-        return new Print();
+    @DependsOn({"panel"})
+    public Exec_sql sql() {
+        return new Exec_sql();
     }
 
     @Bean
-    @Scope("singleton")
-    @DependsOn({"panel", "print"})
-    public Exec_sql sql() {
-        new Print().result("[Exec_sql] - NEW\n");
-        return new Exec_sql();
+    @Scope("prototype")
+    @DependsOn({"sql"})
+    public User user() {
+        return new User();
     }
 
 }

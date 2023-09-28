@@ -1,16 +1,26 @@
 package auxiliary;
 import static squadrom.beans.Panel.*;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.springframework.stereotype.Component;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 /** Database management. @author https://github.com/bufferum7011 */
 @Component
 public class Exec_sql {
+
+    @PostConstruct
+    public void _init() {
+        print._init("SQL");
+    }
+    @PreDestroy
+    public void _dest() {
+        print._init("SQL");
+    }
 
     public Connection get_conn() {
         try { return DriverManager.getConnection(panel.mysql_server, panel.mysql_user, panel.mysql_password); }
@@ -33,4 +43,5 @@ public class Exec_sql {
         try { sql.get_statement().executeUpdate(sql_query); /* print.way("[Sql_update]"); */ }
         catch(SQLException e) { print.error("[Sql_update] - " + e); }
     }
+
 }

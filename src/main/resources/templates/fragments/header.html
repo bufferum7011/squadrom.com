@@ -14,14 +14,10 @@
             <button class="header_btn" onclick="window.location.href='/club'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='/about'">О нас</button>
             <button class="header_btn" onclick="window.location.href='/cabinet#faforite'">Избранное</button>
-            <!--
-                if($Login->pass) {
-                    ?><button class="header_btn" onclick="window.location.href='cabinet.php#cabinet_add_product'">
-                        <img class="header_avatar" src="<?=$Login->get_link_avatar()?>">
-                    </button><?php
-                }
-                else { ?><button class="header_btn" onclick="modal_login()">Войти</button><?php }
-            -->
+            <button th:if="${user.key_pass}" class="header_btn" onclick="window.location.href='cabinet#cabinet_add_product'">
+                <img class="header_avatar" src="${user.user_link_avatar}">
+            </button>
+            <button th:unless="${user.key_pass}" class="header_btn" onclick="modal_login()">Войти</button>
         </div>
     </header>
     <!-- modal_window -->
@@ -46,9 +42,9 @@
                 <p class="modal_title">Регистрация</p>
                 <button class="modal_close" type="button" onclick="modal_register_close()">&times;</button>
             </li>
+            <li><input class="modal_input" type="login" name="register_login" placeholder="Логин"/></li>
             <li><input class="modal_input" type="email" name="email_register" placeholder="Почта"/></li>
             <li><input class="modal_input" type="password" name="password_register" placeholder="Пароль"/></li>
-            <li><input class="modal_input" type="name" name="nickname_register" placeholder="Имя"/></li>
             <li><input class="modal_enter" type="submit" name="enter_register" value="Зарегестрироваться"></li>
             <li><hr></li>
             <li><button class="modal_transition" type="button" onclick="modal_login()">Войти</button></li>

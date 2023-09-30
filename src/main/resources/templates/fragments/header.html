@@ -20,36 +20,8 @@
             <button th:unless="${user.key_pass}" class="header_btn" onclick="modal_login()">Войти</button>
         </div>
     </header>
-    <!-- modal_window -->
-    <form class="modal_window" id="modal_window" action="/" method="post" data-modal>
-        <!-- login -->
-        <ul class="modal" id="modal_login">
-            <li>
-                <p class="modal_title">Вход</p>
-                <button class="modal_close" type="button" onclick="modal_login_close()">&times;</button>
-            </li>
-            <li><input class="modal_input" type="email" name="email_login" placeholder="Почта"/></li>
-            <li><input class="modal_input" type="password" name="password_login" placeholder="Пароль"/></li>
-            <li><button class="modal_enter" type="submit" name="enter_login">Войти</button></li>
-            <li><hr></li>
-            <li><button class="modal_transition" type="button" onclick="modal_register()">Регистрация</button></li>
-            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
-        </ul>
 
-        <!-- register -->
-        <ul class="modal" id="modal_register">
-            <li>
-                <p class="modal_title">Регистрация</p>
-                <button class="modal_close" type="button" onclick="modal_register_close()">&times;</button>
-            </li>
-            <li><input class="modal_input" type="login" name="register_login" placeholder="Логин"/></li>
-            <li><input class="modal_input" type="email" name="email_register" placeholder="Почта"/></li>
-            <li><input class="modal_input" type="password" name="password_register" placeholder="Пароль"/></li>
-            <li><input class="modal_enter" type="submit" name="enter_register" value="Зарегестрироваться"></li>
-            <li><hr></li>
-            <li><button class="modal_transition" type="button" onclick="modal_login()">Войти</button></li>
-            <li><a class="modal_transition" href="#">Забыли пароль?</a></li>
-        </ul>
-    </form>
+    <!-- fragment_model_window_register_login -->
+    <th:block th:insert="~{fragments/model_window/register_login :: form_register_login}"/>
 
 </th:block>

@@ -15,7 +15,6 @@ public class User {
     public String user_password;
     public String user_link_avatar;
     public String user_cookie_token;
-
     public boolean key_pass;
     public String title;
 
@@ -49,12 +48,12 @@ public class User {
     // Создие пользователя
     public void create_user(String user_mail, String user_login, String user_password, String user_cookie_token) {
 
-        sql.sql_update("INSERT INTO user (user_login, user_mail, user_password, user_cookie_token) VALUES(" +
-            user_login + ", " +
-            user_mail + ", " +
-            user_password + ", " +
+        sql.sql_update("INSERT INTO user (user_login, user_mail, user_password, user_cookie_token) VALUES('" +
+            user_login + "', '" +
+            user_mail + "', '" +
+            user_password + "', '" +
             user_cookie_token +
-        ");");
+        "');");
     }
 
 }

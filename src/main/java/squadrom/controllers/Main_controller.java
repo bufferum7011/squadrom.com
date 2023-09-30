@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -50,15 +52,15 @@ public class Main_controller {
         return "index";
     }
     @PostMapping("/")
-    public String index_post(
-            @Autowired HttpServletResponse response,
-            @RequestParam(required = true, defaultValue = "NONE") String register_login,
-            @RequestParam(required = true, defaultValue = "NONE") String register_mail,
-            @RequestParam(required = true, defaultValue = "NONE") String register_password) {
-        print.debag(register_password + " " + register_login + " " + register_mail);
+    public ModelAndView index_post(
+            HttpServletResponse response,
+            @RequestParam(required = true, defaultValue = "NONE_register_login") String register_login,
+            @RequestParam(required = true, defaultValue = "NONE_register_mail") String register_mail,
+            @RequestParam(required = true, defaultValue = "NONE_register_password") String register_password) {
+
         if(register_login == "NONE" || register_mail == "NONE" || register_password == "NONE") {
             new Main_controller("Не верные данные");
-            return "index";
+            return new ModelAndView("redirect:/");
         }
         else {
             // Авторизуем пользователя
@@ -66,7 +68,7 @@ public class Main_controller {
             response.addCookie(new Cookie(panel.cookie_name, user.user_cookie_token));
             user.create_user(register_login, register_mail, register_password, user.user_cookie_token);
             new Main_controller("Кабинет - Squadrom");
-            return "cabinet#cabinet_edit";
+            return new ModelAndView("redirect:/cabinet#cabinet_edit");
         }
     }
 

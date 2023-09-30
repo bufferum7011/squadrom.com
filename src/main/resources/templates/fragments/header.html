@@ -1,5 +1,5 @@
 <!-- fragment_header_main -->
-<div th:fragment="header_main">
+<th:block th:fragment="header_main">
 
     <!-- header -->
     <header>
@@ -13,7 +13,7 @@
         <div class="header_nav">
             <button class="header_btn" onclick="window.location.href='/club'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='/about'">О нас</button>
-            <button class="header_btn" onclick="window.location.href='/cabinet#faforite'">Избранное</button>
+            <button class="header_btn" onclick="window.location.href='/cabinet#cabinet_favourites'">Избранное</button>
             <button th:if="${user.key_pass}" class="header_btn" onclick="window.location.href='cabinet#cabinet_add_product'">
                 <img class="header_avatar" src="${user.user_link_avatar}">
             </button>
@@ -52,4 +52,4 @@
         </ul>
     </form>
 
-</div>
+</th:block>

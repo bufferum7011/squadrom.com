@@ -29,20 +29,11 @@
 
 		<!-- jakarta.servlet-api -->
 		<!-- API для сервлетов -->
-        <!-- <dependency>
+        <dependency>
           	<groupId>jakarta.servlet</groupId>
           	<artifactId>jakarta.servlet-api</artifactId>
             <version>6.0.0</version>
             <scope>provided</scope>
-        </dependency> -->
-
-		<!-- javax.servlet-api -->
-		<!-- API для сервлетов -->
-        <dependency>
-          	<groupId>javax.servlet</groupId>
-          	<artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <!-- <scope>provided</scope> -->
         </dependency>
 
         <!-- mysql-connector-java -->
@@ -79,21 +70,22 @@
             <scope>provided</scope>
         </dependency>
 
-		<!-- spring-boot-starter-data-jpa -->
-		<!-- Нужен для базы данных -->
-		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
 		<!-- spring-boot-starter-web -->
+		<!-- Нужен для создания контроллеров -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
+		<!-- spring-boot-starter-data-jpa -->
+		<!-- Нужен для базы данных -->
+		<!-- <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.version}</version>
+            <scope>provided</scope>
+        </dependency> -->
 
 		<!-- spring-boot-starter-devtools -->
 	    <!-- <dependency>

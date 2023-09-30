@@ -1,19 +1,9 @@
-<!-- <?php
-    if(isset($_COOKIE["token"])) {
-        require_once "handler.php";
-        $Showcase = new Showcase("me");
-        $My_crypt = new My_crypt();
-        $Login = new Login();
-        $Favourite = new Favourite();
-    }
-    else { header("Location: index.php"); exit; }
-?> -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/head :: head_main"/>
+<th:block th:insert="~{fragments/head :: head_main}"/>
 <body>
 
-    <header th:insert="fragments/header :: header_main"></header>
+    <th:block th:insert="~{fragments/header :: header_main}"/>
 
     <!-- cabinet -->
     <content class="cabinet">
@@ -174,7 +164,7 @@
         </div>
     </content>
 
-    <footer th:insert="fragments/footer :: footer_additional"></footer>
+    <th:block th:insert="~{fragments/footer :: footer_additional}"/>
     <script type="text/javascript" src="script.js"></script>
 
 </body>

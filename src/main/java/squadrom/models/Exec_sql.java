@@ -1,4 +1,4 @@
-package auxiliary;
+package squadrom.models;
 import static squadrom.beans.Panel.*;
 import java.sql.Connection;
 import java.sql.DriverManager;

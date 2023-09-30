@@ -6,10 +6,10 @@
     font: inherit;
     vertical-align: baseline;
 }
-@font-face {
+/* @font-face {
 	font-family: 'core_sans';
-	src: url(/.vscode/Core_Sans_CR_35_Light.ttf);
-}
+	src: url("/src/main/resources/static/Core_Sans_CR_35_Light.ttf");
+} */
 :root {
     --colorWhite: rgb(255, 255, 255);
     --colorGray: rgb(170, 170, 170);
@@ -25,7 +25,7 @@
     --main_max_width: 1488px;
 }
 body {
-    font-family: 'core_sans';
+    /* font-family: 'core_sans'; */
     background-color: var(--colorBlack3);
     z-index: 0;
 }
@@ -652,34 +652,6 @@ input[name="email"], input[name="password"] {
     background-repeat: no-repeat;
     background-size: 100%;
     background-image: var(--showcase_bg);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* test */
-.posts {
-    background-color: brown;
-
-}
-
-.post {
-    background-color: blue;
-}
-
-.block_add {
-    margin: 50px 200px;
-    background-color: khaki;
-    color: rgb(4, 96, 225);
 }
 
 

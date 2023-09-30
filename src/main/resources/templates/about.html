@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/head :: head_main"/>
+<th:block th:insert="~{fragments/head :: head_main}"/>
 <body>
 
-    <header th:insert="fragments/header :: header_main"></header>
+    <th:block th:insert="~{fragments/header :: header_main}"/>
 
     <!-- showcase -->
     <content class="about">
         <p>Это страница о нас как о сообществе Squadrom</p>
     </content>
 
-    <footer th:insert="fragments/footer :: footer_additional"></footer>
+    <th:block th:insert="~{fragments/footer :: footer_additional}"/>
     <script type="text/javascript" src="script.js"></script>
 
 </body>

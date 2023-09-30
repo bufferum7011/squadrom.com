@@ -10,11 +10,11 @@ public class SquadromApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(SquadromApplication.class, args);
-
+        print.debag("11111111111111111111");
         // pulling out bean from the pool
         context =           new AnnotationConfigApplicationContext(squadrom.beans.Spring_config.class);
         panel =             context.getBean("panel", squadrom.beans.Panel.class);
-        sql =               context.getBean("sql", auxiliary.Exec_sql.class);
+        sql =               context.getBean("sql", squadrom.models.Exec_sql.class);
         user =              context.getBean("user", squadrom.beans.User.class);
     }
 

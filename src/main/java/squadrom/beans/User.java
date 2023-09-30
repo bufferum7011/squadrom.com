@@ -1,9 +1,7 @@
 package squadrom.beans;
 import static squadrom.beans.Panel.*;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -49,11 +47,11 @@ public class User {
 
 
     // Создие пользователя
-    public static void create_user(String user_mail, String user_login, String user_password, String user_cookie_token) {
+    public void create_user(String user_mail, String user_login, String user_password, String user_cookie_token) {
 
-        sql.sql_update("INSERT INTO user (user_mail, user_login, user_password, user_cookie_token) VALUES(" +
-            user_mail + ", " +
+        sql.sql_update("INSERT INTO user (user_login, user_mail, user_password, user_cookie_token) VALUES(" +
             user_login + ", " +
+            user_mail + ", " +
             user_password + ", " +
             user_cookie_token +
         ");");

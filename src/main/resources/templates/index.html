@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/head :: head_main"/>
+<th:block th:insert="~{fragments/head :: head_main}"/>
 <body>
 
-    <header th:insert="fragments/header :: header_main"></header>
+    <th:block th:insert="~{fragments/header :: header_main}"/>
 
     <!-- showcase -->
     <content class="wrapper">
@@ -82,7 +82,7 @@
         </div>
     </content>
 
-    <footer th:insert="fragments/footer :: footer_main"></footer>
+    <th:block th:insert="~{fragments/footer :: footer_main}"/>
     <script type="text/javascript" src="script.js"></script>
 
 </body>

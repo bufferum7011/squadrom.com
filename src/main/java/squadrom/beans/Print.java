@@ -1,4 +1,4 @@
-package auxiliary;
+package squadrom.beans;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 

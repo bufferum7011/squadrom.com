@@ -16,50 +16,38 @@ public class Main_controller {
 
         request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         user.title = title;
-        user.authorized = false;
-        user.cookie_token = null;
-        print.debag("[3]");
-        // уточняю авторизацию (взможно там не мой токен)
-        Cookie[] cookies = request.getCookies();
-        for(int i = 0; cookies != null && cookies.length > i && cookies[i].getName().equals(panel.cookie_name); i++) {
-            print.debag("[4]");
-            user.cookie_token = cookies[i].getValue();
-            user.authorized = true;
-        }
+        // user.authorized = false;
+        // user.cookie_token = null;
+        // // уточняю авторизацию (взможно там не мой токен)
+        // Cookie[] cookies = request.getCookies();
+        // for(int i = 0; cookies != null && cookies.length > i && cookies[i].getName().equals(panel.cookie_name); i++) {
+        //     user.cookie_token = cookies[i].getValue();
+        //     user.authorized = true;
+        // }
 
-        if(cookies != null) {
-            for(int i = 0; cookies.length > i; i++) {
-                if(cookies[i].getName().equals(panel.cookie_name)) {
-                    print.debag("[4]");
-                    user.cookie_token = cookies[i].getValue();
-                    user.authorized = true;
-                }
-            }
-        }
+        // if(cookies != null) {
+        //     for(int i = 0; cookies.length > i; i++) {
+        //         if(cookies[i].getName().equals(panel.cookie_name)) {
+        //             user.cookie_token = cookies[i].getValue();
+        //             user.authorized = true;
+        //         }
+        //     }
+        // }
 
+        // if(need_check && !user.authorized) {
+        //     // try {
+        //     //     response.getWriter().println("<script>window.confirm('Вы ещё не зарегистрировались.');</script>");
+        //     // } catch (IOException e) {
+        //     //     e.printStackTrace();
+        //     // }
+        // }
 
-        print.debag("[5]");
-        if(need_check && !user.authorized) {
-            print.debag("[6]");
-            print.debag("ЗАПРЕЩАЮ");
-            // try {
-            //     response.getWriter().println("<script>window.confirm('Вы ещё не зарегистрировались.');</script>");
-            // } catch (IOException e) {
-            //     e.printStackTrace();
-            // }
-        }
+        // if(user.cookie_token != null) {
+        //     try { new User(user.cookie_token); }
+        //     catch(Exception e) { print.error("[MainContr_User] - ERROR"); }
+        // }
+        // else { }
 
-        if(user.cookie_token != null) {
-            print.debag("[ТОКЕН ЕСТЬ]");
-            try { new User(user.cookie_token); }
-            catch(Exception e) { print.error("[MainContr_User] - ERROR"); }
-        }
-        else {
-            print.debag("[НЕТ ТОКЕНА]");
-        }
-
-        print.debag("[7]");
-        
         request.setAttribute("user", user);
     }
 

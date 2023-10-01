@@ -16,8 +16,6 @@ public class Index {
 
     @GetMapping
     public String get() {
-        // user.title = "Squadrom";
-        print.debag("[GET_INDEX]");
         new Main_controller("🟢Squadrom", false);
         return "index";
     }
@@ -29,15 +27,12 @@ public class Index {
         @RequestParam(required = true, defaultValue = "NONE") String register_mail,
         @RequestParam(required = true, defaultValue = "NONE") String register_password) {
 
-        print.debag("Я тут");
         if(register_login == "NONE" || register_mail == "NONE" || register_password == "NONE") {
-            print.debag("[1]");
             new Main_controller("🔴Не верные данные", false);
             return "redirect:/";
         }
         else {
 
-            print.debag("[2]");
             // Авторизуем пользователя
             user.cookie_token = DigestUtils.md5Hex(register_login + panel.cookie_salt + register_mail + register_password);
             response.addCookie(new Cookie(panel.cookie_name, user.cookie_token));

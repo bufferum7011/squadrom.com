@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-
 import squadrom.models.Exec_sql;
 
 @Configuration
@@ -40,7 +39,7 @@ public class Spring_config implements WebMvcConfigurer {
     }
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-        "classpath:/static/", "classpath:/views/"
+        "classpath:/static/", "classpath:/templates/"
     };
 
     @Override
@@ -53,7 +52,7 @@ public class Spring_config implements WebMvcConfigurer {
     public ViewResolver viewResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode("HTML");
-        templateResolver.setPrefix("views/");
+        templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
 
         SpringTemplateEngine engine = new SpringTemplateEngine();

@@ -9,7 +9,7 @@ public class SquadromApplication {
 
     public static void main(String[] args) {
 
-        print.debag("11111111111111");
+        print.debag("11111111111111111");
         SpringApplication.run(SquadromApplication.class, args);
         // pulling out bean from the pool
         context =           new AnnotationConfigApplicationContext(squadrom.beans.Spring_config.class);

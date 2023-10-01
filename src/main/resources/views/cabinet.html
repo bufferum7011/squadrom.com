@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:insert="~{fragments/head :: head_main}"/>
+<body>
+
+    <th:block th:insert="~{fragments/header :: header_main}"/>
+
+    <!-- cabinet -->
+    <content class="cabinet">
+        <!-- profile -->
+        <div class="cabinet_profile">
+            <div class="cabinet_title">Профиль</div>
+            <div class="cabinet_frame_avatar">
+                <img class="cabinet_avatar" src="<?=$Login->get_link_avatar()?>">
+            </div>
+            <div class="cabinet_name"> <?=$Login->get_nickname(); ?> </div>
+            <ul>
+                <li class="cabinet_select_item">
+                    <a href="#cabinet_edit">
+                        <img class="cabinet_select_item_img" src="img_sys/pen.png" alt="купить дрон">Редактировать
+                    </a>
+                </li>
+                <li class="cabinet_select_item"><a href="#add_product">Разместить товар</a></li>
+                <li class="cabinet_select_item"><a href="#faforite">Избранное</a></li>
+                <li class="cabinet_select_item"><a href="#item_2">Мои заказы</a></li>
+                <li class="cabinet_select_item"><a href="#item_3">Статус заказа</a></li>
+                <li class="cabinet_select_item"><a href="#item_4">Мои отзывы</a></li>
+                <li class="cabinet_select_item"><a href="#item_5">Доставка</a></li>
+                <li class="cabinet_select_item"><a href="#item_6">Настройки</a></li>
+                <li class="cabinet_select_item"><a href="#item_7">Помощь</a></li>
+                <li class="cabinet_select_item"><a href="#exit" style="color: rgb(188, 82, 82);">Выход</a></li>
+            </ul>
+        </div>
+
+        <!-- content -->
+        <div class="cabinet_content">
+            <!-- edit -->
+            <form class="cabinet_item" id="edit" action="handler.php" method="post" enctype="multipart/form-data">
+                <div class="cabinet_title">Редактирование профиля</div><hr>
+                <!-- edit_email-->
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить почту</p></li>
+                    <li><input class="cabinet_edit_input" name="set_email" type="email"/></li>
+                </ul>
+                <!-- edit_nickname-->
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить имя</p></li>
+                    <li><input class="cabinet_edit_input" name="set_nickname" type="text" autocomplete="off"/></li>
+                </ul>
+                <!-- edit_avatar-->
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить фотографию</p></li>
+                    <li><input class="cabinet_edit_input" name="set_avatar" type="file"/></li>
+                </ul>
+                <input class="cabinet_edit_save" name="edit_profile" type="submit" value="Сохранить">
+            </form>
+            <!-- add_product -->
+            <form class="cabinet_item" id="add_product" action="handler.php" method="post" enctype="multipart/form-data">
+                <div class="cabinet_title">Разместить товар</div><hr>
+                <div style="display: flex;">
+                    <!-- add_product-->
+                    <div class="cabinet_add_product">
+                        <!-- title -->
+                        <ul class="cabinet_edit">
+                            <li><p class="cabinet_subtitle">Название</p></li>
+                            <li><input class="cabinet_edit_input" type="text" name="product_title" autocomplete="off"></li>
+                        </ul>
+                        <!-- description -->
+                        <ul class="cabinet_edit cabinet_edit_textarea">
+                            <li><p class="cabinet_subtitle">Описание</p></li>
+                            <li><textarea class="cabinet_edit_textarea" name="product_desc" autocomplete="off"></textarea></li>
+                        </ul>
+                        <!-- price -->
+                        <ul class="cabinet_edit">
+                            <li><p class="cabinet_subtitle">Цена</p></li>
+                            <li><input class="cabinet_edit_input" type="text" name="product_price" autocomplete="off"> руб.</li>
+                        </ul>
+                        <!-- img -->
+                        <ul class="cabinet_edit">
+                            <li><p class="cabinet_subtitle">Добавить фотографии</p></li>
+                            <li><input class="cabinet_edit_input" name="product_img[]" type="file" multiple autocomplete="off"/></li>
+                        </ul>
+                        <input class="cabinet_edit_save" name="product_post" type="submit" value="Разместить">
+                    </div>
+                    <!-- user_product -->
+                    <div class="hr_vert cabinet_product_scroll">
+
+                        <!-- count product -->
+                        <ul style="display: flex;">
+                            <li class="cabinet_subtitle">Ваших товаров</li> 
+                            <li class="cabinet_subtitle" style="margin: 0px 5px; color: rgb(0, 170, 65);">
+                                <!-- <?=$Showcase->get_count()?>шт -->
+                                XXX
+                            </li>
+                        </ul>
+                        <!-- <?php for($i = 0; $i < $Showcase->get_count(); ) { ?>
+                            <ul class="showcase_blocks">
+                                <?php for($once = 0; $once < 3 && $Showcase->get_count() != $i; $once++) { ?>
+                                    <li class="showcase_lot">
+                                        <a href="lot.php?id=<?=$Showcase->get_id_arr($i)?>">
+                                            <div class="showcase_blocks_title"><?=$Showcase->get_title_arr($i)?></div>
+                                            <div class="showcase_blocks_description"><?=crop_text($Showcase->get_desc_arr($i))?></div>
+                                            <div class="showcase_blocks_place_image">
+                                                <div class="showcase_blocks_place_image_hidden">
+                                                    <img class="showcase_blocks_image" src="<?=$Showcase->get_img_arr($i, 0)?>">
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="showcase_blocks_action">
+                                            <p class="showcase_blocks_action_item"><?=$Showcase->get_price_arr($i)?>рублей</p>
+                                            <button class="cabinet_product_delete" onclick="btn_delete_product('<?=$Showcase->get_title_arr($i)?>', <?=$Showcase->get_id_arr($i)?>)" type="button">Удалить</button>
+                                        </div>
+                                    </li>
+                                <?php $i++; } ?>
+                            </ul>
+                        <?php } ?> -->
+
+                    </div>
+                </div>
+            </form>
+            <!-- faforite -->
+            <div class="cabinet_item" id="favourite">
+                <div class="cabinet_title">Избранное</div><hr>
+                <div class="cabinet_favourites">
+                    XXX
+                </div>
+            </div>
+            <div class="cabinet_item" id="cabinet_item_2">
+                <div class="cabinet_title">Мои заказы</div><hr>
+                Cabinet_item_2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+            </div>
+            <div class="cabinet_item" id="cabinet_item_3">
+                <div class="cabinet_title">Статус заказа</div><hr>
+                Cabinet_item_3. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+            </div>
+            <div class="cabinet_item" id="cabinet_item_4">
+                <div class="cabinet_title">Мои отзывы</div><hr>
+                Cabinet_item_4. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+            </div>
+            <div class="cabinet_item" id="cabinet_item_5">
+                <div class="cabinet_title">Доставка</div><hr>
+                Cabinet_item_5. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+            </div>
+            <div class="cabinet_item" id="cabinet_item_6">
+                <div class="cabinet_title">Настройки</div><hr>
+                Cabinet_item_6. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+            </div>
+            <div class="cabinet_item" id="cabinet_item_7">
+                <div class="cabinet_title">Помощь</div><hr>
+                Cabinet_item_7. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
+            </div>
+            <!-- cabinet_exit -->
+            <form class="cabinet_item" id="exit" action="handler.php" method="post" enctype="multipart/form-data">
+                <div class="cabinet_title">Выход</div><hr>
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Выйти из аккаунта</p></li>
+                    <li><input class="cabinet_logout" type="submit" name="profile_logout" value="Logout"></li>
+                </ul>
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Удалить аккаунт</p></li>
+                    <li><input class="cabinet_logout" type="submit" name="profile_delete_account" value="Delete"></li>
+                </ul>
+            </form>
+        </div>
+    </content>
+
+    <th:block th:insert="~{fragments/footer :: footer_additional}"/>
+
+</body>
+</html>

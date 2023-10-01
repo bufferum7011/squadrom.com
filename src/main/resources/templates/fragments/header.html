@@ -8,16 +8,17 @@
             <div class="header_barrier"><img class="header_logo" src="/img_sys/1000new.png"/></div>
             <p class="header_title">Squadrom</p>
         </a>
-        
+
         <!-- nav -->
         <div class="header_nav">
             <button class="header_btn" onclick="window.location.href='/club'">Клуб</button>
             <button class="header_btn" onclick="window.location.href='/about'">О нас</button>
-            <button class="header_btn" onclick="window.location.href='/cabinet#cabinet_favourites'">Избранное</button>
-            <button th:if="${user.key_pass}" class="header_btn" onclick="window.location.href='cabinet#cabinet_add_product'">
-                <img class="header_avatar" src="${user.user_link_avatar}">
+            <button class="header_btn" onclick="window.location.href='/cabinet#favourite'">Избранное</button>
+
+            <button th:if="${user.authorized}" class="header_btn" onclick="window.location.href='cabinet#add_product'">
+                <img class="header_avatar" src="${user.link_avatar}">
             </button>
-            <button th:unless="${user.key_pass}" class="header_btn" onclick="modal_login()">Войти</button>
+            <button th:unless="${user.authorized}" class="header_btn" onclick="modal_login()">Войти</button>
         </div>
     </header>
 

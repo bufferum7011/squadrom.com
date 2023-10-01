@@ -20,22 +20,22 @@
                         <img class="cabinet_select_item_img" src="img_sys/pen.png" alt="купить дрон">Редактировать
                     </a>
                 </li>
-                <li class="cabinet_select_item"><a href="#cabinet_add_product">Разместить товар</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_favourites">Избранное</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_item_2">Мои заказы</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_item_3">Статус заказа</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_item_4">Мои отзывы</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_item_5">Доставка</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_item_6">Настройки</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_item_7">Помощь</a></li>
-                <li class="cabinet_select_item"><a href="#cabinet_exit" style="color: rgb(188, 82, 82);">Выход</a></li>
+                <li class="cabinet_select_item"><a href="#add_product">Разместить товар</a></li>
+                <li class="cabinet_select_item"><a href="#faforite">Избранное</a></li>
+                <li class="cabinet_select_item"><a href="#item_2">Мои заказы</a></li>
+                <li class="cabinet_select_item"><a href="#item_3">Статус заказа</a></li>
+                <li class="cabinet_select_item"><a href="#item_4">Мои отзывы</a></li>
+                <li class="cabinet_select_item"><a href="#item_5">Доставка</a></li>
+                <li class="cabinet_select_item"><a href="#item_6">Настройки</a></li>
+                <li class="cabinet_select_item"><a href="#item_7">Помощь</a></li>
+                <li class="cabinet_select_item"><a href="#exit" style="color: rgb(188, 82, 82);">Выход</a></li>
             </ul>
         </div>
 
         <!-- content -->
         <div class="cabinet_content">
-            <!-- cabinet_edit -->
-            <form class="cabinet_item" id="cabinet_edit" action="handler.php" method="post" enctype="multipart/form-data">
+            <!-- edit -->
+            <form class="cabinet_item" id="edit" action="handler.php" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Редактирование профиля</div><hr>
                 <!-- edit_email-->
                 <ul class="cabinet_edit">
@@ -55,7 +55,7 @@
                 <input class="cabinet_edit_save" name="edit_profile" type="submit" value="Сохранить">
             </form>
             <!-- add_product -->
-            <form class="cabinet_item" id="cabinet_add_product" action="handler.php" method="post" enctype="multipart/form-data">
+            <form class="cabinet_item" id="add_product" action="handler.php" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Разместить товар</div><hr>
                 <div style="display: flex;">
                     <!-- add_product-->
@@ -119,7 +119,7 @@
                 </div>
             </form>
             <!-- faforite -->
-            <div class="cabinet_item" id="cabinet_favourites">
+            <div class="cabinet_item" id="favourite">
                 <div class="cabinet_title">Избранное</div><hr>
                 <div class="cabinet_favourites">
                     XXX
@@ -150,7 +150,7 @@
                 Cabinet_item_7. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <!-- cabinet_exit -->
-            <form class="cabinet_item" id="cabinet_exit" action="handler.php" method="post" enctype="multipart/form-data">
+            <form class="cabinet_item" id="exit" action="handler.php" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Выход</div><hr>
                 <ul class="cabinet_edit">
                     <li><p class="cabinet_subtitle">Выйти из аккаунта</p></li>
@@ -162,6 +162,11 @@
                 </ul>
             </form>
         </div>
+
+        <!-- request registry -->
+        <!-- <th:unless="user.authorized">
+            <script>call_up_condition_register();</script>
+        </th:unless> -->
     </content>
 
     <th:block th:insert="~{fragments/footer :: footer_additional}"/>

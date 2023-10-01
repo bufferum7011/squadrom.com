@@ -10,16 +10,17 @@ import jakarta.annotation.PreDestroy;
 public class User {
 
     public int user_id;
-    public String user_mail;
-    public String user_login;
-    public String user_password;
-    public String user_link_avatar;
-    public String user_cookie_token;
-    public boolean key_pass;
+    public String mail;
+    public String login;
+    public String password;
+    public String link_avatar;
+    public String cookie_token;
+    public boolean authorized;
+    public boolean need_check;
     public String title;
 
 
-    @PostConstruct 
+    @PostConstruct
     public void _init() {
         print._init("USER");
     }
@@ -30,23 +31,23 @@ public class User {
 
 
     public User() { }
-    public User(String user_cookie_token) throws SQLException {
+    public User(String cookie_token) throws SQLException {
 
-        user.user_cookie_token = user_cookie_token;
-        user.user_link_avatar = "/img_sys/default_avatar.webp";
+        user.cookie_token = cookie_token;
+        user.link_avatar = "/img_sys/default_avatar.webp";
 
-        ResultSet result = sql.sql_callback("SELECT * FROM user WHERE user_cookie_token = " + user_cookie_token + ";");
+        ResultSet result = sql.sql_callback("SELECT * FROM user WHERE user_cookie_token = " + cookie_token + ";");
         result.next();
         user.user_id = result.getInt("user_id");
-        user.user_mail = result.getString("user_mail");
-        user.user_login = result.getString("user_login");
-        user.user_password = result.getString("user_password");
-        user.user_link_avatar = result.getString("user_link_avatar");
+        user.mail = result.getString("user_mail");
+        user.login = result.getString("user_login");
+        user.password = result.getString("user_password");
+        user.link_avatar = result.getString("user_link_avatar");
     }
 
 
     // Создие пользователя
-    public void create_user(String user_mail, String user_login, String user_password, String user_cookie_token) {
+    public void user_create(String user_mail, String user_login, String user_password, String user_cookie_token) {
 
         sql.sql_update("INSERT INTO user (user_login, user_mail, user_password, user_cookie_token) VALUES('" +
             user_login + "', '" +

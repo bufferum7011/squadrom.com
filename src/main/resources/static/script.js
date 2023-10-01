@@ -8,6 +8,11 @@ function btn_delete_product(title, id) {
 function btn_like(id) {
     window.location.href = "http://squadrom.com/handler.php?id=" + id + "&code=like";
 }
+function call_up_condition_register() {
+    if(confirm("Вы ещё не зарегистрировались")) {
+        window.location.href = "http://localhost:390/club";
+    }
+}
 
 // modal_windows
 window.onclick = function(event) {

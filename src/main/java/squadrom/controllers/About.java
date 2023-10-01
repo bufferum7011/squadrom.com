@@ -9,7 +9,7 @@ public class About {
 
     @GetMapping
     public String get() {
-        new Main_controller("🟢О нас - Squadrom");
+        new Main_controller("🟢О нас - Squadrom", false);
         return "about";
     }
 

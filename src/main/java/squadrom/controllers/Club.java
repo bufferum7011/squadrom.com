@@ -9,7 +9,7 @@ public class Club {
 
     @GetMapping
     public String get() {
-        new Main_controller("🟢Клуб - Squadrom");
+        new Main_controller("🟢Клуб - Squadrom", false);
         return "club";
     }
 

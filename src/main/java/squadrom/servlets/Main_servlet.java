@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-// @WebServlet
-public class Main_servlet { // extends HttpServlet
+@WebServlet("/hello")
+public class Main_servlet extends HttpServlet {
 
     @PostConstruct
     public void _init() {
@@ -21,21 +21,23 @@ public class Main_servlet { // extends HttpServlet
         print._dest("My_servlet");
     }
 
-    // @Override
-    // protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    //     if(request.getRequestURI().equals("/servlets/Main_servlet")) {
-    //         response.setContentType("text/html");
-    //         response.getWriter().print("index");
-    //     }
-    //     else {
-    //         print.error("ОШИБКА ИЗ СЕРВЛЕТА");
-    //         throw new IllegalStateException("ОШИБКА ИЗ СЕРВЛЕТА");
-    //     }
-    // }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        print.debag("Я В doGet");
+        if(request.getRequestURI().equals("/hello")) {
+            response.setContentType("text/html");
+            response.getWriter().print("index");
+        }
+        else {
+            print.error("ОШИБКА ИЗ СЕРВЛЕТА");
+            throw new IllegalStateException("ОШИБКА ИЗ СЕРВЛЕТА");
+        }
+    }
 
-    // @Override
-    // protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    //     super.doPost(req, resp);
-    // }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        print.debag("Я В doPost");
+        super.doPost(req, resp);
+    }
     
 }

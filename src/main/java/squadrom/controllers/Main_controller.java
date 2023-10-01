@@ -12,22 +12,35 @@ import squadrom.beans.User;
 public class Main_controller {
 
     public Main_controller() { }
-    public Main_controller(String title) {
+    public Main_controller(String title, boolean need_check) {
 
         request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         user.title = title;
         user.authorized = false;
-
+        user.cookie_token = null;
+        print.debag("[3]");
         // уточняю авторизацию (взможно там не мой токен)
         Cookie[] cookies = request.getCookies();
-        for(int i = 0; cookies != null && cookies[i].getName().equals(panel.cookie_name); i++) {
-
+        for(int i = 0; cookies != null && cookies.length > i && cookies[i].getName().equals(panel.cookie_name); i++) {
+            print.debag("[4]");
             user.cookie_token = cookies[i].getValue();
             user.authorized = true;
         }
 
-        if(user.need_check && !user.authorized) {
+        if(cookies != null) {
+            for(int i = 0; cookies.length > i; i++) {
+                if(cookies[i].getName().equals(panel.cookie_name)) {
+                    print.debag("[4]");
+                    user.cookie_token = cookies[i].getValue();
+                    user.authorized = true;
+                }
+            }
+        }
 
+
+        print.debag("[5]");
+        if(need_check && !user.authorized) {
+            print.debag("[6]");
             print.debag("ЗАПРЕЩАЮ");
             // try {
             //     response.getWriter().println("<script>window.confirm('Вы ещё не зарегистрировались.');</script>");
@@ -36,25 +49,35 @@ public class Main_controller {
             // }
         }
 
-        new User();
+        if(user.cookie_token != null) {
+            print.debag("[ТОКЕН ЕСТЬ]");
+            try { new User(user.cookie_token); }
+            catch(Exception e) { print.error("[MainContr_User] - ERROR"); }
+        }
+        else {
+            print.debag("[НЕТ ТОКЕНА]");
+        }
+
+        print.debag("[7]");
+        
         request.setAttribute("user", user);
     }
 
     @GetMapping("/{unknown_1}")
     public String unknown_1(@PathVariable(value = "unknown_1") String unknown_1) {
-        new Main_controller("🔴Такой страницы нет");
+        new Main_controller("🔴Такой страницы нет", false);
         return "index";
     }
 
     @GetMapping("/{unknown_1}/{unknown_2}")
     public String unknown_2(@PathVariable(value = "unknown_1") String unknown_1) {
-        new Main_controller("🔴Такой страницы нет");
+        new Main_controller("🔴Такой страницы нет", false);
         return "index";
     }
 
     @GetMapping("/{unknown_1}/{unknown_2}/{unknown_3}")
     public String unknown_3(@PathVariable(value = "unknown_1") String unknown_1) {
-        new Main_controller("🔴Такой страницы нет");
+        new Main_controller("🔴Такой страницы нет", false);
         return "index";
     }
 

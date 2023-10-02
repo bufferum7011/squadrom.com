@@ -1,72 +1,59 @@
 package squadrom.controllers;
 import static squadrom.beans.Panel.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import java.io.IOException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import jakarta.servlet.http.Cookie;
-import squadrom.beans.User;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import squadrom.models.User;
 
-@Controller
 public class Main_controller {
 
-    public Main_controller() { }
-    public Main_controller(String title, boolean need_check) {
-
-        request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        user.title = title;
-        // user.authorized = false;
-        // user.cookie_token = null;
-        // // уточняю авторизацию (взможно там не мой токен)
-        // Cookie[] cookies = request.getCookies();
-        // for(int i = 0; cookies != null && cookies.length > i && cookies[i].getName().equals(panel.cookie_name); i++) {
-        //     user.cookie_token = cookies[i].getValue();
-        //     user.authorized = true;
-        // }
-
-        // if(cookies != null) {
-        //     for(int i = 0; cookies.length > i; i++) {
-        //         if(cookies[i].getName().equals(panel.cookie_name)) {
-        //             user.cookie_token = cookies[i].getValue();
-        //             user.authorized = true;
-        //         }
-        //     }
-        // }
-
-        // if(need_check && !user.authorized) {
-        //     // try {
-        //     //     response.getWriter().println("<script>window.confirm('Вы ещё не зарегистрировались.');</script>");
-        //     // } catch (IOException e) {
-        //     //     e.printStackTrace();
-        //     // }
-        // }
-
-        // if(user.cookie_token != null) {
-        //     try { new User(user.cookie_token); }
-        //     catch(Exception e) { print.error("[MainContr_User] - ERROR"); }
-        // }
-        // else { }
-
-        request.setAttribute("user", user);
+    // Request
+    private HttpServletRequest request;
+    private HttpServletRequest get_request() { return request; }
+    private void set_request() {
+        this.request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 
-    @GetMapping("/{unknown_1}")
-    public String unknown_1(@PathVariable(value = "unknown_1") String unknown_1) {
-        new Main_controller("🔴Такой страницы нет", false);
-        return "index";
-    }
+    // Responce
+    private HttpServletResponse response;
+    public HttpServletResponse get_response() { return response; }
+    public void set_response(HttpServletResponse response) { this.response = response; }
 
-    @GetMapping("/{unknown_1}/{unknown_2}")
-    public String unknown_2(@PathVariable(value = "unknown_1") String unknown_1) {
-        new Main_controller("🔴Такой страницы нет", false);
-        return "index";
-    }
+    public User user;
+    public Main_controller() {}
+    public void set_user(User user) { this.user = user; }
+    public void set_data() {
 
-    @GetMapping("/{unknown_1}/{unknown_2}/{unknown_3}")
-    public String unknown_3(@PathVariable(value = "unknown_1") String unknown_1) {
-        new Main_controller("🔴Такой страницы нет", false);
-        return "index";
+        set_request();
+        user.set_authorized(false);
+        user.set_link_avatar("/img_sys/default_avatar.webp");
+
+        // Сверка cookie и сбор данных из bd
+        Cookie[] cookies = get_request().getCookies();
+        if(cookies != null) {
+            for(int i = 0; cookies.length > i; i++) {
+                if(cookies[i].getName().equals(panel.cookie_name)) {
+                    user.set_cookie_token(cookies[i].getValue());
+                    user.set_authorized(true);
+                    user = user.data_base(user);
+                }
+            }
+        }
+        else {
+
+            // Запрет на cabinet
+            if(user.get_need_check()) {
+
+                try { get_response().getWriter().println("<script>call_up_condition_register();</script>"); }
+                catch(IOException e) { e.printStackTrace(); }
+            }
+        }
+
+        // Формироваиние ответа
+        get_request().setAttribute("user", user);
     }
 
 }

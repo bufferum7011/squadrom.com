@@ -6,10 +6,10 @@
     font: inherit;
     vertical-align: baseline;
 }
-/* @font-face {
+@font-face {
 	font-family: 'core_sans';
-	src: url("/src/main/resources/static/Core_Sans_CR_35_Light.ttf");
-} */
+	src: url("/fonts/Core_Sans_CR_35_Light.ttf");
+}
 :root {
     --colorWhite: rgb(255, 255, 255);
     --colorGray: rgb(170, 170, 170);
@@ -25,7 +25,7 @@
     --main_max_width: 1488px;
 }
 body {
-    /* font-family: 'core_sans'; */
+    font-family: 'core_sans';
     background-color: var(--colorBlack3);
     z-index: 0;
 }
@@ -179,7 +179,7 @@ footer {
 
 /* showcase */
 :root {
-    --showcase_bg: url(img_sys/item_gr.jpg);
+    --showcase_bg: url(/img_sys/item_gr.jpg);
     --bg_showcase_catalog: var(--colorBlack3);
     --bg_showcase_container: var(--colorBlack3);
     --showcase_border-radius: 8px;

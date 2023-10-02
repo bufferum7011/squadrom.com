@@ -15,14 +15,13 @@
             <button class="header_btn" onclick="window.location.href='/about'">О нас</button>
             <button class="header_btn" onclick="window.location.href='/cabinet#favourite'">Избранное</button>
 
-            <button th:if="${user.authorized}" class="header_btn" onclick="window.location.href='cabinet#edit'">
-                <img class="header_avatar" src="${user.link_avatar}">
+            <button th:if="${user.get_authorized()}" class="header_btn" onclick="window.location.href='cabinet#edit'">
+                <img class="header_avatar" src="${user.get_link_avatar()}">
             </button>
-            <button th:unless="${user.authorized}" class="header_btn" onclick="modal_login()">Войти</button>
+            <button th:unless="${user.get_authorized()}" class="header_btn" onclick="modal_login()">Войти</button>
         </div>
     </header>
 
-    <!-- fragment_model_window_register_login -->
     <th:block th:insert="~{fragments/model_window/register_login :: form_register_login}"/>
 
 </th:block>

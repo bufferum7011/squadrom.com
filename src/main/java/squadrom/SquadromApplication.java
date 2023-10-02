@@ -14,7 +14,6 @@ public class SquadromApplication {
         context =           new AnnotationConfigApplicationContext(squadrom.beans.Spring_config.class);
         panel =             context.getBean("panel", squadrom.beans.Panel.class);
         sql =               context.getBean("sql", squadrom.models.Exec_sql.class);
-        user =              context.getBean("user", squadrom.beans.User.class);
     }
 
 }

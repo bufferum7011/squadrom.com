@@ -1,1 +1,1 @@
--- Active: 1693916727275@@151.248.117.244@3306@squadrom
+CALL proc_reset_tables;

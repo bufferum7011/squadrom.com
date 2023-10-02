@@ -4,7 +4,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class Panel {
@@ -22,8 +21,6 @@ public class Panel {
     public static Panel panel;
     public static Print print = new Print();
     public static squadrom.models.Exec_sql sql;
-    public static User user;
-    public static HttpServletRequest request;
 
     @PostConstruct 
     public void _init() {

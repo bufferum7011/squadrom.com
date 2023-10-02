@@ -31,13 +31,6 @@ public class Spring_config implements WebMvcConfigurer {
         return new Exec_sql();
     }
 
-    @Bean
-    @Scope("prototype")
-    @DependsOn({"sql"})
-    public User user() {
-        return new User();
-    }
-
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
         "classpath:/static/", "classpath:/templates/"
     };
@@ -52,7 +45,7 @@ public class Spring_config implements WebMvcConfigurer {
     public ViewResolver viewResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode("HTML");
-        templateResolver.setPrefix("templates/");
+        templateResolver.setPrefix("classpath:/templates/");
         templateResolver.setSuffix(".html");
 
         SpringTemplateEngine engine = new SpringTemplateEngine();

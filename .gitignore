@@ -38,3 +38,4 @@ build/
 ### Project ###
 /src/main/resources/application.properties
 /src/main/resources/templates/draft/
+/src/users/

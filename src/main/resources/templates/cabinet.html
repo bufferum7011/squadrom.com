@@ -11,13 +11,13 @@
         <div class="cabinet_profile">
             <div class="cabinet_title">Профиль</div>
             <div class="cabinet_frame_avatar">
-                <img class="cabinet_avatar" src="<?=$Login->get_link_avatar()?>">
+                <img class="cabinet_avatar" th:src="${user.get_link_avatar()}">
             </div>
-            <div class="cabinet_name"> <?=$Login->get_nickname(); ?> </div>
+            <p th:text="${user.get_login}" class="cabinet_name">Noname</p>
             <ul>
                 <li class="cabinet_select_item">
-                    <a href="#cabinet_edit">
-                        <img class="cabinet_select_item_img" src="img_sys/pen.png" alt="купить дрон">Редактировать
+                    <a href="#edit">
+                        <img class="cabinet_select_item_img" src="/img_sys/pen.png" alt="купить дрон">Редактировать
                     </a>
                 </li>
                 <li class="cabinet_select_item"><a href="#add_product">Разместить товар</a></li>

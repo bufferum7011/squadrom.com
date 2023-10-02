@@ -2,6 +2,8 @@ package squadrom.beans;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+
+import auxiliary.Print;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
@@ -20,7 +22,7 @@ public class Panel {
     public static AnnotationConfigApplicationContext context;
     public static Panel panel;
     public static Print print = new Print();
-    public static squadrom.models.Exec_sql sql;
+    public static auxiliary.Exec_sql sql;
 
     @PostConstruct 
     public void _init() {

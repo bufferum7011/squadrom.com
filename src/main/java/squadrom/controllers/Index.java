@@ -4,7 +4,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +15,7 @@ import squadrom.models.User;
 @RequestMapping("/")
 public class Index {
 
-    @GetMapping
+    @GetMapping("")
     public String get() {
         Main_controller main_controller = new Main_controller();
         main_controller.set_user(new User("🟢Squadrom", false));
@@ -24,7 +23,7 @@ public class Index {
         return "index";
     }
 
-    @PostMapping
+    @PostMapping("")
     public String post(
         @Autowired HttpServletResponse response,
         @RequestParam(required = true, defaultValue = "NONE") String register_login,
@@ -33,7 +32,7 @@ public class Index {
 
         Main_controller main_controller = new Main_controller();
         main_controller.set_response(response);
-        
+
         if(register_login == "NONE" || register_mail == "NONE" || register_password == "NONE") {
             main_controller.set_user(new User("🔴Не верные данные", false));
             main_controller.set_data();
@@ -52,28 +51,28 @@ public class Index {
         }
     }
 
-    @GetMapping("/{unknown_1}")
-    public String unknown_1(@PathVariable(value = "unknown_1") String unknown_1) {
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🔴Такой страницы нет", false));
-        main_controller.set_data();
-        return "index";
-    }
+    // @GetMapping("/{unknown_1}")
+    // public String unknown_1(@PathVariable(value = "unknown_1") String unknown_1) {
+    //     Main_controller main_controller = new Main_controller();
+    //     main_controller.set_user(new User("🔴Такой страницы нет", false));
+    //     main_controller.set_data();
+    //     return "index";
+    // }
 
-    @GetMapping("/{unknown_1}/{unknown_2}")
-    public String unknown_2(@PathVariable(value = "unknown_1") String unknown_1) {
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🔴Такой страницы нет", false));
-        main_controller.set_data();
-        return "index";
-    }
+    // @GetMapping("/{unknown_1}/{unknown_2}")
+    // public String unknown_2(@PathVariable(value = "unknown_1") String unknown_1) {
+    //     Main_controller main_controller = new Main_controller();
+    //     main_controller.set_user(new User("🔴Такой страницы нет", false));
+    //     main_controller.set_data();
+    //     return "index";
+    // }
 
-    @GetMapping("/{unknown_1}/{unknown_2}/{unknown_3}")
-    public String unknown_3(@PathVariable(value = "unknown_1") String unknown_1) {
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🔴Такой страницы нет", false));
-        main_controller.set_data();
-        return "index";
-    }
+    // @GetMapping("/{unknown_1}/{unknown_2}/{unknown_3}")
+    // public String unknown_3(@PathVariable(value = "unknown_1") String unknown_1) {
+    //     Main_controller main_controller = new Main_controller();
+    //     main_controller.set_user(new User("🔴Такой страницы нет", false));
+    //     main_controller.set_data();
+    //     return "index";
+    // }
 
 }

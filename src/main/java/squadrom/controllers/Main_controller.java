@@ -1,6 +1,5 @@
 package squadrom.controllers;
 import static squadrom.beans.Panel.*;
-import java.io.IOException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import jakarta.servlet.http.Cookie;
@@ -47,8 +46,8 @@ public class Main_controller {
             // Запрет на cabinet
             if(user.get_need_check()) {
 
-                try { get_response().getWriter().println("<script>call_up_condition_register();</script>"); }
-                catch(IOException e) { e.printStackTrace(); }
+                // try { get_response().getWriter().println("<script>call_up_condition_register();</script>"); }
+                // catch(IOException e) { e.printStackTrace(); }
             }
         }
 

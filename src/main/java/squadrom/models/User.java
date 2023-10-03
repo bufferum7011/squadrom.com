@@ -24,15 +24,34 @@ public class User {
     public boolean get_need_check() { return need_check; }
     public String get_title()       { return title; }
 
-    public void set_id(int id)                      { this.id = id; }
-    public void set_login(String login)             { this.login = login; }
-    public void set_mail(String mail)               { this.mail = mail; }
-    public void set_password(String password)       { this.password = password; }
-    public void set_link_avatar(String link_avatar) { this.link_avatar = link_avatar; }
+
     public void set_authorized(boolean authorized)  { this.authorized = authorized; }
-    public void set_cookie_token(String cookie_token){ this.cookie_token = cookie_token; }
     public void set_need_check(boolean need_check)  { this.need_check = need_check; }
     public void set_title(String title)             { this.title = title; }
+
+    public void set_id(int id) { this.id = id; }
+
+    public void set_login(String login) {
+        this.login = login;
+        sql.sql_update("UPDATE user SET login = '" + login + "' WHERE id = " + id + ";");
+    }
+    public void set_mail(String mail) {
+        this.mail = mail;
+        sql.sql_update("UPDATE user SET mail = '" + mail + "' WHERE id = " + id + ";");
+    }
+    public void set_password(String password) {
+        this.password = password;
+        sql.sql_update("UPDATE user SET password = '" + password + "' WHERE id = " + id + ";");
+    }
+    public void set_link_avatar(String link_avatar) {
+        this.link_avatar = link_avatar;
+        sql.sql_update("UPDATE user SET link_avatar = '" + link_avatar + "' WHERE id = " + id + ";");
+    }
+    public void set_cookie_token(String cookie_token) {
+        this.cookie_token = cookie_token;
+        sql.sql_update("UPDATE user SET cookie_token = '" + cookie_token + "' WHERE id = " + id + ";");
+    }
+
 
     public User() {}
     public User(String title, boolean need_check) {
@@ -57,14 +76,16 @@ public class User {
 
             ResultSet result = sql.sql_callback("SELECT * FROM user WHERE cookie_token = '" + user.get_cookie_token() + "';");
             result.next();
-            user.set_id(result.getInt("id"));
-            user.set_login(result.getString("login"));
-            user.set_mail(result.getString("mail"));
-            user.set_password(result.getString("password"));
-            user.set_link_avatar(result.getString("link_avatar"));
+            user.id = result.getInt("id");
+            user.login = result.getString("login");
+            user.mail = result.getString("mail");
+            user.password = result.getString("password");
+            user.link_avatar = result.getString("link_avatar");
         }
         catch(Exception e) {}
         return user;
     }
+
+
 
 }

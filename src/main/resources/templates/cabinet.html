@@ -13,7 +13,7 @@
             <div class="cabinet_frame_avatar">
                 <img class="cabinet_avatar" th:src="${user.get_link_avatar()}">
             </div>
-            <p th:text="${user.get_login}" class="cabinet_name">Noname</p>
+            <p th:text="${user.get_login()}" class="cabinet_name">Noname</p>
             <ul>
                 <li class="cabinet_select_item">
                     <a href="#edit">
@@ -35,27 +35,32 @@
         <!-- content -->
         <div class="cabinet_content">
             <!-- edit -->
-            <form class="cabinet_item" id="edit" action="handler.php" method="post" enctype="multipart/form-data">
+            <form class="cabinet_item" id="edit" action="/cabinet" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Редактирование профиля</div><hr>
+                <!-- edit_nickname-->
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить логин</p></li>
+                    <li><input class="cabinet_edit_input" name="reset_login" type="text" autocomplete="off"/></li>
+                </ul>
                 <!-- edit_email-->
                 <ul class="cabinet_edit">
                     <li><p class="cabinet_subtitle">Изменить почту</p></li>
-                    <li><input class="cabinet_edit_input" name="set_email" type="email"/></li>
-                </ul>
-                <!-- edit_nickname-->
-                <ul class="cabinet_edit">
-                    <li><p class="cabinet_subtitle">Изменить имя</p></li>
-                    <li><input class="cabinet_edit_input" name="set_nickname" type="text" autocomplete="off"/></li>
+                    <li><input class="cabinet_edit_input" name="reset_email" type="email"/></li>
                 </ul>
                 <!-- edit_avatar-->
                 <ul class="cabinet_edit">
                     <li><p class="cabinet_subtitle">Изменить фотографию</p></li>
-                    <li><input class="cabinet_edit_input" name="set_avatar" type="file"/></li>
+                    <li><input class="cabinet_edit_input" name="reset_avatar" type="file"/></li>
+                </ul>
+                <!-- edit_password-->
+                <ul class="cabinet_edit">
+                    <li><p class="cabinet_subtitle">Изменить пароль</p></li>
+                    <li><input class="cabinet_edit_input" name="reset_password" type="password"/></li>
                 </ul>
                 <input class="cabinet_edit_save" name="edit_profile" type="submit" value="Сохранить">
             </form>
             <!-- add_product -->
-            <form class="cabinet_item" id="add_product" action="handler.php" method="post" enctype="multipart/form-data">
+            <form class="cabinet_item" id="add_product" action="/cabinet" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Разместить товар</div><hr>
                 <div style="display: flex;">
                     <!-- add_product-->
@@ -150,7 +155,7 @@
                 Cabinet_item_7. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error alias quisquam non quas asperiores labore aut? Non, necessitatibus quae deserunt dignissimos temporibus earum corrupti unde similique dicta inventore magnam saepe.
             </div>
             <!-- cabinet_exit -->
-            <form class="cabinet_item" id="exit" action="handler.php" method="post" enctype="multipart/form-data">
+            <form class="cabinet_item" id="exit" action="/cabinet" method="post" enctype="multipart/form-data">
                 <div class="cabinet_title">Выход</div><hr>
                 <ul class="cabinet_edit">
                     <li><p class="cabinet_subtitle">Выйти из аккаунта</p></li>

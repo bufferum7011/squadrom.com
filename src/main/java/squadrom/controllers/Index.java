@@ -18,7 +18,7 @@ public class Index {
     @GetMapping("")
     public String get() {
         Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🟢Squadrom", false));
+        main_controller.set_user(new User("Squadrom", false));
         main_controller.set_data();
         return "index";
     }
@@ -26,14 +26,14 @@ public class Index {
     @PostMapping("")
     public String post(
         @Autowired HttpServletResponse response,
-        @RequestParam(required = true, defaultValue = "NONE") String register_login,
-        @RequestParam(required = true, defaultValue = "NONE") String register_mail,
-        @RequestParam(required = true, defaultValue = "NONE") String register_password) {
+        @RequestParam(required = true, defaultValue = "NULL") String register_login,
+        @RequestParam(required = true, defaultValue = "NULL") String register_mail,
+        @RequestParam(required = true, defaultValue = "NULL") String register_password) {
 
         Main_controller main_controller = new Main_controller();
         main_controller.set_response(response);
 
-        if(register_login == "NONE" || register_mail == "NONE" || register_password == "NONE") {
+        if(register_login == "NULL" || register_mail == "NULL" || register_password == "NULL") {
             main_controller.set_user(new User("🔴Не верные данные", false));
             main_controller.set_data();
             return "redirect:/";

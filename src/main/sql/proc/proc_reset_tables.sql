@@ -29,7 +29,7 @@ BEGIN
         type            VARCHAR(300) NULL DEFAULT 'NONE',               -- Тип товара
         number_likes    INT NULL DEFAULT 0,                             -- Количесво лайков
         number_views    INT NULL DEFAULT 0,                             -- Количесво просмотров
-        date            DATE NULL DEFAULT GETDATE(),                    -- Когда выложили
+        date            VARCHAR(300) NULL DEFAULT '03.10.23',           -- Когда выложили
         quantity        INT NULL DEFAULT 0,                             -- Количество товара
 
         FOREIGN KEY (seller) REFERENCES user(id) ON DELETE CASCADE

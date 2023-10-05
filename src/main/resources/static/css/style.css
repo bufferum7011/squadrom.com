@@ -655,6 +655,18 @@ input[name="email"], input[name="password"] {
 }
 
 
+.error {
+    display: inline;
+}
+.error_text {
+    color: rgb(188, 64, 64);
+    font-size: 75px;
+}
+.error_img {
+    background-size: 75px;
+}
+
+
 /* ==================================== */
 ul { list-style-type: none; }
 a { text-decoration: none; color: rgb(0, 0, 0); }

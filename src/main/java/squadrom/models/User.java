@@ -94,4 +94,19 @@ public class User {
         return user;
     }
 
+    @Override
+    public String toString() {
+        return "[\n" +
+                "id=" + id + "\n" +
+                "login=" + login + "\n" +
+                "mail=" + mail + "\n" +
+                "password=" + password + "\n" +
+                "link_avatar=" + link_avatar + "\n" +
+                "cookie_token=" + cookie_token + "\n" +
+                "authorized=" + authorized + "\n" +
+                "title=" + title + "\n" +
+                "need_check=" + need_check + "\n" +
+                "]\n";
+    }
+
 }

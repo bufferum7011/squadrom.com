@@ -10,10 +10,10 @@ public class About {
 
     @GetMapping
     public String get() {
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🟢О нас - Squadrom", false));
-        main_controller.get_data();
-        main_controller.save_data();
+        Controller_main controller_main = new Controller_main();
+        controller_main.set_user(new User("🟢О нас - Squadrom", false));
+        controller_main.get_data();
+        controller_main.save_data();
         return "about";
     }
 

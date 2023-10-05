@@ -14,15 +14,15 @@ import jakarta.annotation.PreDestroy;
 public class Exec_sql {
 
     @PostConstruct
-    public void _init() {
+    private void _init() {
         print._init("SQL");
     }
     @PreDestroy
-    public void _dest() {
+    private void _dest() {
         print._init("SQL");
     }
 
-    public Connection get_conn() {
+    private Connection get_conn() {
         try { return DriverManager.getConnection(panel.mysql_server, panel.mysql_user, panel.mysql_password); }
         catch(SQLException e) { print.error("[SQL] - " + e); return null; }
     }

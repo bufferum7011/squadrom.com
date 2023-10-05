@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/hello")
-public class Main_servlet extends HttpServlet {
+public class Servlet_main extends HttpServlet {
 
     @PostConstruct
     public void _init() {

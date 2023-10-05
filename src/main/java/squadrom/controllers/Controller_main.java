@@ -7,26 +7,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import squadrom.models.User;
 
-public class Main_controller {
+public class Controller_main {
 
-    // Request
     private HttpServletRequest request;
+    private HttpServletResponse response;
+
     private HttpServletRequest get_request() { return request; }
-    private void set_request() {
+    public HttpServletResponse get_response() { return response; }
+
+    public void set_request_attributes() {
         this.request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        this.response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
     }
 
-    // Responce
-    private HttpServletResponse response;
-    public HttpServletResponse get_response() { return response; }
-    public void set_response(HttpServletResponse response) { this.response = response; }
 
     public User user;
-    public Main_controller() {}
+    public Controller_main() {}
     public void set_user(User user) { this.user = user; }
+    public void save_data() { get_request().setAttribute("user", user); /* Формироваиние ответа */ }
     public void get_data() {
 
-        set_request();
+        set_request_attributes();
         user.set_authorized(false);
         user.set_link_avatar("/img_sys/default_avatar.webp");
 
@@ -51,10 +52,6 @@ public class Main_controller {
                 // catch(IOException e) { e.printStackTrace(); }
             }
         }
-    }
-    public void save_data() {
-        // Формироваиние ответа
-        get_request().setAttribute("user", user);
     }
 
 }

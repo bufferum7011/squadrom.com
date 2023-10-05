@@ -1,22 +1,21 @@
 package auxiliary;
 import static squadrom.beans.Panel.*;
 import org.apache.commons.codec.digest.DigestUtils;
-import squadrom.controllers.Main_controller;
+import squadrom.controllers.Controller_main;
 
 public class Manager_cookie {
 
-    public String create(String register_login, String register_mail, String register_password) {
-        return DigestUtils.md5Hex(register_login + panel.cookie_salt + register_mail + register_password);
+    public String create(String register_mail, String register_password) {
+        return DigestUtils.md5Hex(register_mail + panel.cookie_salt + register_password);
     }
 
-    public boolean equals(Main_controller main_controller) {
+    public boolean equals(Controller_main controller_main) {
 
-        String login = main_controller.user.get_login();
-        String mail = main_controller.user.get_mail();
-        String password = main_controller.user.get_password();
-        String cookie_token = main_controller.user.get_cookie_token();
+        String mail         = controller_main.user.get_mail();
+        String password     = controller_main.user.get_password();
+        String cookie_token = controller_main.user.get_cookie_token();
 
-        if(create(login, mail, password).equals(cookie_token)) { return true; }
+        if(create(mail, password).equals(cookie_token)) { return true; }
         else { return false; }
     }
 

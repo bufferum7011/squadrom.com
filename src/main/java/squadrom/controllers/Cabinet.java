@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import squadrom.models.User;
@@ -27,46 +25,46 @@ public class Cabinet {
     public String get() {
 
         print.debag("[/cabinet]");
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🟢Кабинет - Squadrom", true));
-        main_controller.get_data();
-        main_controller.save_data();
-        if(!main_controller.user.get_authorized()) { return "index"; }
+        Controller_main controller_main = new Controller_main();
+        controller_main.set_user(new User("🟢Кабинет - Squadrom", true));
+        controller_main.get_data();
+        controller_main.save_data();
+        if(!controller_main.user.get_authorized()) { return "index"; }
         else { return "cabinet"; }
     }
 
     @PostMapping("/edit")
     public String post_edit (
-        @Autowired HttpServletResponse response,
+        // @Autowired HttpServletResponse response,
         @RequestParam(required = true, value = "reset_login") String reset_login,
         @RequestParam(required = true, value = "reset_email") String reset_email,
         @RequestParam(required = true, value = "reset_avatar") MultipartFile reset_avatar,
         @RequestParam(required = true, value = "reset_password") String reset_password) {
 
         print.debag("[/cabinet/edit]");
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_response(response);
-        main_controller.set_user(new User("🟢Кабинет - Squadrom", false));
-        main_controller.get_data();
+        Controller_main controller_main = new Controller_main();
+        // controller_main.set_response(response);
+        controller_main.set_user(new User("🟢Кабинет - Squadrom", false));
+        controller_main.get_data();
 
         if( reset_login == "" &&
             reset_email == "" &&
             reset_avatar.isEmpty() &&
             reset_password == "") {
 
-            main_controller.user.set_title("🔴Не верные данные - Squadrom");
-            main_controller.save_data();
-            return "cabinet";
+            controller_main.user.set_title("🔴Не верные данные - Squadrom");
+            controller_main.save_data();
+            return "redirect:/cabinet";
         }
         else {
 
-            if(!reset_login.equals(""))     { main_controller.user.set_login(reset_login); }
-            if(!reset_email.equals(""))     { main_controller.user.set_mail(reset_email); }
-            if(!reset_avatar.isEmpty())              { main_controller.user.set_link_avatar(main_controller.user.get_cookie_token(), reset_avatar); }
-            if(!reset_password.equals(""))  { main_controller.user.set_password(reset_password); }
+            if(!reset_login.equals(""))     { controller_main.user.set_login(reset_login); }
+            if(!reset_email.equals(""))     { controller_main.user.set_mail(reset_email); }
+            if(!reset_avatar.isEmpty())              { controller_main.user.set_link_avatar(controller_main.user.get_cookie_token(), reset_avatar); }
+            if(!reset_password.equals(""))  { controller_main.user.set_password(reset_password); }
 
-            main_controller.save_data();
-            return "cabinet";
+            controller_main.save_data();
+            return "redirect:/cabinet";
         }
     }
 
@@ -81,16 +79,16 @@ public class Cabinet {
         cookie.setMaxAge(0);
         cookie.setPath("/");
 
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🟢Squadrom", false));
-        main_controller.set_response(response);
-        main_controller.get_data();
-        main_controller.get_response().addCookie(cookie);
+        Controller_main controller_main = new Controller_main();
+        controller_main.set_user(new User("🟢Squadrom", false));
+        // controller_main.set_response(response);
+        controller_main.get_data();
+        controller_main.get_response().addCookie(cookie);
 
         // Удаление папки и ее содержимого
         if(!profile_delete_account.equals("null")) {
             try {
-                Files.walk(Paths.get(panel.path_upload + panel.path_users + "/" + main_controller.user.get_cookie_token()))
+                Files.walk(Paths.get(panel.path_upload + panel.path_users + "/" + controller_main.user.get_cookie_token()))
                     .sorted(Comparator.reverseOrder())
                     .map(Path::toFile)
                     .forEach(File::delete);
@@ -98,9 +96,9 @@ public class Cabinet {
             catch(IOException e) { print.error("[Delete_folder]"); }
 
             // Удаление из базы данных
-            main_controller.user.delete_user();
+            controller_main.user.delete_user();
         }
-        main_controller.save_data();
+        controller_main.save_data();
 
         return "redirect:/";
     }

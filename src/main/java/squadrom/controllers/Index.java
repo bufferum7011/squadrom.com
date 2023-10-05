@@ -17,90 +17,99 @@ public class Index {
 
     @GetMapping("")
     public String get() {
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_user(new User("🟢Squadrom", false));
-        main_controller.get_data();
-        main_controller.save_data();
+        Controller_main controller_main = new Controller_main();
+        controller_main.set_user(new User("🟢Squadrom", false));
+        controller_main.get_data();
+        controller_main.save_data();
         return "index";
     }
 
-    @PostMapping("/register")
-    public String post_register (
+    @PostMapping("")
+    public String post (
         @Autowired HttpServletResponse response,
-        @RequestParam(required = true, defaultValue = "null") String register_login,
-        @RequestParam(required = true, defaultValue = "null") String register_mail,
-        @RequestParam(required = true, defaultValue = "null") String register_password) {
+        @RequestParam(required = false, value = "login_email", defaultValue = "null") String login_email,
+        @RequestParam(required = false, value = "login_password", defaultValue = "null") String login_password,
+        @RequestParam(required = false, value = "login_enter", defaultValue = "null") String login_enter,
 
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_response(response);
-        main_controller.set_user(new User("🔴Не верные данные", false));
-        main_controller.get_data();
+        @RequestParam(required = false, value = "register_login", defaultValue = "null") String register_login,
+        @RequestParam(required = false, value = "register_mail", defaultValue = "null") String register_mail,
+        @RequestParam(required = false, value = "register_password", defaultValue = "null") String register_password,
+        @RequestParam(required = false, value = "register_enter", defaultValue = "null") String register_enter) {
 
-        if(register_login == "null" || register_mail == "null" || register_password == "null") {
-            main_controller.save_data();
-            return "index";
+        print.debag("[Index=POST]");
+        Controller_main controller_main = new Controller_main();
+        // controller_main.set_response(response);
+        controller_main.set_user(new User("🔴Не верные данные", false));
+        controller_main.get_data();
+
+        // Код для обработки нажатия кнопки login_enter
+        if(!login_enter.equals("null")) {
+
+            print.debag("[login_enter != 'null']");
+            if(register_login == "null" || register_mail == "null" || register_password == "null") {
+                print.debag("[НИЧЕГО НЕ ВПИСАНО]");
+                controller_main.save_data();
+                return "index";
+            }
+            else {
+
+                print.debag("[НАЧИНАЮ АВТОРИЗАЦИЮ]");
+                // Авторизирую пользователя
+                if(new Manager_cookie().equals(controller_main)) {
+                    controller_main.user.set_title("🟢Кабинет - Sqaudrom");
+                    controller_main.save_data();
+                    return "redirect:/cabinet#edit";
+                }
+                else { controller_main.save_data(); return "index"; }
+            }
         }
-        else {
 
-            // Авторизуем пользователя
-            String cookie = new Manager_cookie().create(register_login, register_mail, register_password);
+        // Код для обработки нажатия кнопки register_enter
+        else if(!register_enter.equals("null")) {
 
-            main_controller.get_response().addCookie(new Cookie(panel.cookie_name, cookie));
-            main_controller.user.user_create(register_login, register_mail, register_password, cookie);
-            main_controller.user.set_title("🟢Кабинет - Sqaudrom");
-            main_controller.save_data();
-            return "redirect:/cabinet#edit";
-        }
-    }
+            print.debag("[register_enter != 'null']");
+            if(login_email == "null" || login_password == "null") {
+                print.debag("[НИЧЕГО НЕ ВПИСАНО]");
+                controller_main.save_data();
+                return "index";
+            }
+            else {
 
-    @PostMapping("/login")
-    public String post_login (
-        @Autowired HttpServletResponse response,
-        @RequestParam(required = true, value = "login_email", defaultValue = "null") String login_email,
-        @RequestParam(required = true, value = "login_password", defaultValue = "null") String login_password) {
+                print.debag("[НАЧИНАЮ РЕГИСТРАЦИЮ]");
+                // Регистрирую пользователя
+                String cookie = new Manager_cookie().create(register_mail, register_password);
 
-        Main_controller main_controller = new Main_controller();
-        main_controller.set_response(response);
-        main_controller.set_user(new User("🔴Не верные данные", false));
-        main_controller.get_data();
-
-        if(login_email == "null" || login_password == "null") {
-            main_controller.save_data();
-            return "redirect:/index";
-        }
-        else {
-
-            // Авторизуем пользователя
-            if(new Manager_cookie().equals(main_controller)) {
-                main_controller.user.set_title("🟢Кабинет - Sqaudrom");
-                main_controller.save_data();
+                controller_main.get_response().addCookie(new Cookie(panel.cookie_name, cookie));
+                controller_main.user.user_create(register_login, register_mail, register_password, cookie);
+                controller_main.user.set_title("🟢Кабинет - Sqaudrom");
+                controller_main.save_data();
                 return "redirect:/cabinet#edit";
             }
-            else { return "redirect:/index"; }
         }
+        else { controller_main.save_data(); return "index"; }
     }
 
     // @GetMapping("/{unknown_1}")
     // public String unknown_1(@PathVariable(value = "unknown_1") String unknown_1) {
-    //     Main_controller main_controller = new Main_controller();
-    //     main_controller.set_user(new User("🔴Такой страницы нет", false));
-    //     main_controller.set_data();
+    //     controller_main controller_main = new controller_main();
+    //     controller_main.set_user(new User("🔴Такой страницы нет", false));
+    //     controller_main.set_data();
     //     return "index";
     // }
 
     // @GetMapping("/{unknown_1}/{unknown_2}")
     // public String unknown_2(@PathVariable(value = "unknown_1") String unknown_1) {
-    //     Main_controller main_controller = new Main_controller();
-    //     main_controller.set_user(new User("🔴Такой страницы нет", false));
-    //     main_controller.set_data();
+    //     controller_main controller_main = new controller_main();
+    //     controller_main.set_user(new User("🔴Такой страницы нет", false));
+    //     controller_main.set_data();
     //     return "index";
     // }
 
     // @GetMapping("/{unknown_1}/{unknown_2}/{unknown_3}")
     // public String unknown_3(@PathVariable(value = "unknown_1") String unknown_1) {
-    //     Main_controller main_controller = new Main_controller();
-    //     main_controller.set_user(new User("🔴Такой страницы нет", false));
-    //     main_controller.set_data();
+    //     controller_main controller_main = new controller_main();
+    //     controller_main.set_user(new User("🔴Такой страницы нет", false));
+    //     controller_main.set_data();
     //     return "index";
     // }
 

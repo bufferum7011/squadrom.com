@@ -31,14 +31,24 @@ public class Spring_config implements WebMvcConfigurer {
         return new Exec_sql();
     }
 
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-        "classpath:/static/", "classpath:/templates/"
-    };
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         registry.addResourceHandler("/resources/**")
-                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+                .addResourceLocations(
+                    "classpath:/static/",
+                    "classpath:/templates/"
+                );
+
+        registry.addResourceHandler(
+                    "/users/**"
+                    // "/squadrom/src/**"
+                )
+                .addResourceLocations(
+                    "classpath:/users/"
+                    // "file:/users/"
+                );
+
     }
 
     @Bean

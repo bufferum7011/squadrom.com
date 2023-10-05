@@ -24,7 +24,7 @@ public class Main_controller {
     public User user;
     public Main_controller() {}
     public void set_user(User user) { this.user = user; }
-    public void set_data() {
+    public void get_data() {
 
         set_request();
         user.set_authorized(false);
@@ -46,11 +46,13 @@ public class Main_controller {
             // Запрет на cabinet
             if(user.get_need_check()) {
 
+                print.debag("[Запрещаю вход в cabinet]");
                 // try { get_response().getWriter().println("<script>call_up_condition_register();</script>"); }
                 // catch(IOException e) { e.printStackTrace(); }
             }
         }
-
+    }
+    public void save_data() {
         // Формироваиние ответа
         get_request().setAttribute("user", user);
     }

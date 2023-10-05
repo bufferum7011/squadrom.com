@@ -1,6 +1,8 @@
 package squadrom.models;
 import static squadrom.beans.Panel.*;
 import java.sql.ResultSet;
+import org.springframework.web.multipart.MultipartFile;
+import auxiliary.Manager_file;
 
 public class User {
 
@@ -43,6 +45,11 @@ public class User {
         this.password = password;
         sql.sql_update("UPDATE user SET password = '" + password + "' WHERE id = " + id + ";");
     }
+    public void set_link_avatar(String cookie_token, MultipartFile link_avatar) {
+        String path_avatar = new Manager_file().upload_avatar(cookie_token, link_avatar);
+        this.link_avatar = path_avatar;
+        sql.sql_update("UPDATE user SET link_avatar = '" + path_avatar + "' WHERE id = " + id + ";");
+    }
     public void set_link_avatar(String link_avatar) {
         this.link_avatar = link_avatar;
         sql.sql_update("UPDATE user SET link_avatar = '" + link_avatar + "' WHERE id = " + id + ";");
@@ -61,7 +68,6 @@ public class User {
 
     // Создие пользователя
     public void user_create(String login, String mail, String password, String cookie_token) {
-
         sql.sql_update("INSERT INTO user (login, mail, password, cookie_token) VALUES('" +
             login + "', '" +
             mail + "', '" +
@@ -70,10 +76,12 @@ public class User {
         "');");
     }
 
+    public void delete_user() {
+        sql.sql_update("DELETE FROM user WHERE id = " + id + ";");
+    }
+
     public User data_base(User user) {
-
         try {
-
             ResultSet result = sql.sql_callback("SELECT * FROM user WHERE cookie_token = '" + user.get_cookie_token() + "';");
             result.next();
             user.id = result.getInt("id");
@@ -85,7 +93,5 @@ public class User {
         catch(Exception e) {}
         return user;
     }
-
-
 
 }

@@ -12,7 +12,8 @@ public class About {
     public String get() {
         Main_controller main_controller = new Main_controller();
         main_controller.set_user(new User("🟢О нас - Squadrom", false));
-        main_controller.set_data();
+        main_controller.get_data();
+        main_controller.save_data();
         return "about";
     }
 

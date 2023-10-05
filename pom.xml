@@ -53,6 +53,14 @@
 			<version>1.4</version>
 		</dependency>
 
+		<!-- imgscalr -->
+		<!-- Нужен для превращения img -> webp -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+
 		<!-- spring-boot-starter-thymeleaf -->
 		<!-- Шаблонизатор -->
 		<dependency>

@@ -6,6 +6,7 @@ target/
 !**/src/test/**/target/
 mvnw
 mvnw.cmd
+.mvn
 
 ### STS ###
 .apt_generated
@@ -38,4 +39,5 @@ build/
 ### Project ###
 /src/main/resources/application.properties
 /src/main/resources/templates/draft/
-/src/users/
+/src/main/resources/users
+# /src/users

@@ -34,13 +34,13 @@ public class Exec_sql {
 
     /** Sql_callback. Table data as an array. */
     public ResultSet sql_callback(String sql_query) {
-        try { /* print.way("[Sql_callback]"); */ return sql.get_statement().executeQuery(sql_query); }
+        try { print.way("[Sql_callback]"); return sql.get_statement().executeQuery(sql_query); }
         catch(SQLException e) { print.error("[Sql_callback] - " + e); return null; }
     }
 
     /** Sql_update. To execute sql queries without return. */
     public void sql_update(String sql_query) {
-        try { sql.get_statement().executeUpdate(sql_query); /* print.way("[Sql_update]"); */ }
+        try { sql.get_statement().executeUpdate(sql_query); print.way("[Sql_update]"); }
         catch(SQLException e) { print.error("[Sql_update] - " + e); }
     }
 

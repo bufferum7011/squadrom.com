@@ -12,7 +12,7 @@ BEGIN
     CREATE TABLE user (
         id                 INT AUTO_INCREMENT PRIMARY KEY,                 -- PRIMARY KEY(id)
         login              VARCHAR(300) NULL,                              -- Логин
-        mail               VARCHAR(300) NULL,                              -- Почта
+        email              VARCHAR(300) NULL,                              -- Почта
         password           VARCHAR(300) NULL,                              -- Пароль
         link_avatar        VARCHAR(300) NULL DEFAULT '/img_sys/default_avatar.webp', -- Ссылка на аватарку
         cookie_token       VARCHAR(300) NULL                               -- Cookie_token

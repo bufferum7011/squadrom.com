@@ -12,7 +12,7 @@ public class Controller_main {
     private HttpServletRequest request;
     private HttpServletResponse response;
 
-    private HttpServletRequest get_request() { return request; }
+    public HttpServletRequest get_request() { return request; }
     public HttpServletResponse get_response() { return response; }
 
     public void set_request_attributes() {

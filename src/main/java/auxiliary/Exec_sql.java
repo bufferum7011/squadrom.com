@@ -22,12 +22,12 @@ public class Exec_sql {
         print._init("SQL");
     }
 
-    private Connection get_conn() {
+    public Connection get_conn() {
         try { return DriverManager.getConnection(panel.mysql_server, panel.mysql_user, panel.mysql_password); }
         catch(SQLException e) { print.error("[SQL] - " + e); return null; }
     }
 
-    private Statement get_statement() {
+    public Statement get_statement() {
         try { return sql.get_conn().createStatement(); }
         catch(SQLException e) { print.error("[get_statement] - " + e); return null; }
     }

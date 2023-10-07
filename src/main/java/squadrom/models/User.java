@@ -67,10 +67,10 @@ public class User {
     }
 
     // Создие пользователя
-    public void user_create(String login, String mail, String password, String cookie_token) {
-        sql.sql_update("INSERT INTO user (login, mail, password, cookie_token) VALUES('" +
+    public void user_create(String login, String email, String password, String cookie_token) {
+        sql.sql_update("INSERT INTO user (login, email, password, cookie_token) VALUES('" +
             login + "', '" +
-            mail + "', '" +
+            email + "', '" +
             password + "', '" +
             cookie_token +
         "');");

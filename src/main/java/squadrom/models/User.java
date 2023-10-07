@@ -18,7 +18,7 @@ public class User {
 
     public int getId()              { return id; }
     public String get_login()       { return login; }
-    public String get_email()        { return email; }
+    public String get_email()       { return email; }
     public String get_password()    { return password; }
     public String get_link_avatar() { return link_avatar; }
     public boolean get_authorized() { return authorized; }

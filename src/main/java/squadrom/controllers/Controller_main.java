@@ -45,7 +45,7 @@ public class Controller_main {
     public void save() {
 
         // Запрет на cabinet
-        if(user.get_need_check()) {
+        if(user.get_need_check() && !user.get_authorized()) {
             print.debag("[Запрещаю вход в cabinet]");
             // try { get_response().getWriter().println("<script>call_up_condition_register();</script>"); }
             // catch(IOException e) { e.printStackTrace(); }

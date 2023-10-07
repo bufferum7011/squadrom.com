@@ -44,7 +44,6 @@ public class Index {
                 controller_main.user.set_mail(login_email);
                 controller_main.user.set_password(login_password);
                 if(verification.check_authorization(controller_main)) {
-
                     print.result("[login]");
                     controller_main.user.set_title("🟢Кабинет - Sqaudrom");
                     controller_main.save();

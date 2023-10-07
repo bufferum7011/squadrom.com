@@ -13,7 +13,7 @@ public class About {
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢О нас - Squadrom", false));
         controller_main.get_data();
-        controller_main.save_data();
+        controller_main.save();
         return "about";
     }
 

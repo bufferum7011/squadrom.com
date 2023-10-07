@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import auxiliary.Manager_cookie;
-import jakarta.servlet.http.Cookie;
+import auxiliary.Verification;
 import squadrom.models.User;
 
 @Controller
@@ -18,7 +17,7 @@ public class Index {
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢Squadrom", false));
         controller_main.get_data();
-        controller_main.save_data();
+        controller_main.save();
         return "index";
     }
 
@@ -31,54 +30,49 @@ public class Index {
         @RequestParam(required = false, value = "register_email") String register_email,
         @RequestParam(required = false, value = "register_password") String register_password) {
 
+        Verification verification = new Verification();
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🔴Не верные данные", false));
-        controller_main.user.set_cookie_token(new Manager_cookie().create(register_email, register_password));
         controller_main.get_data();
-        String login_enter = "", register_enter = "";
 
+        // Обработка login_enter и авторизация пользователя
         try {
-            login_enter = controller_main.get_request().getParameter("login_enter");
-            if(login_enter.equals("Войти")) {
-                // Код для обработки нажатия кнопки login_enter
-                if(login_email != "null" || login_password != "null") {
-                    print.debag("[login_enter]");
-                    print.debag("[НАЧИНАЮ АВТОРИЗАЦИЮ]");
-                    // Авторизирую пользователя
-                    if(new Manager_cookie().equals(controller_main)) {
-                        print.debag("Я вошел в авторизацию");
-                        controller_main.user.set_title("🟢Кабинет - Sqaudrom");
-                        controller_main.save_data();
-                        print.debag("ВСё пересылаю");
-                        return "redirect:/cabinet#edit";
-                    }
+            String login_enter = controller_main.get_request().getParameter("login_enter");
+            boolean key = login_email != "null" || login_password != "null";
+            if(login_enter.equals("Войти") && key) {
+                verification.add_cookie(controller_main, login_email, login_password);
+                controller_main.user.set_mail(login_email);
+                controller_main.user.set_password(login_password);
+                if(verification.check_authorization(controller_main)) {
+
+                    print.result("[login]");
+                    controller_main.user.set_title("🟢Кабинет - Sqaudrom");
+                    controller_main.save();
+                    return "redirect:/cabinet#edit";
                 }
             }
         }
         catch(Exception e) { print.error("[login_enter]"); }
 
+        // Обработка register_enter и регистрация пользователя
         try {
-            register_enter = controller_main.get_request().getParameter("register_enter");
-            if(register_enter.equals("Зарегестрироваться")) {
-                // Код для обработки нажатия кнопки register_enter
-                if(register_login != "null" || register_email != "null" || register_password != "null") {
-                    print.debag("[register_enter]");
-                    print.debag("[НАЧИНАЮ РЕГИСТРАЦИЮ]");
-                    // Регистрирую пользователя
-                    String cookie = new Manager_cookie().create(register_email, register_password);
+            String register_enter = controller_main.get_request().getParameter("register_enter");
+            boolean key = register_login != "null" || register_email != "null" || register_password != "null";
+            if(register_enter.equals("Зарегестрироваться") && key) {
 
-                    controller_main.get_response().addCookie(new Cookie(panel.cookie_name, cookie));
-                    controller_main.user.user_create(register_login, register_email, register_password, cookie);
-                    controller_main.user.set_title("🟢Кабинет - Sqaudrom");
-                    controller_main.save_data();
-                    return "redirect:/cabinet#edit";
-                }
+                print.result("[register]");
+                verification.add_cookie(controller_main, register_email, register_password);
+                controller_main.user.user_create(register_login, register_email, register_password, verification.get_cookie());
+                controller_main.user.set_title("🟢Кабинет - Sqaudrom");
+                controller_main.save();
+                return "redirect:/cabinet#edit";
             }
         }
         catch(Exception e) { print.error("[register_enter]"); }
 
-        print.debag("[НИ ОДНА КНОПКА]");
-        controller_main.save_data();
+        print.error("[НИ ОДНА КНОПКА]");
+        verification.remove_cookie(controller_main);
+        controller_main.save();
         return "index";
     }
 

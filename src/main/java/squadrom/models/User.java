@@ -8,7 +8,7 @@ public class User {
 
     private int id;
     private String login;
-    private String mail;
+    private String email;
     private String password;
     private String link_avatar;
     private String cookie_token;
@@ -18,7 +18,7 @@ public class User {
 
     public int getId()              { return id; }
     public String get_login()       { return login; }
-    public String get_mail()        { return mail; }
+    public String get_email()        { return email; }
     public String get_password()    { return password; }
     public String get_link_avatar() { return link_avatar; }
     public boolean get_authorized() { return authorized; }
@@ -37,9 +37,9 @@ public class User {
         this.login = login;
         sql.sql_update("UPDATE user SET login = '" + login + "' WHERE id = " + id + ";");
     }
-    public void set_mail(String mail) {
-        this.mail = mail;
-        sql.sql_update("UPDATE user SET mail = '" + mail + "' WHERE id = " + id + ";");
+    public void set_mail(String email) {
+        this.email = email;
+        sql.sql_update("UPDATE user SET email = '" + email + "' WHERE id = " + id + ";");
     }
     public void set_password(String password) {
         this.password = password;
@@ -86,27 +86,12 @@ public class User {
             result.next();
             user.id = result.getInt("id");
             user.login = result.getString("login");
-            user.mail = result.getString("mail");
+            user.email = result.getString("email");
             user.password = result.getString("password");
             user.link_avatar = result.getString("link_avatar");
         }
         catch(Exception e) {}
         return user;
-    }
-
-    @Override
-    public String toString() {
-        return "[\n" +
-                "id=" + id + "\n" +
-                "login=" + login + "\n" +
-                "mail=" + mail + "\n" +
-                "password=" + password + "\n" +
-                "link_avatar=" + link_avatar + "\n" +
-                "cookie_token=" + cookie_token + "\n" +
-                "authorized=" + authorized + "\n" +
-                "title=" + title + "\n" +
-                "need_check=" + need_check + "\n" +
-                "]\n";
     }
 
 }

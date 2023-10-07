@@ -24,14 +24,13 @@ public class Controller_main {
     public User user;
     public Controller_main() {}
     public void set_user(User user) { this.user = user; }
-    public void save_data() { get_request().setAttribute("user", user); /* Формироваиние ответа */ }
     public void get_data() {
 
         set_request_attributes();
         user.set_authorized(false);
         user.set_link_avatar("/img_sys/default_avatar.webp");
 
-        // Сверка cookie и сбор данных из bd
+        // Сверка cookie и сбор данных из bd при регистрации
         Cookie[] cookies = get_request().getCookies();
         if(cookies != null) {
             for(int i = 0; cookies.length > i; i++) {
@@ -42,16 +41,18 @@ public class Controller_main {
                 }
             }
         }
-        else {
+    }
+    public void save() {
 
-            // Запрет на cabinet
-            if(user.get_need_check()) {
-
-                print.debag("[Запрещаю вход в cabinet]");
-                // try { get_response().getWriter().println("<script>call_up_condition_register();</script>"); }
-                // catch(IOException e) { e.printStackTrace(); }
-            }
+        // Запрет на cabinet
+        if(user.get_need_check()) {
+            print.debag("[Запрещаю вход в cabinet]");
+            // try { get_response().getWriter().println("<script>call_up_condition_register();</script>"); }
+            // catch(IOException e) { e.printStackTrace(); }
         }
+
+        // Формироваиние ответа
+        get_request().setAttribute("user", user);
     }
 
 }

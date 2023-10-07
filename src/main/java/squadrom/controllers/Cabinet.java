@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import jakarta.servlet.http.Cookie;
+import auxiliary.Verification;
 import jakarta.servlet.http.HttpServletResponse;
 import squadrom.models.User;
 
@@ -23,37 +23,29 @@ public class Cabinet {
 
     @GetMapping("")
     public String get() {
-
-        print.debag("[/cabinet]");
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢Кабинет - Squadrom", true));
         controller_main.get_data();
-        controller_main.save_data();
+        controller_main.save();
         if(!controller_main.user.get_authorized()) { return "index"; }
         else { return "cabinet"; }
     }
 
     @PostMapping("/edit")
     public String post_edit (
-        // @Autowired HttpServletResponse response,
         @RequestParam(required = true, value = "reset_login") String reset_login,
         @RequestParam(required = true, value = "reset_email") String reset_email,
         @RequestParam(required = true, value = "reset_avatar") MultipartFile reset_avatar,
         @RequestParam(required = true, value = "reset_password") String reset_password) {
 
-        print.debag("[/cabinet/edit]");
         Controller_main controller_main = new Controller_main();
-        // controller_main.set_response(response);
         controller_main.set_user(new User("🟢Кабинет - Squadrom", false));
         controller_main.get_data();
 
-        if( reset_login == "" &&
-            reset_email == "" &&
-            reset_avatar.isEmpty() &&
-            reset_password == "") {
-
+        boolean key = reset_login == "" && reset_email == "" && reset_avatar.isEmpty() && reset_password == "";
+        if(key) {
             controller_main.user.set_title("🔴Не верные данные - Squadrom");
-            controller_main.save_data();
+            controller_main.save();
             return "redirect:/cabinet";
         }
         else {
@@ -63,7 +55,7 @@ public class Cabinet {
             if(!reset_avatar.isEmpty())              { controller_main.user.set_link_avatar(controller_main.user.get_cookie_token(), reset_avatar); }
             if(!reset_password.equals(""))  { controller_main.user.set_password(reset_password); }
 
-            controller_main.save_data();
+            controller_main.save();
             return "redirect:/cabinet";
         }
     }
@@ -73,17 +65,13 @@ public class Cabinet {
         @Autowired HttpServletResponse response,
         @RequestParam(required = true, value = "profile_delete_account", defaultValue = "null") String profile_delete_account) {
 
-        print.debag("[/cabinet/exit]");
-        // Удаление cookie
-        Cookie cookie = new Cookie(panel.cookie_name, null);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢Squadrom", false));
-        // controller_main.set_response(response);
         controller_main.get_data();
-        controller_main.get_response().addCookie(cookie);
+
+        // Удаление cookie
+        Verification verification = new Verification();
+        verification.remove_cookie(controller_main);
 
         // Удаление папки и ее содержимого
         if(!profile_delete_account.equals("null")) {
@@ -98,7 +86,7 @@ public class Cabinet {
             // Удаление из базы данных
             controller_main.user.delete_user();
         }
-        controller_main.save_data();
+        controller_main.save();
 
         return "redirect:/";
     }

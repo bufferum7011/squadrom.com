@@ -13,7 +13,7 @@ public class Club {
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢Клуб - Squadrom", false));
         controller_main.get_data();
-        controller_main.save_data();
+        controller_main.save();
         return "club";
     }
 

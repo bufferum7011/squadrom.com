@@ -18,7 +18,7 @@ public class Controller_error {
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🔴Error - Squadrom", false));
         controller_main.get_data();
-        controller_main.save_data();
+        controller_main.save();
         controller_main.user.toString();
         return "error";
     }

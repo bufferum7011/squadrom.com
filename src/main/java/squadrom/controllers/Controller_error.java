@@ -9,6 +9,7 @@ import squadrom.models.User;
 
 @RestControllerAdvice
 public class Controller_error {
+
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String error(NoHandlerFoundException ex) {
@@ -19,7 +20,7 @@ public class Controller_error {
         controller_main.set_user(new User("🔴Error - Squadrom", false));
         controller_main.get_data();
         controller_main.save();
-        controller_main.user.toString();
         return "error";
     }
+
 }

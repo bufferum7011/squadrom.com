@@ -16,7 +16,7 @@ public class User {
     private String title;
     private boolean need_check;
 
-    public int getId()              { return id; }
+    public int get_id()             { return id; }
     public String get_login()       { return login; }
     public String get_email()       { return email; }
     public String get_password()    { return password; }

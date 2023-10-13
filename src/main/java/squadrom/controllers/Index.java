@@ -23,12 +23,13 @@ public class Index {
 
     @PostMapping("")
     public String post (
-        @RequestParam(required = false, value = "login_email") String login_email,
-        @RequestParam(required = false, value = "login_password") String login_password,
+            @RequestParam(required = false, value = "login_email") String login_email,
+            @RequestParam(required = false, value = "login_password") String login_password,
 
-        @RequestParam(required = false, value = "register_login") String register_login,
-        @RequestParam(required = false, value = "register_email") String register_email,
-        @RequestParam(required = false, value = "register_password") String register_password) {
+            @RequestParam(required = false, value = "register_login") String register_login,
+            @RequestParam(required = false, value = "register_email") String register_email,
+            @RequestParam(required = false, value = "register_password") String register_password
+        ) {
 
         Verification verification = new Verification();
         Controller_main controller_main = new Controller_main();
@@ -75,4 +76,12 @@ public class Index {
         return "index";
     }
 
+    @GetMapping("/test")
+    public String test() {
+        Controller_main controller_main = new Controller_main();
+        controller_main.set_user(new User("🟢TEST - Squadrom", false));
+        controller_main.get_data();
+        controller_main.save();
+        return "test";
+    }
 }

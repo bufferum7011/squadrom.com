@@ -24,9 +24,9 @@ public class Servlet_main extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         print.debag("Я В doGet");
-        if(request.getRequestURI().equals("/hello")) {
+        if(request.getRequestURI().equals("/test")) {
             response.setContentType("text/html");
-            response.getWriter().print("index");
+            response.getWriter().print("test");
         }
         else {
             print.error("ОШИБКА ИЗ СЕРВЛЕТА");

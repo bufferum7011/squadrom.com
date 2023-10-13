@@ -7,7 +7,7 @@ public class Showcase {
 
     private int id;
     private int seller;
-    private String name;
+    private String title;
     private String description;
     private int price;
     // private Json img;
@@ -19,7 +19,7 @@ public class Showcase {
 
     public int get_id()             { return id; }
     public int get_seller()         { return seller; }
-    public String get_name()        { return name; }
+    public String get_title()       { return title; }
     public String get_description() { return description; }
     public int get_price()          { return price; }
     // public String[] get_img()       { return img; }
@@ -31,7 +31,7 @@ public class Showcase {
 
     public void set_id(int id)                      { this.id = id; }
     public void set_seller(int seller)              { this.seller = seller; }
-    public void set_name(String name)               { this.name = name; }
+    public void set_title(String title)             { this.title = title; }
     public void set_description(String description) { this.description = description; }
     public void set_price(int price)                { this.price = price; }
     // public void set_img(String[] img)               { this.img = img; }
@@ -53,7 +53,7 @@ public class Showcase {
 
                 showcase.set_id             (result.getInt("id"));
                 showcase.set_seller         (result.getInt("seller"));
-                showcase.set_name           (result.getString("name"));
+                showcase.set_title          (result.getString("title"));
                 showcase.set_description    (result.getString("description"));
                 showcase.set_price          (result.getInt("price"));
                 // img = result.getString("img"));
@@ -69,17 +69,24 @@ public class Showcase {
         catch(Exception e) { print.error("[Showcase]"); }
         return list_showcase;
     }
-    public void set_showcase(Showcase showcase) {
-        sql.sql_update("INSERT INTO showcase (seller, name, description, price, type, number_likes, number_views, date, quantity) VALUES(" +
-            showcase.get_seller() + ", '" +
-            showcase.get_name() + "', '" +
-            showcase.get_description() + "', " +
-            showcase.get_price() + ", '" +
-            showcase.get_type() + "', " +
-            showcase.get_number_likes() + ", " +
-            showcase.get_number_views() + ", '" +
-            showcase.get_date() + "', " +
-            showcase.get_quantity() + ");"
+    public void set_showcase(
+            int seller,
+            String title,
+            String desc,
+            int price,
+            String type,
+            String date,
+            int quantity
+        ) {
+
+        sql.sql_update("INSERT INTO showcase (seller, title, description, price, type, date, quantity) VALUES(" +
+            seller + ", '" +
+            title + "', '" +
+            desc + "', " +
+            price + ", '" +
+            type + "', " +
+            date + "', " +
+            quantity + ");"
         );
     }
 

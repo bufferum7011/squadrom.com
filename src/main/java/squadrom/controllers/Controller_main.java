@@ -6,6 +6,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import squadrom.models.User;
+import squadrom.switchs.Notification;
 
 public class Controller_main {
 
@@ -22,8 +23,10 @@ public class Controller_main {
 
 
     public User user;
-    public Controller_main() {}
+    public Notification notification;
+    public Controller_main() { }
     public void set_user(User user) { this.user = user; }
+    public void set_notification(Notification notification) { this.notification = notification; }
     public void get_data() {
 
         set_request_attributes();
@@ -53,6 +56,7 @@ public class Controller_main {
 
         // Формироваиние ответа
         get_request().setAttribute("user", user);
+        get_request().setAttribute("notification", notification);
     }
 
 }

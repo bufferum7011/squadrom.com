@@ -18,8 +18,7 @@
     --colorBlack3: rgb(33, 33, 33);
     --colorBlue1: rgb(14, 104, 199);
     --colorBlue-light: rgb(150, 177, 194);
-    --colorGreen: rgb(0, 170, 65);
-    --colorGreen2: rgb(0, 146, 56);
+    --colorGreen: rgb(0, 146, 56);
     --colorYellow: rgb(255, 202, 69);
     --colorRed: rgb(188, 82, 82);
     --main_max_width: 1488px;
@@ -229,7 +228,6 @@ input[name="search"] {
     height: 25px;
     width: 150px;
     border-radius: 2px;
-    border: 2px solid var(--search_border-color);
 }
 input[name="btn_loop"] {
     height: 25px;
@@ -655,6 +653,7 @@ input[name="email"], input[name="password"] {
 }
 
 
+/* error */
 .error {
     display: inline;
 }
@@ -666,6 +665,59 @@ input[name="email"], input[name="password"] {
     background-size: 75px;
 }
 
+
+/* notification */
+.notification {
+    height: auto;
+    width: auto;
+    max-width: 250px;
+    display: flex;
+    background-color: rgb(57, 57, 57);
+    position: absolute;
+    right: 10px;
+    margin: 20px;
+    padding: 8px;
+    justify-content: flex-start;
+    border-radius: 4px;
+    border-left: 4px solid rgb(255, 195, 0);
+    animation: anime_notification 5.0s both;
+}
+.notification_text {
+    font-size: 12px;
+    color: rgb(0, 146, 56);
+    padding: 3px;
+}
+.notification_checkbox {
+    height: 15px;
+    width: 15px;
+    padding: 3px;
+}
+@keyframes anime_notification {
+    0% { opacity: 1.0; right: -100px; }
+    30% { right: 10px; }
+    80% { opacity: 1.0; }
+    /* 100% { opacity: 0.0; display: none; } */
+}
+/* input[type='checkbox']:checked {
+    background-color: rgb(255, 255, 255)
+} */
+/* input[type='checkbox']:checked:after {
+    content: '\2713';
+    color: rgb(0, 146, 56);
+    font-size: 30px;
+} */
+input[name='notification_checkbox'] {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    appearance: none;
+    border-radius: 10%;
+    /* border: 1px solid rgb(191 35 42 / 90%); */
+    box-shadow: none;
+    font-size: 1em;
+}
 
 /* ==================================== */
 ul { list-style-type: none; }

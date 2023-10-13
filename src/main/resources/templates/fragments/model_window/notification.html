@@ -1,0 +1,8 @@
+<!-- fragment_model_window_notification -->
+<th:block th:fragment="notification">
+    <!-- notification -->
+    <div th:if="${notification.get_key()}" class="notification">
+        <input class="notification_checkbox" name="notification_check" type="checkbox" >
+        <p class="notification_text" th:text="${notification.get_msg()}"></p>
+    </div>
+</th:block>

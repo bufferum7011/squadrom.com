@@ -31,39 +31,39 @@ public class Spring_config implements WebMvcConfigurer {
         return new Exec_sql();
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    // @Override
+    // public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations(
-                    "classpath:/static/",
-                    "classpath:/templates/"
-                );
+    //     registry.addResourceHandler("/resources/**")
+    //             .addResourceLocations(
+    //                 "classpath:/static/",
+    //                 "classpath:/templates/"
+    //             );
 
-        registry.addResourceHandler(
-                    "/users/**"
-                    // "/squadrom/src/**"
-                )
-                .addResourceLocations(
-                    "classpath:/users/"
-                    // "file:/users/"
-                );
+    //     registry.addResourceHandler(
+    //                 "/users/**"
+    //                 // "/squadrom/src/**"
+    //             )
+    //             .addResourceLocations(
+    //                 "classpath:/users/"
+    //                 // "file:/users/"
+    //             );
 
-    }
+    // }
 
-    @Bean
-    public ViewResolver viewResolver() {
-        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setTemplateMode("HTML");
-        templateResolver.setPrefix("classpath:/templates/");
-        templateResolver.setSuffix(".html");
+    // @Bean
+    // public ViewResolver viewResolver() {
+    //     ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+    //     templateResolver.setTemplateMode("HTML");
+    //     templateResolver.setPrefix("classpath:/templates/");
+    //     templateResolver.setSuffix(".html");
 
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver(templateResolver);
+    //     SpringTemplateEngine engine = new SpringTemplateEngine();
+    //     engine.setTemplateResolver(templateResolver);
 
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(engine);
-        return viewResolver;
-    }
+    //     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+    //     viewResolver.setTemplateEngine(engine);
+    //     return viewResolver;
+    // }
 
 }

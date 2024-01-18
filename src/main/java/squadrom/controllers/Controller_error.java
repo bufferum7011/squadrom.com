@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import squadrom.models.User;
 
-@RestControllerAdvice
+// @RestControllerAdvice
 public class Controller_error {
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String error(NoHandlerFoundException ex) {
+//     @ExceptionHandler(NoHandlerFoundException.class)
+//     @ResponseStatus(HttpStatus.NOT_FOUND)
+//     public String error(NoHandlerFoundException ex) {
 
-        print.debag("[ERRORUS_STATION]\n");
+//         print.debag("[ERRORUS_STATION]\n");
 
-        Controller_main controller_main = new Controller_main();
-        controller_main.set_user(new User("🔴Error - Squadrom", false));
-        controller_main.get_data();
-        controller_main.save();
-        return "error";
-    }
+//         Controller_main controller_main = new Controller_main();
+//         controller_main.set_user(new User("🔴Error - Squadrom", false));
+//         controller_main.get_data();
+//         controller_main.save();
+//         return "error";
+//     }
 
 }

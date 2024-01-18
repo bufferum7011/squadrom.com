@@ -655,14 +655,18 @@ input[name="email"], input[name="password"] {
 
 /* error */
 .error {
-    display: inline;
+    display: flex;
+    
+}
+.error_el {
+    padding: 10px;
 }
 .error_text {
     color: rgb(188, 64, 64);
     font-size: 75px;
 }
 .error_img {
-    background-size: 75px;
+    height: 75px;
 }
 
 

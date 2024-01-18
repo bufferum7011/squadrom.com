@@ -17,6 +17,7 @@ import auxiliary.Verification;
 import jakarta.servlet.http.HttpServletResponse;
 import squadrom.models.Showcase;
 import squadrom.models.User;
+import squadrom.switchs.Notification;
 
 @Controller
 @RequestMapping("/cabinet")
@@ -25,6 +26,7 @@ public class Cabinet {
     @GetMapping("") public String cabinet_get() {
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢Кабинет - Squadrom", true));
+        // controller_main.set_notification(Notification.NONE);
         controller_main.get_data();
         controller_main.save();
         if(!controller_main.user.get_authorized()) { return "index"; }
@@ -35,6 +37,7 @@ public class Cabinet {
     @GetMapping("/edit") public String edit_get() {
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢Кабинет - Squadrom", true));
+        // controller_main.set_notification(Notification.NONE);
         controller_main.get_data();
         controller_main.save();
         if(!controller_main.user.get_authorized()) { return "index"; }
@@ -51,13 +54,27 @@ public class Cabinet {
         controller_main.set_user(new User("🔴Не верные данные - Squadrom", false));
         controller_main.get_data();
 
-        boolean key = reset_login != "" && reset_email != "" && reset_avatar.isEmpty() && reset_password != "";
-        if(key) {
 
-            if(!reset_login.equals(""))     { controller_main.user.set_login(reset_login); }
-            if(!reset_email.equals(""))     { controller_main.user.set_mail(reset_email); }
-            if(!reset_avatar.isEmpty())              { controller_main.user.set_link_avatar(controller_main.user.get_cookie_token(), reset_avatar); }
-            if(!reset_password.equals(""))  { controller_main.user.set_password(reset_password); }
+        String[] notification_msg = {};
+
+        if(reset_login != "" && reset_email != "" && reset_avatar.isEmpty() && reset_password != "") {
+            int i = -1;
+            if(!reset_login.equals(""))     {
+                controller_main.user.set_login(reset_login);
+                notification_msg[++i] += "Изменен логин";
+            }
+            if(!reset_password.equals(""))  {
+                controller_main.user.set_password(reset_password);
+                notification_msg[++i] += "Изменен пароль";
+            }
+            if(!reset_email.equals(""))     {
+                controller_main.user.set_mail(reset_email);
+                notification_msg[++i] += "Изменена почта";
+            }
+            if(!reset_avatar.isEmpty())              {
+                controller_main.user.set_link_avatar(controller_main.user.get_cookie_token(), reset_avatar);
+                notification_msg[++i] += "Изменена аватарка";
+            }
 
             controller_main.user.set_title("🟢Кабинет - Squadrom");
         }

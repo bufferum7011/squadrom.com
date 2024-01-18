@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import auxiliary.Verification;
 import squadrom.models.User;
+import squadrom.switchs.Notification;
 
 @Controller
 @RequestMapping("/")
@@ -16,6 +17,7 @@ public class Index {
     public String get() {
         Controller_main controller_main = new Controller_main();
         controller_main.set_user(new User("🟢Squadrom", false));
+        controller_main.notification.add(Notification.NONE);
         controller_main.get_data();
         controller_main.save();
         return "index";

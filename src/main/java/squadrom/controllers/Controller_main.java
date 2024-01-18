@@ -1,5 +1,8 @@
 package squadrom.controllers;
 import static squadrom.beans.Panel.*;
+
+import java.util.List;
+
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import jakarta.servlet.http.Cookie;
@@ -23,13 +26,14 @@ public class Controller_main {
 
 
     public User user;
-    public Notification notification;
+    public List<Notification> notification;
     public Controller_main() { }
     public void set_user(User user) { this.user = user; }
-    public void set_notification(Notification notification) { this.notification = notification; }
+    public void set_notification(List<Notification> notification) { this.notification = notification; }
     public void get_data() {
 
         set_request_attributes();
+        notification.clear();
         user.set_authorized(false);
         user.set_link_avatar("/img_sys/default_avatar.webp");
 
